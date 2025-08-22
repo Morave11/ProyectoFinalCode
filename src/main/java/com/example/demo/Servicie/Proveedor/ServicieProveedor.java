@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class ServicieProveedor {
     @Autowired
-    private static JdbcTemplate jdbcTemplate;
+    private  JdbcTemplate jdbcTemplate;
 
     public List<String> ObtenerProveedores(){
         String provedores = "select  ID_Proveedor, Nombre_Proveedor,  Correo_Electronico,Telefono,ID_Estado from proveedores";
@@ -42,7 +42,7 @@ public class ServicieProveedor {
     }
 
     public int EliminarProveedor(String ID_Proveedor) {
-        String sql = "DELETE FROM proveedores WHERE Documento_Cliente = ?";
+        String sql = "DELETE FROM proveedores WHERE ID_Proveedor = ?";
         return jdbcTemplate.update(sql, ID_Proveedor);
     }
 }

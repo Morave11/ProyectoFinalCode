@@ -41,7 +41,7 @@ public class ControllerProveedor {
         );
         return   "El proveedor  se actualizo correctamente" ;
     }
-    @DeleteMapping("/EleminarProve/{ID_Proveedor}")
+    @DeleteMapping("/EliminarProve/{ID_Proveedor}")
     public String EliminarProveedor(@PathVariable String ID_Proveedor) {
         int filas = servicieProveedor.EliminarProveedor (ID_Proveedor);
 

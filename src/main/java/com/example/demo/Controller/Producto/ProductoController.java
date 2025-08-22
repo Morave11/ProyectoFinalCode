@@ -51,7 +51,7 @@ public class ProductoController {
         return "El producto esta registrado correctamente";
     }
 
-    @DeleteMapping("/EleminarPro/{ID_Producto}")
+    @DeleteMapping("/EliminarPro/{ID_Producto}")
     public String EliminarProductos(@PathVariable String ID_Producto) {
         int filas = productoServicie.EliminarProductos (ID_Producto);
 

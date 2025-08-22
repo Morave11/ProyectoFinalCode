@@ -56,7 +56,7 @@ public class ConexionController {
     }
 
 
-    @DeleteMapping("/Eleminar/{Documento_Cliente}")
+    @DeleteMapping("/Eliminar/{Documento_Cliente}")
     public String eliminarClientes(@PathVariable String Documento_Cliente) {
         int filas = conexionServicie.eliminarClientes (Documento_Cliente);
 
