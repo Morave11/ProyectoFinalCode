@@ -11,17 +11,16 @@ public class ejemplos {
 //    "Nombre_Categoria":"Celulares"
 //}
 
-
-//            CLIENTE
+// Cliente
 // {
 //     "Documento_Cliente": "CLI006",
 //     "Nombre_Cliente": "hola",
 //     "Apellido_Cliente": "Perez",
-//      "Telefono": "3215845987",
-//      "Fecha_Nacimiento": "2007-02-04",
-//      "Genero": "F",
-//      "ID_Estado": "EST001"
-//}
+//     "Telefono": "3215845987",
+//     "Fecha_Nacimiento": "2007-02-04",
+//     "Genero": "F",
+//     "ID_Estado": "EST001"
+// }
 
 //
 //                    COMPRAS
