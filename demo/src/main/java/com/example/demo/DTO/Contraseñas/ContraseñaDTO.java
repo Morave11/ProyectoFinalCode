@@ -9,8 +9,6 @@ public class ContraseñaDTO {
     private String Documento_Empleado;
     @JsonProperty ("Contrasena_Hash")
     private String Contrasena_Hash;
-    @JsonProperty ("Fecha_Creacion")
-    private String Fecha_Creacion;
 
     public ContraseñaDTO(){
     }
@@ -47,5 +45,5 @@ public class ContraseñaDTO {
         this.ID_Contrasena = ID_Contrasena;
     }
 
-
+    private String Fecha_Creacion;
 }
