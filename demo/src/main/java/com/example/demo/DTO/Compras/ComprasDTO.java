@@ -9,6 +9,8 @@ public class ComprasDTO {
     private Double Precio_Compra;
     @JsonProperty("ID_Producto")
     private String ID_Producto;
+    @JsonProperty("Documento_EMpleado")
+    private String Documento_EMpleado;
 
     public  ComprasDTO(){
     }
@@ -45,5 +47,4 @@ public class ComprasDTO {
         this.ID_Producto = ID_Producto;
     }
 
-    private String Documento_EMpleado;
 }

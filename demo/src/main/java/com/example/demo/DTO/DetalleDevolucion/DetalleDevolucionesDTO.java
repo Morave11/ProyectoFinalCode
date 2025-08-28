@@ -21,7 +21,9 @@ public class DetalleDevolucionesDTO {
         this.ID_Devolucion = ID_Devolucion;
     }
 
-    public int getCantidad_Devuelta() { return this.Cantidad_Devuelta;}
+    public int getCantidad_Devuelta() {
+        return this.Cantidad_Devuelta;
+    }
 
     public void setCantidad_Devuelta(int cantidad_Devuelta) {
         this.Cantidad_Devuelta = cantidad_Devuelta;

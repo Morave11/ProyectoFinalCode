@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DetalleVentasDTO {
     @JsonProperty ("Cantidad")
-    private int Cantidad;
+    private String Cantidad;
     @JsonProperty("Fecha_Salida")
     private String Fecha_Salida;
-    @JsonProperty("ID_Producto")
-    private String ID_Producto;
-    @JsonProperty("ID_Venta")
-    private String ID_Venta;
+    @JsonProperty("ID_Proveedor")
+    private String ID_Proveedor;
+    @JsonProperty("ID_Entrada")
+    private String ID_Entrada;
 
     public DetalleVentasDTO(){
     }
 
-    public int getCantidad() {
+    public String getCantidad() {
         return this.Cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(String cantidad) {
         this.Cantidad = cantidad;
     }
 
@@ -31,19 +31,19 @@ public class DetalleVentasDTO {
         this.Fecha_Salida = fecha_Salida;
     }
 
-    public String getID_Producto() {
-        return this.ID_Producto;
+    public String getID_Proveedor() {
+        return this.ID_Proveedor;
     }
 
-    public void setID_Producto(String ID_Producto) {
-        this.ID_Producto = ID_Producto;
+    public void setID_Proveedor(String ID_Proveedor) {
+        this.ID_Proveedor = ID_Proveedor;
     }
 
-    public String getID_Venta() {
-        return ID_Venta;
+    public String getID_Entrada() {
+        return ID_Entrada;
     }
 
-    public void setID_Venta(String ID_Venta) {
-        this.ID_Venta = ID_Venta;
+    public void setID_Entrada(String ID_Entrada) {
+        this.ID_Entrada = ID_Entrada;
     }
 }
