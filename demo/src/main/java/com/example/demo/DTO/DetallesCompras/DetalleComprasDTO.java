@@ -6,7 +6,7 @@ public class DetalleComprasDTO {
     @JsonProperty("Fecha_Entrada")
     private  String Fecha_Entrada;
     @JsonProperty("Cantidad")
-    private  String Cantidad;
+    private  int Cantidad;
     @JsonProperty("ID_Proveedor")
     private  String ID_Proveedor;
     @JsonProperty("ID_Entrada")
@@ -23,11 +23,11 @@ public class DetalleComprasDTO {
         this.Fecha_Entrada = fecha_Entrada;
     }
 
-    public String getCantidad() {
+    public int getCantidad() {
         return this.Cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(int cantidad) {
         this.Cantidad = cantidad;
     }
 
