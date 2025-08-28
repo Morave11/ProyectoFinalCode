@@ -3,8 +3,8 @@ package com.example.demo.DTO.Roles;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RolesDTO {
-    @JsonProperty("ID_Role")
-    private String ID_Role;
+    @JsonProperty("ID_Rol")
+    private String ID_Rol;
     @JsonProperty("Nombre")
     private String Nombre;
 
@@ -12,12 +12,12 @@ public class RolesDTO {
 
     }
 
-    public String getID_Role() {
-        return this.ID_Role;
+    public String getID_Rol() {
+        return this.ID_Rol;
     }
 
-    public void setID_Role(String ID_Role) {
-        this.ID_Role = ID_Role;
+    public void setID_Rol(String ID_Rol) {
+        this.ID_Rol = ID_Rol;
     }
 
     public String getNombre() {
