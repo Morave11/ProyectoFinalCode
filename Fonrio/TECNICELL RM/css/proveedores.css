@@ -1,0 +1,80 @@
+/* ===== Reset suave ===== */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* ===== Logo (que no lo tape el sidebar) ===== */
+.logo {
+  position: fixed;
+  top: 10px;
+  left: 300px;           /* coincide con el ancho aprox. del sidebar */
+  width: 120px;
+  height: auto;
+  z-index: 200;
+  pointer-events: none;
+}
+
+/* ===== Cabecera ===== */
+.cabecera {
+  background-color: #778ee9;   /* tu azul claro */
+  width: 100%;
+  padding: 30px 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;     /* centra el título */
+  align-items: center;
+  text-align: center;
+}
+.cabecera .titulo {
+  color: #fff;
+  font-size: 36px;
+  margin: 0;
+}
+
+/* ===== Tipografías de títulos ===== */
+h2 {
+  color: #222;
+  font-weight: 700;
+}
+
+/* ===== Tabla ===== */
+.table {
+  background: #fff;
+}
+.table thead th {
+  vertical-align: middle;
+}
+.table .btn {
+  padding: .25rem .5rem;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  font-size: 14px;
+  color: #ffffff;
+  background: #000000;
+  padding: 8px 12px;
+  margin: 24px 0 0 0;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 992px) {
+  .logo {
+    left: 16px;          /* en móviles, sidebar pasa arriba */
+    width: 100px;
+  }
+  .cabecera {
+    padding: 20px 0;
+  }
+  .cabecera .titulo {
+    font-size: 28px;
+  }
+}
