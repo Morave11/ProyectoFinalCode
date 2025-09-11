@@ -1,5 +1,5 @@
 <?php
-$url = "http://localhost:8080/DetalleC";
+$url = "http://localhost:8080/Detallle";
 
 $consumo = file_get_contents($url);
 
