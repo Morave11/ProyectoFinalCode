@@ -7,8 +7,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
 public class DetalleCController {
+
     @Autowired
     private DetalleCService detalleCService;
     @Autowired
