@@ -20,7 +20,6 @@ foreach ($detalles as $linea) {
         echo "Devolución: $idDevolucion | Cantidad: $cantidad | Venta: $idVenta\n";
     }
 
-   
     if ($cantidad >= 2) {
         echo "Devolución $idDevolucion tiene cantidad mayor o igual a 2\n";
     }
