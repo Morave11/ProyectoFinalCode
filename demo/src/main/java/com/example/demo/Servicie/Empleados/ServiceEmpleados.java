@@ -13,11 +13,20 @@ public class ServiceEmpleados {
     private JdbcTemplate jdbcTemplate;
 
     public List<String> obtenerEmpleados() {
-        String sql = "SELECT Documento_Empleado, Nombre_Usuario, Apellido_Usuario, Correo_Electronico FROM Empleados";
+        String sql = "SELECT Documento_Empleado,Tipo_Documento, Nombre_Usuario, Apellido_Usuario,Edad, Correo_Electronico,Telefono,Genero,ID_Estado,ID_Rol,Fotos FROM Empleados";
         return jdbcTemplate.query(sql, (rs, rowNum) ->
-                rs.getString("Documento_Empleado") + " | " +
-                        rs.getString("Nombre_Usuario") + " " + rs.getString("Apellido_Usuario") + " | " +
-                        rs.getString("Correo_Electronico")
+                rs.getString("Documento_Empleado") +
+                        "________" + rs.getString("Tipo_Documento") +
+                        "________" + rs.getString("Nombre_Usuario") +
+                        "________" + rs.getString("Apellido_Usuario")+
+                        "________" + rs.getString("Edad")+
+                        "________" + rs.getString("Correo_Electronico")+
+                        "________" + rs.getString("Telefono")+
+                        "________" + rs.getString("Genero")+
+                        "________" + rs.getString("ID_Estado")+
+                        "________" + rs.getString("ID_Rol")+
+                        "________" + rs.getString("Fotos")
+
         );
     }
 
@@ -29,9 +38,10 @@ public class ServiceEmpleados {
                 Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos);
     }
 
-    public int actualizarEmpleado(String Documento_Empleado, String Nombre_Usuario, String Apellido_Usuario,
-                                  String Edad, String Telefono, String ID_Estado, String ID_Rol, String Fotos) {
-        String sql = "UPDATE Empleados SET Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, Telefono=?, ID_Estado=?, ID_Rol=?, Fotos=? WHERE Documento_Empleado=?";
+    public int actualizarEmpleado(String Documento_Empleado, String Tipo_Documento, String Nombre_Usuario,
+                                  String Apellido_Usuario, String Edad, String Correo_Electronico,
+                                  String Telefono, String Genero, String ID_Estado, String ID_Rol, String Fotos){
+        String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, Correo_Electronico =?,Telefono=?, Genero =?,ID_Estado=?, ID_Rol=?, Fotos=? WHERE Documento_Empleado=?";
         return jdbcTemplate.update(sql, Nombre_Usuario, Apellido_Usuario, Edad, Telefono, ID_Estado, ID_Rol, Fotos, Documento_Empleado);
     }
 

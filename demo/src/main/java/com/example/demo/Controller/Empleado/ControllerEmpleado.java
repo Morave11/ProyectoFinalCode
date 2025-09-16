@@ -40,10 +40,13 @@ public class ControllerEmpleado {
     public String actualizarEmpleado(@PathVariable String Documento_Empleado, @RequestBody EmpleadosDTO empleadoDTO) {
         int filas = serviceEmpleados.actualizarEmpleado(
                 Documento_Empleado,
+                empleadoDTO.getTipo_Documento(),
                 empleadoDTO.getNombre_Usuario(),
                 empleadoDTO.getApellido_Usuario(),
                 empleadoDTO.getEdad(),
+                empleadoDTO.getCorreo_Electronico(),
                 empleadoDTO.getTelefono(),
+                empleadoDTO.getGenero(),
                 empleadoDTO.getID_Estado(),
                 empleadoDTO.getID_Rol(),
                 empleadoDTO.getFotos()
