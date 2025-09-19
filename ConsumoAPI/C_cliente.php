@@ -1,10 +1,7 @@
 <?php
-$nombre = readline("Por favor, ingresa el nombre del cliente: ");
+include "./Config/config.php";
 
-$url = "http://localhost:8080/Detalles";
-$urlpost ="http://localhost:8080/RegistraC";
-$urlput ="http://localhost:8080/ActualizarC";
-$urlDelet ="http://localhost:8080/EliminarC";
+$nombre = readline("Por favor, ingresa el nombre del cliente: ");
 
 $consumo = file_get_contents($url);
 

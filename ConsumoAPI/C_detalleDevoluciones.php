@@ -1,4 +1,5 @@
 <?php
+include "./Config/config.php";
 
 echo " Bienvenido a detalle de Devoluciones \n";
 echo "1) Buscar por ID de Venta\n";
@@ -7,7 +8,6 @@ echo "3) Mostrar todas\n";
 
 $opcion = readline("Elige una opción: ");
 
-$url = "http://localhost:8080/DetalleD";
 $consumo = file_get_contents($url);
 
 if ($consumo === false) {

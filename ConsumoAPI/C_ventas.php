@@ -1,6 +1,5 @@
 <?php
-$urlGet = "http://localhost:8080/Ventas";
-$urlPost = "http://localhost:8080/VentaRegistro";
+include "./Config/config.php";
 
 $consumo = file_get_contents($urlGet);
 if ($consumo === false) {

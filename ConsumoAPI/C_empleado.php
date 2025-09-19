@@ -1,12 +1,8 @@
 <?php
 
+include "./Config/config.php";
+
 $nombre = readline("Por favor, ingresa el nombre del empleado: ");
-
-
-$url = "http://localhost:8080/Empleados";
-$urlpost = "http://localhost:8080/EmpleadoRegistro";
-$urlput ="http://localhost:8080/EmpleadoActualizar";
-$urlDelet ="http://localhost:8080/EmpleadoEliminar";
 
 $consumo = file_get_contents($url);
 
