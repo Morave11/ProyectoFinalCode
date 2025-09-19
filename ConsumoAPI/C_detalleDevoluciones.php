@@ -1,32 +1,58 @@
 <?php
-$url = "http://localhost:8080/DetalleD";
 
+echo " Bienvenido a detalle de Devoluciones \n";
+echo "1) Buscar por ID de Venta\n";
+echo "2) Buscar por ID de Devolución\n";
+echo "3) Mostrar todas\n";
+
+$opcion = readline("Elige una opción: ");
+
+$url = "http://localhost:8080/DetalleD";
 $consumo = file_get_contents($url);
+
 if ($consumo === false) {
-    die("Error al consumir el servicio.");
+    die("Error al consumir el servicio.\n");
 }
 
-$detalles = json_decode($consumo);
+$detalless = json_decode($consumo);
 
-foreach ($detalles as $linea) {
+
+$detalles = [];
+foreach ($detalless as $linea) {
     $partes = explode("________", $linea);
+    $detalles[] = [
+        "idDevolucion" => $partes[0],
+        "cantidad"     => $partes[1],
+        "idVenta"      => $partes[2]
+    ];
+}
 
-    $idDevolucion = $partes[0];
-    $cantidad = $partes[1];
-    $idVenta = $partes[2];
 
-    
-    if ($idVenta === "23") {
-        echo "Devolución: $idDevolucion | Cantidad: $cantidad | Venta: $idVenta\n";
-    }
+switch ($opcion) {
+    case "1":
+        $venta = readline("Ingresa el ID de Venta: ");
+        foreach ($detalles as $d) {
+            if ($d["idVenta"] === $venta) {
+                echo "ID Devolución: {$d['idDevolucion']} | Cantidad: {$d['cantidad']} | Venta: {$d['idVenta']}\n";
+            }
+        }
+        break;
 
-    if ($cantidad >= 2) {
-        echo "Devolución $idDevolucion tiene cantidad mayor o igual a 2\n";
-    }
+    case "2":
+        $dev = readline("Ingresa el ID de Devolución: ");
+        foreach ($detalles as $d) {
+            if ($d["idDevolucion"] === $dev) {
+                echo "ID Devolución: {$d['idDevolucion']} | Cantidad: {$d['cantidad']} | Venta: {$d['idVenta']}\n";
+            }
+        }
+        break;
 
-    
-    if ($idDevolucion === "DEV001") {
-        echo "Encontrada DEV001 (venta $idVenta, cant $cantidad)\n";
-    }
+    case "3":
+        foreach ($detalles as $d) {
+            echo "ID Devolución: {$d['idDevolucion']} | Cantidad: {$d['cantidad']} | Venta: {$d['idVenta']}\n";
+        }
+        break;
 
+    default:
+        echo "Opción no válida.\n";
 }
