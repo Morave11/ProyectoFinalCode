@@ -14,10 +14,10 @@ public class ProductoDTO {
     private String Descripcion;
 
     @JsonProperty("Precio_Venta")
-    private String precio_Venta;   // sugerido BigDecimal en proyectos grandes
+    private String precio_Venta;
 
     @JsonProperty("Stock_Minimo")
-    private String stock_Minimo;   // sugerido Integer en proyectos grandes
+    private String stock_Minimo;
 
     @JsonProperty("ID_Categoria")
     private String ID_Categoria;
@@ -30,7 +30,7 @@ public class ProductoDTO {
 
     public ProductoDTO() {}
 
-    // Getters
+
     public String getID_Producto()   { return this.ID_Producto; }
     public String getNombre_Producto(){ return this.Nombre_Producto; }
     public String getDescripcion()   { return this.Descripcion; }
@@ -40,7 +40,7 @@ public class ProductoDTO {
     public String getID_Estado()     { return this.ID_Estado; }
     public String getID_Gama()       { return this.ID_Gama; }
 
-    // Setters
+
     public void setID_Producto(String ID_Producto)         { this.ID_Producto = ID_Producto; }
     public void setNombre_Producto(String nombre_Producto) { this.Nombre_Producto = nombre_Producto; }
     public void setDescripcion(String descripcion)         { this.Descripcion = descripcion; }

@@ -21,13 +21,13 @@ public class ProductoServicie {
             @Override
             public String mapRow(ResultSet rs, int rowNum)throws SQLException {
                 return rs.getString("ID_Producto") +
-                        "       " + rs.getString("Nombre_Producto") +
-                        "       " + rs.getString("Descripcion") +
-                        "       " + rs.getString("Precio_Venta") +
-                        "       " + rs.getString("Stock_Minimo") +
-                        "       " + rs.getString("ID_Categoria") +
-                        "       " + rs.getString("ID_Estado") +
-                        "       " + rs.getString("ID_Gama");
+                        "________" + rs.getString("Nombre_Producto") +
+                        "________" + rs.getString("Descripcion") +
+                        "________" + rs.getString("Precio_Venta") +
+                        "________" + rs.getString("Stock_Minimo") +
+                        "________" + rs.getString("ID_Categoria") +
+                        "________" + rs.getString("ID_Estado") +
+                        "________" + rs.getString("ID_Gama");
             }
         });
 

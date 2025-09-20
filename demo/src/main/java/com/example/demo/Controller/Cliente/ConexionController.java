@@ -16,15 +16,9 @@ public class ConexionController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @GetMapping("/Usuarios")
-    public List<String> obtenerClientes(){
-        return conexionServicie.obtenerClientes();
-    }
-
     @GetMapping("/Detalles")
     public List<String> obtenerClientesDetalles() {
         return conexionServicie.obtenerClientesDetalles();}
-
 
 
     @PostMapping("/RegistraC")

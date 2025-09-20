@@ -22,7 +22,7 @@ public class CategoriasServicie {
             @Override
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return rs.getString("Nombre_Categoria") +
-                        "     " + rs.getString("ID_Categoria");
+                        "________" + rs.getString("ID_Categoria");
             }
         });
     }

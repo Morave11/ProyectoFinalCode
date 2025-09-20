@@ -13,13 +13,13 @@ public class ComprasController {
     @Autowired
     private ComprasServicie comprasServicie;
 
-    // GET
+
     @GetMapping("/Compras")
     public List<String> obtenerCompras() {
         return comprasServicie.obtenerCompras();
     }
 
-    // POST
+
     @PostMapping("/ComprasR")
     public String agregarCompra(@RequestBody ComprasDTO compraDTO) {
         comprasServicie.agregarCompra(
@@ -31,7 +31,7 @@ public class ComprasController {
         return "Compra registrada correctamente";
     }
 
-    // PUT
+
     @PutMapping("/Compras/{ID_Entrada}")
     public String actualizarCompra(@PathVariable String ID_Entrada, @RequestBody ComprasDTO compraDTO) {
         int filas = comprasServicie.actualizarCompra(
@@ -43,7 +43,7 @@ public class ComprasController {
         return filas > 0 ? "Compra actualizada correctamente" : "No se encontró la compra";
     }
 
-    // DELETE
+
     @DeleteMapping("/ComprasE/{ID_Entrada}")
     public String eliminarCompra(@PathVariable String ID_Entrada) {
         int filas = comprasServicie.eliminarCompra(ID_Entrada);

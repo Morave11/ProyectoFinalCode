@@ -24,7 +24,7 @@ public class CategoriasController {
         return categoriasServicie.ObtenerCategorias();
     }
 
-    @PostMapping("/RegristraCategoria")
+    @PostMapping("/RegistraCategoria")
     public String AgregarCategoria(@RequestBody CategoriasDTO categoriasDTO){
         categoriasServicie.ActualizarCategoria(
                 categoriasDTO.getID_Categoria(),

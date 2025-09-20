@@ -3,9 +3,9 @@ include "./Config/config.php";
 
 $nombre = readline("Por favor, ingresa el nombre del cliente: ");
 
-$consumo = file_get_contents($url);
+$consumo = file_get_contents($urlCC);
 
-if ($consumo === FALSE) {
+if ($consumo === false) {
     die("Error al consumir el servicio.\n");
 }
 
@@ -172,5 +172,3 @@ if ($respuestadel === "s") {
         echo "Error al eliminar el cliente. Código HTTP: $http_code" . "\n";
     }
 }
-
-?>

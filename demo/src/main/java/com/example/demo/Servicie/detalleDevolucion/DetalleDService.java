@@ -31,7 +31,7 @@ public class DetalleDService {
         jdbcTemplate.update(sql, ID_Devolucion, Cantidad_Devuelta, ID_Venta);
     }
 
-    // ⚠️ Ahora usa la clave compuesta en el WHERE
+
     public int actualizarDetalleD(String ID_Devolucion, String ID_Venta, int Cantidad_Devuelta) {
         String sql = "UPDATE detalle_devoluciones " +
                 "SET Cantidad_Devuelta = ? " +
@@ -39,7 +39,7 @@ public class DetalleDService {
         return jdbcTemplate.update(sql, Cantidad_Devuelta, ID_Devolucion, ID_Venta);
     }
 
-    // ⚠️ También borra por la clave compuesta
+
     public int eliminarDevolucionD(String ID_Devolucion, String ID_Venta) {
         String sql = "DELETE FROM detalle_devoluciones WHERE ID_Devolucion = ? AND ID_Venta = ?";
         return jdbcTemplate.update(sql, ID_Devolucion, ID_Venta);

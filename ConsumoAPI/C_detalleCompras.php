@@ -12,3 +12,4 @@ $DetallesC = json_decode($consumo);
 foreach ($DetallesC as $DetalleC) {
     echo $DetalleC . "\n";
 }
+

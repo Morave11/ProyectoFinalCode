@@ -22,7 +22,7 @@ public class EstadosServicie {
             @Override
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return rs.getString("Nombre_Estado") +
-                        "     " + rs.getString("ID_Estado");
+                        "________" + rs.getString("ID_Estado");
             }
         });
     }

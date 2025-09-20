@@ -1,44 +1,22 @@
 <?php
 
-include "./Config/config.php";
+include "./config/config.php";
 
 $nombre = readline("Por favor, ingresa el nombre del empleado: ");
 
-$consumo = file_get_contents($url);
+$consumo = file_get_contents($urlE);
 
-if ($consumo === FALSE) {
+if ($consumo === false) {
     die("Error al consumir el servicio.");
 }
 
 $Empleados = json_decode($consumo);
 
-$encontrado = false;
+
 foreach ($Empleados as $Empleado) {
-    $campos = explode("________", $Empleado);
-
-    if (stripos($campos[2], $nombre) !== false) { 
-        $encontrado = true;
-
-        echo "------------------------\n";
-        echo "Documento_Empleado: " . $campos[0] . "\n";
-        echo "Tipo_Documento: " . $campos[1] . "\n";
-        echo "Nombre_Usuario: " . $campos[2] . "\n";
-        echo "Apellido_Usuario: " . $campos[3] . "\n";
-        echo "Edad: " . $campos[4] . "\n";
-        echo "Correo_electronico: " . $campos[5] . "\n";
-        echo "Telefono: " . $campos[6] . "\n";
-        echo "Genero: " . $campos[7] . "\n";
-        echo "ID_Estado: " . $campos[8] . "\n";
-        echo "ID_Rol: " . $campos[9] . "\n";
-        echo "Fotos: " . $campos[10] . "\n";
-    }
+    $campos = explode(" | ", $Empleado);
+ echo $Empleado . "\n";
 }
-
-
-if (!$encontrado) {
-    echo "Empleado no encontrado.\n";
-}
-
 
 //Metodo post
 
@@ -52,7 +30,7 @@ if($respuesta === "s"){
     $Nombre_Usuario= readline("Ingresa su nombre  ". "\n");
     $Apellido_Usuario= readline("Ingresa su apellido  ". "\n");
     $Edad= readline("Ingresa su edad  ". "\n");
-    $Correo_Electronico= readline("Ingresa  su correo electronico  ". "\n"); 
+    $Correo_Electronico= readline("Ingresa  su correo electronico  ". "\n");
     $Telefono= readline("Ingresa su Telefono  ". "\n");
     $Genero= readline("Ingresa su Genero  ". "\n");
     $ID_Estado= readline("Ingresa el estado   ". "\n");
@@ -112,7 +90,7 @@ if($respuesta === "s"){
     $Nombre_Usuario= readline("Ingrese el nombre que desea actualizar  ". "\n");
     $Apellido_Usuario= readline("Ingrese el apellido que desea actualizar  ". "\n");
     $Edad= readline("Ingresa su edad  ". "\n");
-    $Correo_Electronico= readline("Ingresa  su nuevo correo electronico  ". "\n"); 
+    $Correo_Electronico= readline("Ingresa  su nuevo correo electronico  ". "\n");
     $Telefono= readline("Ingresa la nueva actualizacion del Telefono  ". "\n");
     $Genero= readline("Ingresa el Genero  ". "\n");
     $ID_Estado= readline("Ingresa el estado   ". "\n");
@@ -192,5 +170,3 @@ if ($respuestadel === "s") {
         echo "Error al eliminar el empleado. Código HTTP: $http_code" . "\n";
     }
 }
-
-?>

@@ -3,7 +3,7 @@ include "./Config/config.php";
 
 $consumo = file_get_contents($url);
 
-if ($consumo === FALSE) {
+if ($consumo === false) {
     die("Error al consumir el servicio.");
 }
 
@@ -24,7 +24,7 @@ $opcion = readline("Seleccione una opción: ");
 
 switch ($opcion) {
 // Metodo POST
-    case "1": 
+    case "1":
         $id_entrada = readline("Ingresa el ID de la entrada: ");
         $precio_compra = readline("Ingresa el precio de compra: ");
         $id_producto = readline("Ingresa el ID del producto: ");
@@ -60,7 +60,7 @@ switch ($opcion) {
         break;
 
 // METODO PUT
-    case "2": 
+    case "2":
         $id_entrada = readline("Ingresa el ID de la entrada que desea actualizar: ");
         $precio_compra = readline("Nuevo precio de compra: ");
         $id_producto = readline("Nuevo ID del producto: ");
@@ -98,7 +98,7 @@ switch ($opcion) {
         break;
 
 // METODO DELETE
-    case "3": 
+    case "3":
         $id_entrada = readline("Ingresa el ID de la entrada que desea eliminar: ");
 
         $urlDelete = $urldelete . "/" . rawurlencode($id_entrada);
@@ -123,6 +123,3 @@ switch ($opcion) {
         }
         break;
 }
-?>
- 
-

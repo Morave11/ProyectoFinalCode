@@ -21,10 +21,10 @@ public class ServicieProveedor {
             @Override
             public String mapRow(ResultSet rs, int rowNum)throws SQLException {
                 return rs.getString("ID_Proveedor") +
-                        "      "+rs.getString("Nombre_Proveedor") +
-                        "      "+rs.getString("Correo_Electronico")+
-                        "      "+rs.getString("Telefono")+
-                        "      "+rs.getString("ID_Estado");
+                        "________"+rs.getString("Nombre_Proveedor") +
+                        "________"+rs.getString("Correo_Electronico")+
+                        "________"+rs.getString("Telefono")+
+                        "________"+rs.getString("ID_Estado");
             }
         });
     }

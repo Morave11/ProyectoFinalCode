@@ -3,7 +3,7 @@ $url = "http://localhost:8080/Contrasenas";
 
 $consumo = file_get_contents($url);
 
-if ($consumo === FALSE) {
+if ($consumo === false) {
     die("Error al consumir el servicio.");
 }
 

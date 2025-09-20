@@ -18,13 +18,13 @@ public class DetalleVentasDTO {
 
     public DetalleVentasDTO() {}
 
-    // Getters
+
     public int getCantidad() { return Cantidad; }
     public String getFecha_Salida() { return Fecha_Salida; }
     public String getID_Producto() { return ID_Producto; }
     public String getID_Venta() { return ID_Venta; }
 
-    // Setters
+
     public void setCantidad(int cantidad) { this.Cantidad = cantidad; }
     public void setFecha_Salida(String fecha_Salida) { this.Fecha_Salida = fecha_Salida; }
     public void setID_Producto(String ID_Producto) { this.ID_Producto = ID_Producto; }

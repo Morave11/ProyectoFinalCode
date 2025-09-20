@@ -12,24 +12,24 @@ public class ComprasServicie {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // LISTAR
+
     public List<String> obtenerCompras() {
         String sql = "SELECT ID_Entrada, Precio_Compra, ID_Producto, Documento_Empleado FROM Compras";
         return jdbcTemplate.query(sql, (rs, rowNum) ->
-                rs.getString("ID_Entrada") + " | " +
-                        rs.getString("Precio_Compra") + " | " +
-                        rs.getString("ID_Producto") + " | " +
+                rs.getString("ID_Entrada") + "________" +
+                        rs.getString("Precio_Compra") + "________" +
+                        rs.getString("ID_Producto") + "________" +
                         rs.getString("Documento_Empleado")
         );
     }
 
-    // INSERTAR
+
     public void agregarCompra(String ID_Entrada, String Precio_Compra, String ID_Producto, String Documento_Empleado) {
         String sql = "INSERT INTO Compras (ID_Entrada, Precio_Compra, ID_Producto, Documento_Empleado) VALUES (?,?,?,?)";
         jdbcTemplate.update(sql, ID_Entrada, Precio_Compra, ID_Producto, Documento_Empleado);
     }
 
-    // ACTUALIZAR
+
     public int actualizarCompra(String ID_Entrada, String Precio_Compra, String ID_Producto, String Documento_Empleado) {
         String sql = "UPDATE Compras SET Precio_Compra = ?, ID_Producto = ?, Documento_Empleado = ? WHERE ID_Entrada = ?";
         return jdbcTemplate.update(sql, Precio_Compra, ID_Producto, Documento_Empleado, ID_Entrada);

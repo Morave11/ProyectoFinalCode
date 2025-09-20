@@ -15,16 +15,6 @@ public class ConexionServicie {
     private  JdbcTemplate jdbcTemplate;
 
 
-    public List<String> obtenerClientes(){
-        String clientes = "select  Nombre_Cliente from clientes";
-        return jdbcTemplate.query(clientes,new RowMapper<String>(){
-
-            @Override
-            public String mapRow(ResultSet rs,int rowNum)throws SQLException{
-                return rs.getString("Nombre_Cliente");
-            }
-        });
-    }
     public List<String>  obtenerClientesDetalles() {
         String detalles = "SELECT Documento_Cliente,Nombre_Cliente,Apellido_Cliente,Telefono,Fecha_Nacimiento,Genero,ID_Estado FROM clientes";
         return jdbcTemplate.query(detalles, new RowMapper<String>() {

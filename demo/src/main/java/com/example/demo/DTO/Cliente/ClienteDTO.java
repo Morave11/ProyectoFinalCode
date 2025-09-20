@@ -20,7 +20,7 @@ public class ClienteDTO {
     private String Fecha_Nacimiento; // YYYY-MM-DD
 
     @JsonProperty("Genero")
-    private String Genero; // 'M' o 'F'
+    private String Genero;
 
     @JsonProperty("ID_Estado")
     private String ID_Estado;
@@ -28,7 +28,7 @@ public class ClienteDTO {
     public ClienteDTO() {
     }
 
-    // Getters
+
     public String getDocumento_Cliente() { return this.Documento_Cliente; }
     public String getNombre_Cliente()    { return this.Nombre_Cliente; }
     public String getApellido_Cliente()  { return this.Apellido_Cliente; }
@@ -37,7 +37,7 @@ public class ClienteDTO {
     public String getGenero()            { return this.Genero; }
     public String getID_Estado()         { return this.ID_Estado; }
 
-    // Setters (usando this y evitando sombreado)
+
     public void setDocumento_Cliente(String documento_Cliente) { this.Documento_Cliente = documento_Cliente; }
     public void setNombre_Cliente(String nombre_Cliente)       { this.Nombre_Cliente = nombre_Cliente; }
     public void setApellido_Cliente(String apellido_Cliente)   { this.Apellido_Cliente = apellido_Cliente; }
