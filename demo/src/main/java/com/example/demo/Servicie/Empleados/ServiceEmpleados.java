@@ -38,13 +38,14 @@ public class ServiceEmpleados {
                 Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos);
     }
 
-    public int actualizarEmpleado(String Documento_Empleado, String Tipo_Documento, String Nombre_Usuario,
-                                  String Apellido_Usuario, String Edad, String Correo_Electronico,
-                                  String Telefono, String Genero, String ID_Estado, String ID_Rol, String Fotos){
-        String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, Correo_Electronico =?,Telefono=?, Genero =?,ID_Estado=?, ID_Rol=?, Fotos=? WHERE Documento_Empleado=?";
-        return jdbcTemplate.update(sql, Nombre_Usuario, Apellido_Usuario, Edad, Telefono, ID_Estado, ID_Rol, Fotos, Documento_Empleado);
-    }
 
+    public int actualizarEmpleado(String Documento_Empleado, String Tipo_Documento, String Nombre_Usuario, String Apellido_Usuario, String Edad, String Correo_Electronico, String Telefono, String Genero, String ID_Estado, String ID_Rol, String Fotos) {
+        String sql = "UPDATE Empleados SET " + "Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
+                "Correo_Electronico=?, Telefono=?, Genero=?, ID_Estado=?, ID_Rol=?, Fotos=? " +
+                "WHERE Documento_Empleado=?";
+
+        return jdbcTemplate.update(sql, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad, Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos, Documento_Empleado );
+    }
     public int eliminarEmpleado(String Documento_Empleado) {
         String sql = "DELETE FROM Empleados WHERE Documento_Empleado=?";
         return jdbcTemplate.update(sql, Documento_Empleado);

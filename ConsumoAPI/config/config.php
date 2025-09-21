@@ -1,16 +1,17 @@
 <?php
 
 //Clientes
-$urlCC = "http://localhost:8080/Detalles";
-$urlpost ="http://localhost:8080/RegistraC";
-$urlput ="http://localhost:8080/ActualizarC";
-$urlDelet ="http://localhost:8080/EliminarC";
+
+$urlcliente = "http://localhost:8080/Detalles";
+$urlpostcliente ="http://localhost:8080/RegistraC";
+$urlputcli ="http://localhost:8080/ActualizarC";
+$urlDeletcli ="http://localhost:8080/EliminarC";
 
 //empleado
-$urlE = "http://localhost:8080/Empleados";
-$urlpost = "http://localhost:8080/EmpleadoRegistro";
-$urlput ="http://localhost:8080/EmpleadoActualizar";
-$urlDelet ="http://localhost:8080/EmpleadoEliminar";
+$urlemp = "http://localhost:8080/Empleados";
+$urlpostemp = "http://localhost:8080/EmpleadoRegistro";
+$urlputemp ="http://localhost:8080/EmpleadoActualizar";
+$urlDeletemp ="http://localhost:8080/EmpleadoEliminar";
 
 //compras
 $urlC = "http://localhost:8080/Compras";

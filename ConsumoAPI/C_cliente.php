@@ -1,47 +1,30 @@
 <?php
+
 include "./Config/config.php";
 
-$nombre = readline("Por favor, ingresa el nombre del cliente: ");
+$consumo = file_get_contents($urlcliente);
 
-$consumo = file_get_contents($urlCC);
-
-if ($consumo === false) {
+if ($consumo === FALSE) {
     die("Error al consumir el servicio.\n");
 }
 
 $clientes = json_decode($consumo);
 
-$encontrado = false;
+
 foreach ($clientes as $cliente) {
-    
-    $campos = explode("________", $cliente);
-
-    
-    if (stripos($campos[1], $nombre) !== false) {
-        $encontrado = true;
-
-        echo "------------------------\n";
-        echo "Documento_Cliente: " . $campos[0] . "\n";
-        echo "Nombre_Cliente: " . $campos[1] . "\n";
-        echo "Apellido_Cliente: " . $campos[2] . "\n";
-        echo "Teléfono: " . $campos[3] . "\n";
-        echo "Fecha de nacimiento: " . $campos[4] . "\n";
-        echo "Género: " . $campos[5] . "\n";
-        echo "ID_Estado: " . $campos[6] . "\n";
+   echo $cliente ."\n";
     }
-}
 
-if (!$encontrado) {
-    echo "Cliente no encontrado.\n";
-}
+echo "\n=== MENÚ DE OPCIONES ===\n";
+echo "1. Registrar cliente\n";
+echo "2. Actualizar cliente\n";
+echo "3. Eliminar cliente\n";
 
+$opcion = readline("Seleccione una opción: ");
 
-
+switch ($opcion) {
+ case "1":
 //Metodo post
-
-$respuesta= readline("¿Deseas agregar un nuevo cliente?, s para si, n para no: ". "\n");
-
-if($respuesta === "s"){
     
     $Nombre_Cliente = readline("Ingrese su nombre ". "\n");
     $Apellido_Cliente = readline("Ingresa su apellido ". "\n");
@@ -61,7 +44,7 @@ if($respuesta === "s"){
         "Genero" => $Genero,
         "ID_Estado" => $ID_Estado], JSON_UNESCAPED_UNICODE);
 
-    $proceso = curl_init($urlpost);
+    $proceso = curl_init($urlpostcliente);
     curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($proceso, CURLOPT_POSTFIELDS, $data);
     curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
@@ -83,16 +66,12 @@ if($respuesta === "s"){
     else{
         echo "Error al agregar el cliente. Código HTTP: $http_code" . "\n";
     
-}
-}
+    }
+    break; 
 
-
-
-
-
+case "2":   
 //metodo put
-$respuestaup= readline("¿Deseas actualizar un cliente?, s para si, n para no: ". "\n");
-if($respuestaup === "s"){
+
     $Documento_Cliente=readline("Ingresa el documento del cliente a actualizar ". "\n");
     $Nombre_Cliente = readline("Ingrese el nombre que desea actualizar". "\n");
     $Apellido_Cliente = readline("Ingrese el apellido que desea actualizar". "\n");
@@ -111,12 +90,9 @@ if($respuestaup === "s"){
         "Genero" => $Genero,
         "ID_Estado" => $ID_Estado], JSON_UNESCAPED_UNICODE);
 
+    $urlPutConDocemp = $urlputcli . "/" . rawurlencode($Documento_Cliente);
 
-       
-        
-    $urlPutConDoc = $urlput . "/" . rawurlencode($Documento_Cliente);
-
-    $proceso = curl_init($urlPutConDoc);
+    $proceso = curl_init($urlPutConDocemp);
     curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_setopt($proceso, CURLOPT_POSTFIELDS, $data);
     curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
@@ -138,23 +114,18 @@ if($respuestaup === "s"){
     else{
         echo "Error al actualizar el cliente. Código HTTP: $http_code" . "\n";
     
-}
-}
+    }
+    break; 
 
-
-
+case "3":
+    
 //Metodo Delete
 
-
-$respuestadel = readline("¿Deseas eliminar un cliente?, s para si, n para no: " . "\n");
-
-if ($respuestadel === "s") {
     $Documento_Cliente = readline("Ingresa el documento del cliente a eliminar: " . "\n");
 
- 
-    $urlDeleteConDoc = $urlDelet . "/" . rawurlencode($Documento_Cliente);
+    $urlDeleteConDocli = $urlDeletcli . "/" . rawurlencode($Documento_Cliente);
 
-    $proceso = curl_init($urlDeleteConDoc);
+    $proceso = curl_init($urlDeleteConDocli);
     curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "DELETE");
     curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
 
@@ -171,4 +142,10 @@ if ($respuestadel === "s") {
     } else {
         echo "Error al eliminar el cliente. Código HTTP: $http_code" . "\n";
     }
+    break;
+
+default:
+    echo "Opción no válida\n";
+    break;
 }
+?>
