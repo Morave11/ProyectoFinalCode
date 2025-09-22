@@ -14,10 +14,10 @@ $urlputemp ="http://localhost:8080/EmpleadoActualizar";
 $urlDeletemp ="http://localhost:8080/EmpleadoEliminar";
 
 //compras
-$urlC = "http://localhost:8080/Compras";
-$urlpost = "http://localhost:8080/ComprasR";
-$urlput = "http://localhost:8080/Compras";
-$urldelete = "http://localhost:8080/ComprasE";
+$urlcompras = "http://localhost:8080/Compras";  
+$urlpostcompras = "http://localhost:8080/ComprasR";
+$urlputcompras = "http://localhost:8080/Compras";  
+$urldeletecompras = "http://localhost:8080/ComprasE";
 
 //detalle devoluciones
 $urlD = "http://localhost:8080/DetalleD";
