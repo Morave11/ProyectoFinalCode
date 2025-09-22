@@ -32,7 +32,7 @@ public class ProductoController {
                 productoDTO.getID_Estado(),
                 productoDTO.getID_Gama()
         );
-        return "Cliente esta registrado correctamente";
+        return "Producto esta registrado correctamente";
     }
 
 
@@ -48,21 +48,14 @@ public class ProductoController {
                 producto.getID_Estado(),
                 producto.getID_Gama()
         );
-        return "El producto esta registrado correctamente";
+        return filas > 0 ? "Producto actualizado correctamente" : "Producto no encontrado o sin cambios";
     }
 
     @DeleteMapping("/EliminarPro/{ID_Producto}")
     public String EliminarProductos(@PathVariable String ID_Producto) {
         int filas = productoServicie.EliminarProductos (ID_Producto);
 
-        return   "Producto eliminado correctamente" ;
+        return filas > 0 ? "Producto eliminado correctamente" : "Producto no encontrado";
     }
 
-
-
 }
-
-
-
-
-

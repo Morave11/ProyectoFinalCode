@@ -34,3 +34,9 @@ $urlGetDV = "http://localhost:8080/DetalleVentas";
 $urlPostDV = "http://localhost:8080/DetalleVentasRegistro";
 $urlPutDV = "http://localhost:8080/DetalleVentasActualizar";
 $urlDeleteDV = "http://localhost:8080/DetalleVentasEliminar";
+
+//Productos
+$urlGetPro = "http://localhost:8080/Productos";
+$urlPostPro = "http://localhost:8080/RegistroP";
+$urlPutPro = "http://localhost:8080/ActualizaProd"; 
+$urlDeletePro = "http://localhost:8080/EliminarPro"; 
