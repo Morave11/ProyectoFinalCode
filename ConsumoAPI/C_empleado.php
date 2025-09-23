@@ -71,7 +71,7 @@ switch ($opcion) {
     curl_close($proceso);
 
     if($http_code === 200){
-        echo "cliente agregado exitosamente". "\n";
+        echo "Empleado agregado exitosamente". "\n";
     }
     else{
         echo "Error al agregar el cliente. Código HTTP: $http_code" . "\n";

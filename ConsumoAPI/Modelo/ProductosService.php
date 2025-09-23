@@ -1,7 +1,50 @@
 <?php
 include "./Config/config.php";
 
-$consumo = file_get_contents($urlGetPro);
+class ProductosService{
+    private $apiURL = "http://localhost:8080/Productos";
+    public function obtenerProductos(){
+        $respuesta = @file_get_contents ($this->apiURL);
+        if ($respuesta === false) return false; 
+        return json_decode ($respuesta, true);
+    }
+
+    public function AgregarProductos ($ID_Producto){
+        $data_json = json_encode(["ID_Producto" => $ID_Producto]);
+
+        $proceso = curl_init($this -> apiURL);
+        curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
+        curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($proceso, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($data_json)
+        ]);
+
+    $respuestapet = curl_exec($proceso);
+    $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
+
+    if(curl_errno($proceso)) {
+        $error = curl_error($proceso);
+        curl_close($proceso);
+        return ["success" => false, "error" => $error];
+    }
+
+    curl_close($proceso);
+
+    if ($http_code === 200){
+        echo "Producto actualizado exitosamente: $respuestapet\n";
+    } else {
+        echo "Error al actualizar el producto. Código HTTP: $http_code \n";
+        echo "Respuesta: $respuestapet\n";
+}
+    }
+}
+
+
+
+//cositas 
+
 
 if ($consumo === false) {
     die("Error al consumir el servicio.");
@@ -36,14 +79,7 @@ if($respuesta === 's'){
     );
     $data_json = json_encode($data);
 
-    $proceso = curl_init($urlPostPro);
-    curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($proceso, CURLOPT_POSTFIELDS, $data_json);
-    curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($proceso, CURLOPT_HTTPHEADER, array(
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($data_json)
-    ));
+    
 
     $respuestapeticion = curl_exec($proceso);
     $http_code = curl_getinfo($proceso, CURLINFO_HTTP_CODE);
