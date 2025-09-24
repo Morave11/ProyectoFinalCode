@@ -1,6 +1,6 @@
 package com.example.demo.Controller.Producto;
 
-d
+
 import com.example.demo.DTO.Producto.ProductoDTO;
 import com.example.demo.Servicie.Producto.ProductoServicie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class ProductoController {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @GetMapping ("/Prouctos")
+    @GetMapping ("/Productos")
     public List<String> obtenerProductos(){ return productoServicie.ObtenerProductos();}
 
     @PostMapping("/RegistroP")
