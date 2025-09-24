@@ -1,36 +1,40 @@
 <?php
-class ClienteService {
+class ProductosService {
     // Ajusta los endpoints a lo que expone tu API
-    private $apiUrlGet    = "http://localhost:8080/Detalles";        // GET lista
-    private $apiUrlPost   = "http://localhost:8080/RegistraC";       // POST crear
-    private $apiUrlPut    = "http://localhost:8080/ActualizarC";    // PUT actualizar
-    private $apiUrlDelete = "http://localhost:8080/EliminarC";     // DELETE eliminar
+    private $apiUrlGet    = "http://localhost:8080/Productos";   // GET lista
+    private $apiUrlPost   = "http://localhost:8080/RegistroP";  // POST crear
+    private $apiUrlPut    = "http://localhost:8080/ActualizaProd"; // PUT actualizar
+    private $apiUrlDelete = "http://localhost:8080/EliminarPro";   // DELETE eliminar
 
-    // Obtener todos los clientes
-    public function obtenerClientes() {
+    // Obtener todos los productos
+    public function obtenerProductos() {
         $respuesta = @file_get_contents($this->apiUrlGet);
         if ($respuesta === false) return false;
         return json_decode($respuesta, true);
     }
 
-    // Agregar un cliente
-    public function agregarCliente(
-        $Documento_Cliente,
-        $Nombre_Cliente,
-        $Apellido_Cliente,
-        $Telefono,
-        $Fecha_Nacimiento,
-        $Genero,
-        $ID_Estado
+    // Agregar un producto
+    public function agregarProducto(
+        $ID_Producto,
+        $Nombre_Producto,
+        $Precio_Venta,
+        $Stock_Minimo,
+        $Descripcion,
+        $Fotos,
+        $ID_Categoria,
+        $ID_Estado,
+        $ID_Gama
     ) {
         $data_json = json_encode([
-            "Documento_Cliente" => $Documento_Cliente,
-            "Nombre_Cliente"    => $Nombre_Cliente,
-            "Apellido_Cliente"  => $Apellido_Cliente,
-            "Telefono"          => $Telefono,
-            "Fecha_Nacimiento"  => $Fecha_Nacimiento,
-            "Genero"            => $Genero,
-            "ID_Estado"         => $ID_Estado
+            "ID_Producto"     => $ID_Producto,
+            "Nombre_Producto" => $Nombre_Producto,
+            "Precio_Venta"    => $Precio_Venta,
+            "Stock_Minimo"    => $Stock_Minimo,
+            "Descripcion"     => $Descripcion,
+            "Fotos"           => $Fotos,
+            "ID_Categoria"    => $ID_Categoria,
+            "ID_Estado"       => $ID_Estado,
+            "ID_Gama"         => $ID_Gama
         ], JSON_UNESCAPED_UNICODE);
 
         $proceso = curl_init($this->apiUrlPost);
@@ -59,9 +63,9 @@ class ClienteService {
         }
     }
 
-    // Actualizar un cliente
-    public function actualizarCliente($Documento_Cliente, $data) {
-        $url = $this->apiUrlPut . "/" . rawurlencode($Documento_Cliente);
+    // Actualizar un producto
+    public function actualizarProducto($ID_Producto, $data) {
+        $url = $this->apiUrlPut . "/" . rawurlencode($ID_Producto);
         $data_json = json_encode($data, JSON_UNESCAPED_UNICODE);
 
         $proceso = curl_init($url);
@@ -84,15 +88,15 @@ class ClienteService {
         curl_close($proceso);
 
         return [
-            "success"   => ($http_code >= 200 && $http_code < 300),
-            "http_code" => $http_code,
-            "response"  => $respuesta
+            "success"  => ($http_code >= 200 && $http_code < 300),
+            "http_code"=> $http_code,
+            "response" => $respuesta
         ];
     }
 
-    // Eliminar un cliente
-    public function eliminarCliente($Documento_Cliente) {
-        $url = $this->apiUrlDelete . "/" . rawurlencode($Documento_Cliente);
+    // Eliminar un producto
+    public function eliminarProducto($ID_Producto) {
+        $url = $this->apiUrlDelete . "/" . rawurlencode($ID_Producto);
 
         $proceso = curl_init($url);
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -110,9 +114,9 @@ class ClienteService {
         curl_close($proceso);
 
         return [
-            "success"   => ($http_code >= 200 && $http_code < 300),
-            "http_code" => $http_code,
-            "response"  => $respuesta
+            "success"  => ($http_code >= 200 && $http_code < 300),
+            "http_code"=> $http_code,
+            "response" => $respuesta
         ];
     }
 }
