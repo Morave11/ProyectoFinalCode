@@ -1,10 +1,10 @@
 <?php
 class ComprasService {
     // Ajusta los endpoints a lo que expone tu API
-    private $apiUrlGet  = "http://localhost:8082/Compras";          // GET lista
-    private $apiUrlPost = "http://localhost:8082/RegistroC";  // POST crear
-    private $apiURLPut  = "http://localhost:8082/Compras";
-    private $apiUrlDelete = "http://localhost:8082/ComprasE";
+    private $apiUrlGet  = "http://localhost:8080/Compras";         
+    private $apiUrlPost = "http://localhost:8080/ComprasR";  
+    private $apiUrlPut  = "http://localhost:8080/Compras";
+    private $apiUrlDelete = "http://localhost:8080/ComprasE";
 
     // Obtener todas las compras
     public function obtenerCompras() {
@@ -55,7 +55,7 @@ class ComprasService {
 
     //Actualizar Compra 
     public function actualizarCompra($ID_Entrada, $data) {
-        $url = $this->apiUrlPut . '/' . urlencode($ID_Entrada);
+        $url = $this->apiUrlPut . '/' .rawurlencode($ID_Entrada);
         $data_json = json_encode($data, JSON_UNESCAPED_UNICODE);
 
         $proceso = curl_init($url);
@@ -86,7 +86,7 @@ class ComprasService {
 
     // Eliminar una compra
     public function eliminarCompra($ID_Entrada) {
-        $url = $this->apiUrlDelete . '/' . urlencode($ID_Entrada);
+        $url = $this->apiUrlDelete . '/' . rawurlencode($ID_Entrada);
         $proceso = curl_init($url);
         curl_setopt($proceso, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($proceso, CURLOPT_RETURNTRANSFER, true);
