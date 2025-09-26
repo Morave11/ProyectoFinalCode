@@ -15,7 +15,7 @@ $ventas  = $ventas ?? [];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- Estilos de esta página -->
-  <link rel="stylesheet" href="../css/ventas.css">
+  <link rel="stylesheet" href="/Fonrio/css/ventas.css">
 </head>
 <body class="ventas-page">
 
