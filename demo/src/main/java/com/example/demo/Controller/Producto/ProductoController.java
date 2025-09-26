@@ -30,7 +30,8 @@ public class ProductoController {
                 productoDTO.getStock_Minimo(),
                 productoDTO.getID_Categoria(),
                 productoDTO.getID_Estado(),
-                productoDTO.getID_Gama()
+                productoDTO.getID_Gama(),
+                productoDTO.getFotos()
         );
         return "Producto esta registrado correctamente";
     }
@@ -46,7 +47,8 @@ public class ProductoController {
                 producto.getStock_Minimo(),
                 producto.getID_Categoria(),
                 producto.getID_Estado(),
-                producto.getID_Gama()
+                producto.getID_Gama(),
+                producto.getFotos()
         );
         return filas > 0 ? "Producto actualizado correctamente" : "Producto no encontrado o sin cambios";
     }

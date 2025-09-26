@@ -28,18 +28,20 @@ public class ProductoDTO {
     @JsonProperty("ID_Gama")
     private String ID_Gama;
 
+    @JsonProperty("Fotos")
+    private String Fotos;
+
     public ProductoDTO() {}
 
-
-    public String getID_Producto()   { return this.ID_Producto; }
-    public String getNombre_Producto(){ return this.Nombre_Producto; }
-    public String getDescripcion()   { return this.Descripcion; }
-    public String getPrecio_Venta()  { return this.precio_Venta; }
-    public String getStock_Minimo()  { return this.stock_Minimo; }
-    public String getID_Categoria()  { return this.ID_Categoria; }
-    public String getID_Estado()     { return this.ID_Estado; }
-    public String getID_Gama()       { return this.ID_Gama; }
-
+    public String getID_Producto()      { return this.ID_Producto; }
+    public String getNombre_Producto()  { return this.Nombre_Producto; }
+    public String getDescripcion()      { return this.Descripcion; }
+    public String getPrecio_Venta()     { return this.precio_Venta; }
+    public String getStock_Minimo()     { return this.stock_Minimo; }
+    public String getID_Categoria()     { return this.ID_Categoria; }
+    public String getID_Estado()        { return this.ID_Estado; }
+    public String getID_Gama()          { return this.ID_Gama; }
+    public String getFotos()            { return this.Fotos; }
 
     public void setID_Producto(String ID_Producto)         { this.ID_Producto = ID_Producto; }
     public void setNombre_Producto(String nombre_Producto) { this.Nombre_Producto = nombre_Producto; }
@@ -49,4 +51,5 @@ public class ProductoDTO {
     public void setID_Categoria(String ID_Categoria)       { this.ID_Categoria = ID_Categoria; }
     public void setID_Estado(String ID_Estado)             { this.ID_Estado = ID_Estado; }
     public void setID_Gama(String ID_Gama)                 { this.ID_Gama = ID_Gama; }
+    public void setFotos(String Fotos)                     { this.Fotos = Fotos; }
 }

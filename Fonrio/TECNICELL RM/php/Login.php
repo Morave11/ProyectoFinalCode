@@ -1,39 +1,54 @@
 <?php
 session_start();
-include("conexion.php");
+include("conexion.php"); // aquí ya conectas a fonrio
 
 $mensaje = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $documento = $_POST['usuario'];
-    $clave = $_POST['contrasena'];
+    $documento = trim($_POST['usuario'] ?? '');
+    $clave     = $_POST['contrasena'] ?? '';
 
-    // Consulta usando tus nombres reales
-    $sql = "SELECT E.Documento_Empleado, E.Nombre_Usuario, E.ID_Rol, C.contrasena_hash
-            FROM Empleados E
-            INNER JOIN Contrasenas C ON E.Documento_Empleado = C.Documento_Empleado
-            WHERE E.Documento_Empleado = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("s", $documento);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-    $fila = $resultado->fetch_assoc();
-
-    if ($fila && password_verify($clave, $fila['contrasena_hash'])) {
-        // Guardar datos de sesión
-        $_SESSION['documento'] = $fila['Documento_Empleado'];
-        $_SESSION['nombre'] = $fila['Nombre_Usuario'];
-        $_SESSION['rol'] = $fila['ID_Rol'];
-
-        // Redirigir según rol (ajusta los valores según tu tabla de roles)
-        if ($fila['ID_Rol'] == "ROL002") { // Por ejemplo, 2 = Admin
-            header("Location: InicioE.php");
-        } else {
-            header("Location: InicioA.php");
-        }
-        exit();
+    if ($documento === '' || $clave === '') {
+        $mensaje = "Documento y contraseña son obligatorios.";
     } else {
-        $mensaje = "Usuario o contraseña incorrecta.";
+        // importante: charset para acentos/ñ
+        $conexion->set_charset("utf8mb4");
+
+        // Verificamos usuario + contraseña con SHA-256 en MySQL
+        $sql = "SELECT 
+                    E.Documento_Empleado,
+                    E.Nombre_Usuario,
+                    E.ID_Rol
+                FROM Empleados E
+                INNER JOIN Contrasenas C 
+                    ON C.Documento_Empleado = E.Documento_Empleado
+                WHERE E.Documento_Empleado = ?
+                  AND C.Contrasena_Hash = SHA2(?, 256)";
+
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("ss", $documento, $clave);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $fila = $resultado->fetch_assoc();
+        $stmt->close();
+
+        if ($fila) {
+            // Login correcto
+            session_regenerate_id(true);
+            $_SESSION['documento'] = $fila['Documento_Empleado'];
+            $_SESSION['nombre']    = $fila['Nombre_Usuario'];
+            $_SESSION['rol']       = $fila['ID_Rol'];
+
+            // Redirigir según rol
+            if ($fila['ID_Rol'] === "ROL002") {
+                header("Location: InicioE.php");
+            } else {
+                header("Location: InicioA.php");
+            }
+            exit();
+        } else {
+            $mensaje = "Usuario o contraseña incorrecta.";
+        }
     }
 }
 ?>
