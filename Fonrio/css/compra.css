@@ -1,0 +1,122 @@
+/* ===== Reset suave ===== */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* ===== Colores Bootstrap (mismo que Inicio) ===== */
+.bg-primary {
+  background-color: #2B3A67 !important;
+}
+
+/* ===== Sidebar (idéntico a Inicio) ===== */
+.sidebar {
+  width: 260px;                 /* ancho fijo */
+  min-height: 100vh;            /* ocupa todo el alto */
+  color: #fff;
+}
+
+.menu-barra-lateral {
+  display: grid;
+  gap: .75rem;
+}
+
+.seccion-menu {
+  display: grid;
+  gap: .25rem;
+}
+
+.elemento-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.75rem;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  transition: background .18s ease, opacity .18s ease, transform .08s ease;
+}
+
+.elemento-menu:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.elemento-menu.activo {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.elemento-menu i {
+  width: 1.1rem;
+  text-align: center;
+}
+
+/* ===== Layout principal ===== */
+.d-flex > .flex-grow-1 {
+  min-height: 100vh;            /* asegura que el contenido llene el alto */
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar de Bootstrap sin conflicto */
+.navbar {
+  position: relative;
+  z-index: 10;                  /* evita que el sidebar lo tape */
+}
+
+
+
+/* ===== Tipografías de títulos ===== */
+.titulo {
+  color: #222;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* ===== Tablas ===== */
+.table {
+  background: #fff;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  font-size: 14px;
+  color: #ffffff;
+  background: #000000;
+  padding: 8px 12px;
+  margin: 24px 0 0 0;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 992px) {
+  .sidebar {
+    width: 100%;               /* sidebar arriba en móviles */
+    min-height: auto;
+  }
+}
+.cabecera {
+  background-color: #1877f2; /* azul */
+  width: 100%;
+  padding: 30px 0;
+  margin: 0;
+  display: flex;
+  justify-content: center; /* centra horizontal */
+  align-items: center;     /* centra vertical */
+}
+
+.cabecera .titulo {
+  color: #fff;
+  font-size: 36px;
+  margin: 0;
+  text-align: center;
+}

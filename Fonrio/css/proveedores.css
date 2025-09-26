@@ -1,0 +1,82 @@
+/* ===== Reset mínimo (evita conflictos con Bootstrap) ===== */
+* {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+}
+body {
+  background-color: #f5f5f5;
+  margin: 0;
+}
+
+/* ===== Cabecera (dentro de .contenido-principal) ===== */
+.cabecera {
+  background-color: #778ee9; /* azul claro */
+  width: 100%;
+  padding: 24px 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.cabecera .titulo {
+  color: #fff;
+  font-size: 32px;
+  margin: 0;
+}
+
+/* Logo dentro de la cabecera (sin posición fija) */
+.cabecera .logo {
+  height: 48px;
+  width: auto;
+}
+
+/* ===== Títulos secundarios ===== */
+h2 {
+  color: #222;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+
+/* ===== Tabla ===== */
+.table {
+  background: #fff;
+}
+.table thead th {
+  vertical-align: middle;
+}
+.table .btn {
+  padding: .25rem .5rem;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  font-size: 14px;
+  color: #ffffff;
+  background: #000000;
+  padding: 8px 12px;
+  margin: 24px 0 0 0;
+}
+
+/* ===== Sidebar/Nav helpers (opcionales) ===== */
+/* Si quieres resaltar el menú activo en el sidebar, añade la clase 'activo' al <a> correspondiente */
+.elemento-menu.activo {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 992px) {
+  .cabecera {
+    padding: 18px 0;
+  }
+  .cabecera .titulo {
+    font-size: 24px;
+  }
+  .cabecera .logo {
+    height: 40px;
+  }
+}
