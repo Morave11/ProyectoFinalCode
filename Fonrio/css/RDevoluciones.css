@@ -1,0 +1,88 @@
+/* ===== Reset ===== */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Página ===== */
+body {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  /* Importante: NO usar flex aquí para no interferir con el layout del sidebar */
+}
+
+/* ===== Logo (ajustado para no quedar bajo el sidebar) ===== */
+.logo {
+  position: fixed;
+  top: 10px;
+  left: 300px;        /* ancho aprox. del sidebar (ajusta si lo cambias) */
+  width: 120px;
+  height: auto;
+  z-index: 200;
+  pointer-events: none;
+}
+
+/* ===== Cabecera azul ===== */
+.cabecera {
+  background-color: #1877f2;
+  width: 100%;
+  padding: 30px 0;
+  text-align: center;
+  margin: 0;
+}
+
+.titulo {
+  color: white;
+  font-size: 36px;
+}
+
+/* ===== Bloque de inputs centrados (si lo usas en algún formulario) ===== */
+.inputs-centrados {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.campo {
+  text-align: center;
+}
+
+.campo label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.campo input {
+  padding: 10px;
+  width: 250px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* ===== Footer ===== */
+.footer { 
+  text-align: center;
+  margin-top: 131px;
+  font-size: 14px; 
+  color: #ffffff;
+  background: #000000;
+  padding: 5px;
+  border-radius: 0; 
+  width: 100%;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 992px) {
+  .logo {
+    left: 16px;      /* en móviles, el sidebar pasa arriba y el logo vuelve a la esquina */
+    width: 100px;
+  }
+}
+.logo { left: 300px; }

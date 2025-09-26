@@ -1,0 +1,89 @@
+/* ===== Sidebar (alias para compatibilidad) ===== */
+.sidebar,
+.barra-lateral {
+  width: 250px;
+  background-color: #2B3A67 !important;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 0.75rem 0.5rem;
+}
+
+/* Items del menú */
+.elemento-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  border-radius: 0.65rem;
+}
+
+.elemento-menu:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.elemento-menu.activo {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.elemento-menu i {
+  width: 1.1rem;
+  text-align: center;
+}
+
+/* ===== Color primario (coincide con tu sidebar) ===== */
+.bg-primary { background-color: #2B3A67 !important; }
+
+/* ===== Navbar: aplica fondo solo al contenedor del navbar ===== */
+.navbar .container-fluid {
+  background-color: #778ee9; /* si NO quieres esto en todas las páginas, muévelo al css de esa página */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.navbar {
+  top: 0;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  z-index: 10; /* por encima del contenido, debajo del sidebar fixed */
+}
+
+/* ===== Layout del contenido cuando el sidebar es fixed ===== */
+body { margin: 0; padding: 0; }
+
+.flex-grow-1,
+.content, /* por si usas <main class="content"> */
+main {
+  min-height: 100vh;
+  background: #f5f5f5;
+  margin-left: 250px; /* empuja el contenido para no quedar bajo el sidebar */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 992px) {
+  .sidebar,
+  .barra-lateral {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+  .flex-grow-1,
+  .content,
+  main {
+    margin-left: 0; /* contenido a ancho completo */
+  }
+}
