@@ -15,7 +15,7 @@ $ventas  = $ventas ?? [];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- Estilos de esta página -->
-  <link rel="stylesheet" href="/Fonrio/css/ventas.css">
+  <link rel="Stylesheet"href= "../css/ventas.css">
 </head>
 <body class="ventas-page">
 
@@ -48,7 +48,7 @@ $ventas  = $ventas ?? [];
       </div>
       <hr>
       <div class="seccion-menu">
-        <a href="proveedor.php" class="elemento-menu">
+        <a href="/indexproveedor.php" class="elemento-menu">
           <i class="fas fa-building"></i>
           <span>Proveedores</span>
         </a>
@@ -56,6 +56,21 @@ $ventas  = $ventas ?? [];
           <i class="fas fa-boxes"></i>
           <span>Productos</span>
         </a>
+        
+        
+                                        </a>
+                     <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+     href="#" 
+     id="rolesMenu" 
+     role="button" 
+     data-bs-toggle="dropdown" 
+     aria-expanded="false">
+    <i class="fas fa-user-friends me-2"></i><span>Roles</span>
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="rolesMenu">
+  <li><a class="dropdown-item" href="../indexcli.php">Cliente</a></li>
+  <li><a class="dropdown-item" href="../Indexempleado.php">Empleado</a></li>
+</ul>
       </div>
     </div>
   </div>

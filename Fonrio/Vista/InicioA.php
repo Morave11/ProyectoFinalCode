@@ -35,7 +35,7 @@
                         <span>Devoluciones</span>
                     </a>
                     
-                    <a href="/indexventas.php" class="elemento-menu">
+                    <a href="../indexventas.php" class="elemento-menu">
                         <i class="fas fa-chart-line"></i>
                         <span>Ventas</span>
                     </a>
@@ -49,11 +49,20 @@
                     <a href="Productos.php" class="elemento-menu">
                         <i class="fas fa-boxes"></i>
                         <span>Productos</span>
-                    </a>
-                     <div class="elemento-menu">
-                        <i class="fas fa-user-friends"></i>
-                        <span>Usuarios</span>
-                    </div>
+                  
+                                        </a>
+                     <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+     href="#" 
+     id="rolesMenu" 
+     role="button" 
+     data-bs-toggle="dropdown" 
+     aria-expanded="false">
+    <i class="fas fa-user-friends me-2"></i><span>Roles</span>
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="rolesMenu">
+  <li><a class="dropdown-item" href="../indexcli.php">Cliente</a></li>
+  <li><a class="dropdown-item" href="../Indexempleado.php">Empleado</a></li>
+</ul>
                 </div>
             </div>
         </div>

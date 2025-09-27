@@ -61,9 +61,20 @@ $result = $conexion->query($sql);
           <a href="Productos.php" class="elemento-menu activo">
             <i class="fa-solid fa-boxes"></i><span>Productos</span>
           </a>
-          <a href="#" class="elemento-menu">
-            <i class="fa-solid fa-user-friends"></i><span>Usuarios</span>
-          </a>
+
+                  <div class="dropdown">
+  <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+     href="#" 
+     id="rolesMenu" 
+     role="button" 
+     data-bs-toggle="dropdown" 
+     aria-expanded="false">
+    <i class="fas fa-user-friends me-2"></i><span>Roles</span>
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="rolesMenu">
+  <li><a class="dropdown-item" href="roles.php">Cliente</a></li>
+  <li><a class="dropdown-item" href="IndexEm.php">Empleado</a></li>
+</ul>
         </div>
       </div>
     </div>

@@ -47,14 +47,27 @@ $proveedores = is_array($proveedores ?? null) ? $proveedores : [];
         </div>
         <hr>
         <div class="seccion-menu">
-          <a href="proveedor.php" class="elemento-menu">
+          <a href="../indexproveedor.php" class="elemento-menu">
             <i class="fa-solid fa-users"></i><span>Proveedores</span>
           </a>
           <a href="Productos.php" class="elemento-menu">
             <i class="fa-solid fa-boxes"></i><span>Productos</span>
           </a>
-          <div class="elemento-menu">
-            <i class="fas fa-user-friends"></i><span>Usuarios</span>
+
+
+          <div class="dropdown">
+          <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+            href="#" 
+     id="rolesMenu" 
+     role="button" 
+     data-bs-toggle="dropdown" 
+     aria-expanded="false">
+    <i class="fas fa-user-friends me-2"></i><span>Roles</span>
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="rolesMenu">
+     <li><a class="dropdown-item" href="../indexcli.php">Cliente</a></li>
+   <li><a class="dropdown-item" href="../Indexempleado.php">Empleado</a></li>
+</ul>
           </div>
         </div>
       </div>

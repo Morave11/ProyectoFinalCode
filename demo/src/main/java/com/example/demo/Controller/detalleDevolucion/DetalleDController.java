@@ -25,31 +25,31 @@ public class DetalleDController {
     @PostMapping("/AgregarDetalleD")
     public String agregarDetalleD(@RequestBody DetalleDevolucionesDTO detalleDDTO) {
         detalleDService.agregarDetalleD(
+                detalleDDTO.getID_DetalleDev(),
                 detalleDDTO.getID_Devolucion(),
-                detalleDDTO.getCantidad_Devuelta(),
-                detalleDDTO.getID_Venta()
+                detalleDDTO.getID_Venta(),
+                detalleDDTO.getCantidad_Devuelta()
         );
         return "El detalle de devolución se registró correctamente";
     }
 
 
-    @PutMapping("/ActualizarDetalleD/{ID_Devolucion}/{ID_Venta}")
-    public String actualizarDetalleD(@PathVariable("ID_Devolucion") String ID_Devolucion,
-                                     @PathVariable("ID_Venta") String ID_Venta,
-                                     @RequestBody DetalleDevolucionesDTO detalleDDTO) {
+    @PutMapping("/ActualizarDetalleD/{ID_Devolucion}")
+    public String actualizarDetalleD(@PathVariable("ID_Devolucion") String ID_Devolucion, @RequestBody DetalleDevolucionesDTO detalleDDTO) {
         int filas = detalleDService.actualizarDetalleD(
                 ID_Devolucion,
-                ID_Venta,
+                detalleDDTO.getID_DetalleDev(),
+                detalleDDTO.getID_Venta(),
                 detalleDDTO.getCantidad_Devuelta()
         );
-        return "El detalle de devolución se ha actualizado correctamente";
+        return filas > 0 ? "Detalle de devolución actualizado correctamente"  : "Error al actualizar Detalle de devolución" ;
+
     }
 
 
-    @DeleteMapping("/EliminarDetD/{ID_Devolucion}/{ID_Venta}")
-    public String eliminarDevolucionD(@PathVariable String ID_Devolucion,
-                                      @PathVariable String ID_Venta) {
-        int filas = detalleDService.eliminarDevolucionD(ID_Devolucion, ID_Venta);
-        return "Detalle de devolución eliminado correctamente";
+    @DeleteMapping("/EliminarDetD/{ID_Devolucion}")
+    public String eliminarDevolucionD(@PathVariable String ID_Devolucion){
+        int filas = detalleDService.eliminarDevolucionD(ID_Devolucion);
+        return filas > 0 ? "Detalle de devolución eliminado correctamente"  : "Error al eliminar Detalle de devolución" ;
     }
 }

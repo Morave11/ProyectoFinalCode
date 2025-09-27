@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $usuario = "root";
-$contrasena = "Chuunibyou1!";
+$contrasena = "2007";
 $base_datos = "fonrio";
 
 // Crear conexión
