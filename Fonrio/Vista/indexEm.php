@@ -1,6 +1,6 @@
 <?php
 $mensaje  = $mensaje ?? '';
-$empleados = is_array($empleado ?? null) ? $empleado : [];
+$empleado = is_array($empleado ?? null) ? $empleado : [];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -9,16 +9,12 @@ $empleados = is_array($empleado ?? null) ? $empleado : [];
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Empleados</title>
 
-  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
-  
   <link rel="stylesheet" href="../css/menu.css" />
 </head>
 <body>
 <div class="d-flex" style="min-height: 100vh;">
-
 
   <div class="barra-lateral d-flex flex-column flex-shrink-0 p-3 bg-primary text-white">
     <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
@@ -42,34 +38,33 @@ $empleados = is_array($empleado ?? null) ? $empleado : [];
       </div>
       <hr>
       <div class="seccion-menu">
-                    <a href="/indexproveedor.php" class="elemento-menu">
+        <a href="/indexproveedor.php" class="elemento-menu">
+          <i class="fas fa-users"></i>
+          <span>Proveedores</span>
+        </a>
+        <a href="Productos.php" class="elemento-menu">
+          <i class="fas fa-boxes"></i>
+          <span>Productos</span>
+        </a>
+           <a href="/indexdev.php" class="elemento-menu">
                         <i class="fas fa-users"></i>
-                        <span>Proveedores</span>
+                        <span>Devolucion</span>
                     </a>
-                    <a href="Productos.php" class="elemento-menu">
-                        <i class="fas fa-boxes"></i>
-                        <span>Productos</span>
-                  
-                                        </a>
-        
+
         <div class="dropdown">
-  <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
-     href="#" 
-     id="rolesMenu" 
-     role="button" 
-     data-bs-toggle="dropdown" 
-     aria-expanded="false">
-    <i class="fas fa-user-friends me-2"></i><span>Roles</span>
-  </a>
-  <ul class="dropdown-menu" aria-labelledby="rolesMenu">
-     <li><a class="dropdown-item" href="../indexcli.php">Cliente</a></li>
- <li><a class="dropdown-item" href="../Indexempleado.php">Empleado</a></li>
-</ul>
-
-</div>
-
-
-
+          <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+             href="#" 
+             id="rolesMenu" 
+             role="button" 
+             data-bs-toggle="dropdown" 
+             aria-expanded="false">
+            <i class="fas fa-user-friends me-2"></i><span>Roles</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="rolesMenu">
+             <li><a class="dropdown-item" href="../indexcli.php">Cliente</a></li>
+             <li><a class="dropdown-item" href="../Indexempleado.php">Empleado</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -113,7 +108,7 @@ $empleados = is_array($empleado ?? null) ? $empleado : [];
       </div>
 
       <!-- Mensajes -->
-    <?= $mensaje ? "<div class='alert alert-info mt-3'>$mensaje</div>" : "" ?>
+      <?= $mensaje ? "<div class='alert alert-info mt-3'>$mensaje</div>" : "" ?>
 
       <!-- TABLA DE EMPLEADOS -->
       <div class="mt-4">
@@ -135,8 +130,8 @@ $empleados = is_array($empleado ?? null) ? $empleado : [];
               </tr>
             </thead>
             <tbody>
-            <?php if (!empty($empleados)): ?>
-              <?php foreach ($empleados as $e): 
+            <?php if (!empty($empleado)): ?>
+              <?php foreach ($empleado as $e): 
                 $partes = is_string($e) ? explode('________', $e) : [];
               ?>
                 <tr>
@@ -176,10 +171,17 @@ $empleados = is_array($empleado ?? null) ? $empleado : [];
                     <label class="form-label">Documento</label>
                     <input type="text" name="Documento_Empleado" class="form-control" required>
                   </div>
+
                   <div class="col-md-6">
                     <label class="form-label">Tipo Documento</label>
-                    <input type="text" name="Tipo_Documento" class="form-control" required>
+                    <select name="Tipo_Documento" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="TI">Tarjeta de Identidad</option>
+                      <option value="CC">Cédula de Ciudadanía</option>
+                      <option value="CE">Cédula de Extranjería</option>
+                    </select>
                   </div>
+
                   <div class="col-md-6">
                     <label class="form-label">Nombre</label>
                     <input type="text" name="Nombre_Usuario" class="form-control" required>
@@ -200,22 +202,40 @@ $empleados = is_array($empleado ?? null) ? $empleado : [];
                     <label class="form-label">Teléfono</label>
                     <input type="text" name="Telefono" class="form-control" required>
                   </div>
+
                   <div class="col-md-6">
                     <label class="form-label">Género</label>
-                    <input type="text" name="Genero" class="form-control" required>
+                    <select name="Genero" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="F">Femenino</option>
+                      <option value="M">Masculino</option>
+                    </select>
                   </div>
+
                   <div class="col-md-6">
-                    <label class="form-label">ID Estado</label>
-                    <input type="text" name="ID_Estado" class="form-control" required>
+                    <label class="form-label">Estado</label>
+                    <select name="ID_Estado" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="EST001">Activo</option>
+                      <option value="EST002">Inactivo</option>
+                      <option value="EST003">En proceso</option>
+                    </select>
                   </div>
+
                   <div class="col-md-6">
                     <label class="form-label">ID Rol</label>
-                    <input type="text" name="ID_Rol" class="form-control" required>
+                    <select name="ID_Rol" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="ROL001">Administrador</option>
+                      <option value="ROL002">Empleado</option>
+                    </select>
                   </div>
+
                   <div class="col-md-6">
-                    <label class="form-label">Fotos</label>
-                    <input type="text" name="Fotos" class="form-control" required>
+                    <label class="form-label">Subir Foto</label>
+                    <input type="file" name="Fotos" class="form-control" accept="image/*" required>
                   </div>
+
                   <div class="col-12 text-center mt-3">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                   </div>
@@ -235,11 +255,17 @@ $empleados = is_array($empleado ?? null) ? $empleado : [];
                     <label class="form-label">Documento a actualizar</label>
                     <input type="text" name="Documento_Empleado" class="form-control" required>
                   </div>
-                  <!-- El resto de campos opcionales -->
+                 
                   <div class="col-md-6">
                     <label class="form-label">Tipo Documento</label>
-                    <input type="text" name="Tipo_Documento" class="form-control">
+                    <select name="Tipo_Documento" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="TI">Tarjeta de Identidad</option>
+                      <option value="CC">Cédula de Ciudadanía</option>
+                      <option value="CE">Cédula de Extranjería</option>
+                    </select>
                   </div>
+
                   <div class="col-md-6">
                     <label class="form-label">Nombre</label>
                     <input type="text" name="Nombre_Usuario" class="form-control">
@@ -252,33 +278,50 @@ $empleados = is_array($empleado ?? null) ? $empleado : [];
                     <label class="form-label">Edad</label>
                     <input type="number" name="Edad" class="form-control">
                   </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Correo</label>
-                    <input type="email" name="Correo_Electronico" class="form-control">
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Teléfono</label>
-                    <input type="text" name="Telefono" class="form-control">
-                  </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Correo</label>
+                      <input type="email" name="Correo_Electronico" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Teléfono</label>
+                      <input type="text" name="Telefono" class="form-control">
+                    </div>
                   <div class="col-md-6">
                     <label class="form-label">Género</label>
-                    <input type="text" name="Genero" class="form-control">
+                    <select name="Genero" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="F">Femenino</option>
+                      <option value="M">Masculino</option>
+                    </select>
                   </div>
-                  <div class="col-md-6">
-                    <label class="form-label">ID Estado</label>
-                    <input type="text" name="ID_Estado" class="form-control">
+                      <div class="col-md-6">
+                    <label class="form-label">Estado</label>
+                    <select name="ID_Estado" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="EST001">Activo</option>
+                      <option value="EST002">Inactivo</option>
+                      <option value="EST003">En proceso</option>
+                    </select>
                   </div>
+
                   <div class="col-md-6">
                     <label class="form-label">ID Rol</label>
-                    <input type="text" name="ID_Rol" class="form-control">
+                    <select name="ID_Rol" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="ROL001">Administrador</option>
+                      <option value="ROL002">Empleado</option>
+                    </select>
                   </div>
+
                   <div class="col-md-6">
-                    <label class="form-label">Fotos</label>
-                    <input type="text" name="Fotos" class="form-control">
+                    <label class="form-label">Subir Foto</label>
+                    <input type="file" name="Fotos" class="form-control" accept="image/*" required>
                   </div>
-                  <div class="col-12 text-center mt-3">
-                    <button type="submit" class="btn btn-warning">Actualizar</button>
-                  </div>
+
+                  
+                   <div class="col-12 text-center mt-3">
+              <button type="submit" class="btn btn-warning">Actualizar</button>
+            </div>
                 </form>
               </div>
             </div>

@@ -49,8 +49,12 @@
                     <a href="../indexproducto.php" class="elemento-menu">
                         <i class="fas fa-boxes"></i>
                         <span>Productos</span>
-                  
                                         </a>
+
+                                        <a href="/indexdev.php" class="elemento-menu">
+                        <i class="fas fa-users"></i>
+                        <span>Devolucion</span>
+                    </a>
                      <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
      href="#" 
      id="rolesMenu" 
