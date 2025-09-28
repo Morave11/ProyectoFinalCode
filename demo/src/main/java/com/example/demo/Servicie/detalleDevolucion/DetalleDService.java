@@ -1,3 +1,4 @@
+
 package com.example.demo.Servicie.detalleDevolucion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,18 +33,19 @@ public class DetalleDService {
         jdbcTemplate.update(sql, ID_DetalleDev,ID_Devolucion,ID_Venta, Cantidad_Devuelta );
     }
 
-
-    public int actualizarDetalleD(String ID_Devolucion,String ID_DetalleDev, String ID_Venta, int Cantidad_Devuelta) {
+    public int actualizarDetalleD(String ID_Devolucion, String ID_Venta, int Cantidad_Devuelta) {
         String sql = "UPDATE detalle_devoluciones " +
-                "SET ID_DetalleDev = ?, ID_Venta = ? , Cantidad_Devuelta = ? "+
-                "WHERE ID_Devolucion = ?";
-        return jdbcTemplate.update(sql, ID_DetalleDev, ID_Venta, Cantidad_Devuelta, ID_Devolucion);
+                "SET Cantidad_Devuelta = ? " +
+                "WHERE ID_Devolucion = ? AND ID_Venta = ?";
+        return jdbcTemplate.update(sql, Cantidad_Devuelta, ID_Devolucion, ID_Venta);
     }
 
 
 
-    public int eliminarDevolucionD(String ID_Devolucion) {
-        String sql = "DELETE FROM detalle_devoluciones WHERE ID_Devolucion = ?";
-        return jdbcTemplate.update(sql, ID_Devolucion);
+
+    public int eliminarDevolucionD(String ID_Devolucion, String ID_Venta) {
+        String sql = "DELETE FROM detalle_devoluciones WHERE ID_Devolucion = ? AND ID_Venta = ?";
+        return jdbcTemplate.update(sql, ID_Devolucion, ID_Venta);
     }
+
 }

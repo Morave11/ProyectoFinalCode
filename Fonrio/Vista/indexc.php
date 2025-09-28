@@ -1,6 +1,7 @@
 <?php
 $mensaje  = $mensaje  ?? '';
-$clientes = $clientes ?? [];
+$clientes = is_array($clientes ?? null) ? $clientes : [];
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -46,6 +47,10 @@ $clientes = $clientes ?? [];
           <i class="fas fa-boxes"></i>
           <span>Productos</span>
         </a>
+           <a href="/indexdev.php" class="elemento-menu">
+                        <i class="fas fa-users"></i>
+                        <span>Devolucion</span>
+                    </a>
         <div class="dropdown">
           <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
              href="#" id="rolesMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -173,14 +178,24 @@ $clientes = $clientes ?? [];
               <label class="form-label">Fecha Nacimiento</label>
               <input type="date" name="Fecha_Nacimiento" class="form-control">
             </div>
-            <div class="col-md-6">
-              <label class="form-label">Género</label>
-              <input type="text" name="Genero" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">ID Estado</label>
-              <input type="text" name="ID_Estado" class="form-control" required>
-            </div>
+         <div class="col-md-6">
+                    <label class="form-label">Género</label>
+                    <select name="Genero" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="F">Femenino</option>
+                      <option value="M">Masculino</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Estado</label>
+                    <select name="ID_Estado" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="EST001">Activo</option>
+                      <option value="EST002">Inactivo</option>
+                      <option value="EST003">En proceso</option>
+                    </select>
+                  </div>
             <div class="col-12 text-center mt-3">
               <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
@@ -216,14 +231,24 @@ $clientes = $clientes ?? [];
               <label class="form-label">Nueva Fecha Nac.</label>
               <input type="date" name="Fecha_Nacimiento" class="form-control">
             </div>
-            <div class="col-md-6">
-              <label class="form-label">Nuevo Género</label>
-              <input type="text" name="Genero" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Nuevo ID Estado</label>
-              <input type="text" name="ID_Estado" class="form-control">
-            </div>
+         <div class="col-md-6">
+                    <label class="form-label">Género</label>
+                    <select name="Genero" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="F">Femenino</option>
+                      <option value="M">Masculino</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Estado</label>
+                    <select name="ID_Estado" class="form-control" required>
+                      <option value="">--Seleccione--</option>
+                      <option value="EST001">Activo</option>
+                      <option value="EST002">Inactivo</option>
+                      <option value="EST003">En proceso</option>
+                    </select>
+                  </div>
             <div class="col-12 text-center mt-3">
               <button type="submit" class="btn btn-warning">Actualizar</button>
             </div>

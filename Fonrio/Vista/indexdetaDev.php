@@ -1,14 +1,14 @@
 <?php
 // Variables esperadas
 $mensaje = $mensaje ?? '';
-$compras = is_array($compras ?? null) ? $compras : [];
+$devoluciones = is_array($devoluciones ?? null) ? $devoluciones : [];
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Compras</title>
+  <title>Detalle de Devoluciones</title>
 
   <!-- Bootstrap + Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -30,10 +30,7 @@ $compras = is_array($compras ?? null) ? $compras : [];
           <a href="InicioA.php" class="elemento-menu">
             <i class="fa-solid fa-tachometer-alt"></i><span>Dashboard</span>
           </a>
-          <a href="compra.php" class="elemento-menu active">
-            <i class="fa-solid fa-shopping-cart"></i><span>Compras</span>
-          </a>
-          <a href="RDevolucion.php" class="elemento-menu">
+          <a href="RDevolucion.php" class="elemento-menu active">
             <i class="fa-solid fa-undo"></i><span>Devoluciones</span>
           </a>
           <a href="indexventas.php" class="elemento-menu">
@@ -48,7 +45,7 @@ $compras = is_array($compras ?? null) ? $compras : [];
           <a href="Productos.php" class="elemento-menu">
             <i class="fa-solid fa-boxes"></i><span>Productos</span>
           </a>
-                                                 <a href="/indexdev.php" class="elemento-menu">
+              <a href="/indexdev.php" class="elemento-menu">
                         <i class="fas fa-users"></i>
                         <span>Devolucion</span>
                     </a>
@@ -101,61 +98,48 @@ $compras = is_array($compras ?? null) ? $compras : [];
       <div class="container py-4">
         <div class="d-flex align-items-center justify-content-center gap-3">
           <img src="../Imagenes/Logo.webp" alt="Logo TECNICELL" style="height:48px; width:auto;" />
-          <h1 class="m-0">Registro de Compras</h1>
+          <h1 class="m-0">Detalle de Devoluciones</h1>
         </div>
-
-        <!-- Botón para ir a Detalle Compras -->
-        <div class="text-center mt-3">
-          <a href="/indexdetacompras.php" class="btn btn-success">
-            Detalle de Compras
-          </a>
-        </div>
-        
 
         <!-- Mensajes -->
-        <?php if (!empty($mensaje)): ?>
-          <div class="mt-3"><?= $mensaje ?></div>
-        <?php endif; ?>
+      
+      <?= $mensaje ? "<div class='alert alert-info mt-3'>$mensaje</div>" : "" ?>
 
-        <!-- TABLA DE COMPRAS -->
+
+        <!-- TABLA DE DEVOLUCIONES -->
         <div class="mt-4">
           <div class="table-responsive">
             <table class="table table-bordered table-hover table-striped align-middle">
               <thead class="table-dark text-center">
                 <tr>
-                  <th>ID_Entrada</th>
-                  <th>Precio_Compra</th>
-                  <th>ID_Producto</th>
-                  <th>Documento_Empleado</th>
-                  <th>Acciones</th>
+                  <th>ID Detalle</th>
+                  <th>ID Devolucion</th>
+                  <th>ID Venta</th>
+                  <th>Cantidad Devuelta</th>
+                  
                 </tr>
               </thead>
               <tbody>
-                <?php if (!empty($compras)): ?>
-                  <?php foreach ($compras as $c): ?>
+                <?php if (!empty($devoluciones)): ?>
+                  <?php foreach ($devoluciones as $d): ?>
                     <?php
-                      $partes = is_string($c) ? explode('________', $c) : [];
-                      $ID_Entrada = htmlspecialchars($partes[0] ?? '');
-                      $Precio_Compra = htmlspecialchars($partes[1] ?? '');
-                      $ID_Producto = htmlspecialchars($partes[2] ?? '');
-                      $Documento_Empleado = htmlspecialchars($partes[3] ?? '');
+                      $partes = is_string($d) ? explode('________', $d) : [];
+                      $ID_DetalleDev    = htmlspecialchars($partes[0] ?? '');
+                      $ID_Devolucion    = htmlspecialchars($partes[1] ?? '');
+                      $Cantidad_Devuelta= htmlspecialchars($partes[2] ?? '');
+                      $ID_Venta         = htmlspecialchars($partes[3] ?? '');
                     ?>
                     <tr>
-                      <td><?= $ID_Entrada ?></td>
-                      <td><?= $Precio_Compra ?></td>
-                      <td><?= $ID_Producto ?></td>
-                      <td><?= $Documento_Empleado ?></td>
-                      <td class="text-center">
-                        <a href="detallecompra.php?ID_Entrada=<?= urlencode($ID_Entrada) ?>" 
-                           class="btn btn-info btn-sm">
-                          Ver Detalle
-                        </a>
-                      </td>
+                      <td><?= $ID_DetalleDev ?></td>
+                      <td><?= $ID_Devolucion ?></td>
+                      <td><?= $Cantidad_Devuelta ?></td>
+                      <td><?= $ID_Venta ?></td>
+                      
                     </tr>
                   <?php endforeach; ?>
                 <?php else: ?>
                   <tr>
-                    <td colspan="5" class="text-center text-muted">No hay compras para mostrar.</td>
+                    <td colspan="5" class="text-center text-muted">No hay devoluciones para mostrar.</td>
                   </tr>
                 <?php endif; ?>
               </tbody>
@@ -170,23 +154,23 @@ $compras = is_array($compras ?? null) ? $compras : [];
             <div class="col-md-6">
               <div class="card shadow-sm">
                 <div class="card-body">
-                  <h2 class="h4 mb-3">Agregar Compra</h2>
+                  <h2 class="h4 mb-3">Agregar Detalle de Devolución</h2>
                   <form method="POST" class="row g-3">
                     <div class="col-md-6">
-                      <label class="form-label">ID Entrada</label>
-                      <input type="text" name="ID_Entrada" class="form-control" required>
+                      <label class="form-label">ID Detalle</label>
+                      <input type="text" name="ID_DetalleDev" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                      <label class="form-label">Precio Compra</label>
-                      <input type="number" step="0.01" name="Precio_Compra" class="form-control" required>
+                      <label class="form-label">ID Devolución</label>
+                      <input type="text" name="ID_Devolucion" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                      <label class="form-label">ID Producto</label>
-                      <input type="text" name="ID_Producto" class="form-control" required>
+                      <label class="form-label">Cantidad Devuelta</label>
+                      <input type="number" name="Cantidad_Devuelta" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                      <label class="form-label">Documento Empleado</label>
-                      <input type="text" name="Documento_Empleado" class="form-control" required>
+                      <label class="form-label">ID Venta</label>
+                      <input type="text" name="ID_Venta" class="form-control" required>
                     </div>
                     <div class="col-12 text-center mt-3">
                       <button type="submit" class="btn btn-primary">Guardar</button>
@@ -200,24 +184,24 @@ $compras = is_array($compras ?? null) ? $compras : [];
             <div class="col-md-6">
               <div class="card shadow-sm">
                 <div class="card-body">
-                  <h2 class="h4 mb-3">Actualizar Compra</h2>
+                  <h2 class="h4 mb-3">Actualizar Detalle de Devolución</h2>
                   <form method="POST" class="row g-3">
                     <input type="hidden" name="_method" value="PUT">
                     <div class="col-md-6">
-                      <label class="form-label">ID Entrada (obligatorio)</label>
-                      <input type="text" name="ID_Entrada" class="form-control" required>
+                      <label class="form-label">ID Devolución (obligatorio)</label>
+                      <input type="text" name="ID_Devolucion" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                      <label class="form-label">Precio Compra</label>
-                      <input type="number" step="0.01" name="Precio_Compra" class="form-control">
+                      <label class="form-label">ID Venta (obligatorio)</label>
+                      <input type="text" name="ID_Venta" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                      <label class="form-label">ID Producto</label>
-                      <input type="text" name="ID_Producto" class="form-control">
+                      <label class="form-label">ID Detalle</label>
+                      <input type="text" name="ID_DetalleDev" class="form-control">
                     </div>
                     <div class="col-md-6">
-                      <label class="form-label">Documento Empleado</label>
-                      <input type="text" name="Documento_Empleado" class="form-control">
+                      <label class="form-label">Cantidad Devuelta</label>
+                      <input type="number" name="Cantidad_Devuelta" class="form-control">
                     </div>
                     <div class="col-12 text-center mt-3">
                       <button type="submit" class="btn btn-warning">Actualizar</button>
@@ -231,12 +215,16 @@ $compras = is_array($compras ?? null) ? $compras : [];
             <div class="col-md-6">
               <div class="card shadow-sm">
                 <div class="card-body">
-                  <h2 class="h4 mb-3">Eliminar Compra</h2>
+                  <h2 class="h4 mb-3">Eliminar Detalle de Devolución</h2>
                   <form method="POST" class="row g-3">
                     <input type="hidden" name="_method" value="DELETE">
                     <div class="col-md-6">
-                      <label class="form-label">ID Entrada</label>
-                      <input type="text" name="ID_Entrada" class="form-control" required>
+                      <label class="form-label">ID Devolución</label>
+                      <input type="text" name="ID_Devolucion" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">ID Venta</label>
+                      <input type="text" name="ID_Venta" class="form-control" required>
                     </div>
                     <div class="col-12 text-center mt-3">
                       <button type="submit" class="btn btn-danger">Eliminar</button>
@@ -258,7 +246,3 @@ $compras = is_array($compras ?? null) ? $compras : [];
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-
-
