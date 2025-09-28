@@ -26,7 +26,7 @@
                         <i class="fas fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </div>
-                    <a href="compra.php" class="elemento-menu">
+                    <a href="../indexcompras.php" class="elemento-menu">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Compras</span>
                     </a>
