@@ -46,7 +46,7 @@
                         <i class="fas fa-users"></i>
                         <span>Proveedores</span>
                     </a>
-                    <a href="Productos.php" class="elemento-menu">
+                    <a href="../indexproducto.php" class="elemento-menu">
                         <i class="fas fa-boxes"></i>
                         <span>Productos</span>
                   
