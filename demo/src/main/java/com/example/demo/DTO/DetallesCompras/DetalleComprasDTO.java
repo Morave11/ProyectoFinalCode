@@ -2,9 +2,11 @@ package com.example.demo.DTO.DetallesCompras;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
+
 public class DetalleComprasDTO {
     @JsonProperty("Fecha_Entrada")
-    private  String Fecha_Entrada;
+    private Date Fecha_Entrada;
     @JsonProperty("Cantidad")
     private  String Cantidad;
     @JsonProperty("ID_Proveedor")
@@ -15,11 +17,11 @@ public class DetalleComprasDTO {
     public DetalleComprasDTO(){
     }
 
-    public String getFecha_Entrada() {
+    public Date getFecha_Entrada() {
         return this.Fecha_Entrada;
     }
 
-    public void setFecha_Entrada(String fecha_Entrada) {
+    public void setFecha_Entrada(Date fecha_Entrada) {
         this.Fecha_Entrada = fecha_Entrada;
     }
 

@@ -33,7 +33,7 @@ public class DetalleCController {
 
     @PutMapping("/ActualizarDetalleC/{ID_Entrada}/{ID_Proveedor}")
     public String actualizarDetalleC(@PathVariable("ID_Entrada") String ID_Entrada, @PathVariable("ID_Proveedor") String ID_Proveedor,
-            @RequestBody DetalleComprasDTO detalleCDTO) {
+                                     @RequestBody DetalleComprasDTO detalleCDTO) {
 
         int filas = detalleCService.actualizarDetalleC(
                 ID_Entrada,
