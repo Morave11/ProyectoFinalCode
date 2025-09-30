@@ -77,7 +77,7 @@ if (!is_array($productos)) {
             <li><a class="dropdown-item" href="Perfil.html">Mi perfil</a></li>
             <li><a class="dropdown-item" href="EditarPerfil.php">Editar perfil</a></li>
             <li><a class="dropdown-item" href="Registro.php">Registrarse</a></li>
-            <li><a class="dropdown-item" href="Index.html">Cerrar Sesión</a></li>
+            <li><a class="dropdown-item" href="Index.php">Cerrar Sesión</a></li>
           </ul>
         </div>
       </div>
