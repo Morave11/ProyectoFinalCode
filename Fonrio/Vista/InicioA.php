@@ -47,8 +47,8 @@
             <i class="fas fa-user-friends me-2"></i><span>Roles</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="rolesMenu">
-            <li><a class="dropdown-item" href="/Fonrio/indexcli.php">Cliente</a></li>
-  <li><a class="dropdown-item" href="/Fonrio/indexempleado.php">Empleado</a></li>
+            <li><a class="dropdown-item" href="/indexcli.php">Cliente</a></li>
+  <li><a class="dropdown-item" href="/indexempleado.php">Empleado</a></li>
           </ul>
         </div>
       </div>

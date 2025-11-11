@@ -42,18 +42,14 @@ $productos = $productos ?? [];
          <a href="/Fonrio/indexproducto.php" class="elemento-menu">
             <i class="fa-solid fa-boxes"></i><span>Productos</span>
           </a>
-                     <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
-     href="#" 
-     id="rolesMenu" 
-     role="button" 
-     data-bs-toggle="dropdown" 
-     aria-expanded="false">
-    <i class="fas fa-user-friends me-2"></i><span>Roles</span>
-  </a>
-  <ul class="dropdown-menu" aria-labelledby="rolesMenu">
-  <li><a class="dropdown-item" href="/Fonrio/indexcli.php">Cliente</a></li>
-  <li><a class="dropdown-item" href="/Fonrio/indexempleado.php">Empleado</a></li>
-</ul>
+          <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+             href="#" id="rolesMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             <i class="fas fa-user-friends me-2"></i><span>Roles</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="rolesMenu">
+            <li><a class="dropdown-item" href="/Fonrio/indexcli.php">Cliente</a></li>
+            <li><a class="dropdown-item" href="/Fonrio/indexempleado.php">Empleado</a></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -125,7 +121,26 @@ $productos = $productos ?? [];
                 <td><?= htmlspecialchars($ID_Categoria) ?></td>
                 <td><?= htmlspecialchars($ID_Estado) ?></td>
                 <td><?= htmlspecialchars($ID_Gama) ?></td>
-                <td><img src="<?= $Fotos ?: "https://via.placeholder.com/80x50?text=".urlencode($Nombre_Producto); ?>" alt="<?= htmlspecialchars($Nombre_Producto); ?>" style="width:80px; height:auto;"></td>
+
+                <!-- Celda de imagen corregida -->
+                <td>
+                  <?php
+                    $src = trim($Fotos);
+                    if ($src === '') {
+                        $src = "https://via.placeholder.com/80x50?text=" . urlencode($Nombre_Producto);
+                    } elseif (stripos($src, 'data:image') === 0) {
+                        // Base64
+                    } elseif (preg_match('~^https?://~i', $src)) {
+                        // URL completa
+                    } else {
+                        $src = '/Fonrio/' . ltrim($src, '/');
+                    }
+                  ?>
+                  <img src="<?= htmlspecialchars($src) ?>"
+                       alt="<?= htmlspecialchars($Nombre_Producto) ?>"
+                       style="width:80px;height:auto;border-radius:4px;">
+                </td>
+
               </tr>
               <?php endforeach; ?>
             </tbody>
@@ -186,13 +201,12 @@ $productos = $productos ?? [];
             <div class="card-body">
               <h2 class="h4 mb-3">Eliminar Producto</h2>
               <form method="POST" class="row g-3">
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="text" name="ID_Producto" placeholder="ID Producto a eliminar" class="form-control" required>
-    <div class="col-12 text-center mt-3">
-        <button type="submit" class="btn btn-danger">Eliminar</button>
-    </div>
-</form>
-
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="text" name="ID_Producto" placeholder="ID Producto a eliminar" class="form-control" required>
+                <div class="col-12 text-center mt-3">
+                  <button type="submit" class="btn btn-danger">Eliminar</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

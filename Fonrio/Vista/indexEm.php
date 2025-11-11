@@ -44,18 +44,14 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
          <a href="/Fonrio/indexproducto.php" class="elemento-menu">
             <i class="fa-solid fa-boxes"></i><span>Productos</span>
           </a>
-                     <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
-     href="#" 
-     id="rolesMenu" 
-     role="button" 
-     data-bs-toggle="dropdown" 
-     aria-expanded="false">
-    <i class="fas fa-user-friends me-2"></i><span>Roles</span>
-  </a>
-  <ul class="dropdown-menu" aria-labelledby="rolesMenu">
- <li><a class="dropdown-item" href="/Fonrio/indexcli.php">Cliente</a></li>
-  <li><a class="dropdown-item" href="/Fonrio/indexempleado.php">Empleado</a></li>
-</ul>
+          <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+             href="#" id="rolesMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user-friends me-2"></i><span>Roles</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="rolesMenu">
+            <li><a class="dropdown-item" href="/Fonrio/indexcli.php">Cliente</a></li>
+            <li><a class="dropdown-item" href="/Fonrio/indexempleado.php">Empleado</a></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -65,13 +61,6 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand">Sistema gestión de inventarios</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav"></div>
-
         <div class="dropdown ms-auto">
           <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
              id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -150,12 +139,11 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
             <div class="card shadow-sm">
               <div class="card-body">
                 <h2 class="h4 mb-3">Añadir Empleado</h2>
-                <form method="POST" class="row g-3">
+                <form id="form-add-empleado" method="POST" class="row g-3">
                   <div class="col-md-6">
                     <label class="form-label">Documento</label>
                     <input type="text" name="Documento_Empleado" class="form-control" required>
                   </div>
-
                   <div class="col-md-6">
                     <label class="form-label">Tipo Documento</label>
                     <select name="Tipo_Documento" class="form-control" required>
@@ -165,7 +153,6 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
                       <option value="CE">Cédula de Extranjería</option>
                     </select>
                   </div>
-
                   <div class="col-md-6">
                     <label class="form-label">Nombre</label>
                     <input type="text" name="Nombre_Usuario" class="form-control" required>
@@ -186,7 +173,6 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
                     <label class="form-label">Teléfono</label>
                     <input type="text" name="Telefono" class="form-control" required>
                   </div>
-
                   <div class="col-md-6">
                     <label class="form-label">Género</label>
                     <select name="Genero" class="form-control" required>
@@ -195,7 +181,6 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
                       <option value="M">Masculino</option>
                     </select>
                   </div>
-
                   <div class="col-md-6">
                     <label class="form-label">Estado</label>
                     <select name="ID_Estado" class="form-control" required>
@@ -205,7 +190,6 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
                       <option value="EST003">En proceso</option>
                     </select>
                   </div>
-
                   <div class="col-md-6">
                     <label class="form-label">ID Rol</label>
                     <select name="ID_Rol" class="form-control" required>
@@ -214,12 +198,11 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
                       <option value="ROL002">Empleado</option>
                     </select>
                   </div>
-
                   <div class="col-md-6">
                     <label class="form-label">Subir Foto</label>
-                    <input type="file" name="Fotos" class="form-control" accept="image/*" required>
+                    <input type="file" name="Fotos_file" class="form-control" accept="image/*" required>
+                    <input type="hidden" name="Fotos">
                   </div>
-
                   <div class="col-12 text-center mt-3">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                   </div>
@@ -232,13 +215,12 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
             <div class="card shadow-sm">
               <div class="card-body">
                 <h2 class="h4 mb-3">Actualizar Empleado</h2>
-                <form method="POST" class="row g-3">
+                <form id="form-update-empleado" method="POST" class="row g-3">
                   <input type="hidden" name="_method" value="PUT">
                   <div class="col-md-6">
                     <label class="form-label">Documento a actualizar</label>
                     <input type="text" name="Documento_Empleado" class="form-control" required>
                   </div>
-                 
                   <div class="col-md-6">
                     <label class="form-label">Tipo Documento</label>
                     <select name="Tipo_Documento" class="form-control" required>
@@ -248,7 +230,6 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
                       <option value="CE">Cédula de Extranjería</option>
                     </select>
                   </div>
-
                   <div class="col-md-6">
                     <label class="form-label">Nombre</label>
                     <input type="text" name="Nombre_Usuario" class="form-control">
@@ -261,14 +242,14 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
                     <label class="form-label">Edad</label>
                     <input type="number" name="Edad" class="form-control">
                   </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Correo</label>
-                      <input type="email" name="Correo_Electronico" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Teléfono</label>
-                      <input type="text" name="Telefono" class="form-control">
-                    </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Correo</label>
+                    <input type="email" name="Correo_Electronico" class="form-control">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Teléfono</label>
+                    <input type="text" name="Telefono" class="form-control">
+                  </div>
                   <div class="col-md-6">
                     <label class="form-label">Género</label>
                     <select name="Genero" class="form-control" required>
@@ -277,7 +258,7 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
                       <option value="M">Masculino</option>
                     </select>
                   </div>
-                      <div class="col-md-6">
+                  <div class="col-md-6">
                     <label class="form-label">Estado</label>
                     <select name="ID_Estado" class="form-control" required>
                       <option value="">--Seleccione--</option>
@@ -286,7 +267,6 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
                       <option value="EST003">En proceso</option>
                     </select>
                   </div>
-
                   <div class="col-md-6">
                     <label class="form-label">ID Rol</label>
                     <select name="ID_Rol" class="form-control" required>
@@ -295,16 +275,14 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
                       <option value="ROL002">Empleado</option>
                     </select>
                   </div>
-
                   <div class="col-md-6">
                     <label class="form-label">Subir Foto</label>
-                    <input type="file" name="Fotos" class="form-control" accept="image/*" required>
+                    <input type="file" name="Fotos_file" class="form-control" accept="image/*">
+                    <input type="hidden" name="Fotos">
                   </div>
-
-                  
-                   <div class="col-12 text-center mt-3">
-              <button type="submit" class="btn btn-warning">Actualizar</button>
-            </div>
+                  <div class="col-12 text-center mt-3">
+                    <button type="submit" class="btn btn-warning">Actualizar</button>
+                  </div>
                 </form>
               </div>
             </div>
@@ -339,5 +317,34 @@ $empleado = is_array($empleado ?? null) ? $empleado : [];
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<script>
+async function fileToBase64NoPrefix(file) {
+  const fr = new FileReader();
+  return new Promise((resolve, reject) => {
+    fr.onload = () => resolve(fr.result.split(',')[1]);
+    fr.onerror = reject;
+    fr.readAsDataURL(file);
+  });
+}
+
+function addBase64Handler(formId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    const fileInput = form.querySelector('input[name="Fotos_file"]');
+    const hiddenInput = form.querySelector('input[name="Fotos"]');
+    if (fileInput && fileInput.files.length > 0) {
+      e.preventDefault();
+      hiddenInput.value = await fileToBase64NoPrefix(fileInput.files[0]);
+      form.submit();
+    }
+  });
+}
+
+addBase64Handler('form-add-empleado');
+addBase64Handler('form-update-empleado');
+</script>
+
 </body>
 </html>
