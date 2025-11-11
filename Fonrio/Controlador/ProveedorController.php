@@ -72,10 +72,10 @@ class ProveedorController {
             }
         }
 
-        // Listado para la vista
+        
         $proveedores = $this->proveedorService->obtenerProveedores() ?: [];
 
-        // Render de la vista (ajusta el nombre del archivo si es distinto)
+        
         require_once __DIR__ . '/../Vista/proveedor.php';
     }
 }

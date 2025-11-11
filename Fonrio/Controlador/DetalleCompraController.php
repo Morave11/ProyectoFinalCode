@@ -19,14 +19,14 @@ class DetalleCompraController {
             $cantidad      = trim($_POST["Cantidad"]       ?? '');
             $fechaEntrada  = trim($_POST["Fecha_Entrada"]  ?? '');
 
-            // CREATE
+            
             if ($method === "POST") {
                 $res = $this->detalleCompraService->agregarDetalleC($idEntrada, $idProveedor, $cantidad, $fechaEntrada);
                 $mensaje = ($res["success"] ?? false)
                     ? "<p style='color:green;'>Detalle de compra agregado correctamente.</p>"
                     : "<p style='color:red;'>".htmlspecialchars($res["error"] ?? "Error al agregar")."</p>";
 
-            // UPDATE
+            
             } elseif ($method === "PUT") {
                 if ($idEntrada === "" || $idProveedor === "") {
                     $mensaje = "<p style='color:red;'>Debes enviar ID_Entrada e ID_Proveedor para actualizar.</p>";
@@ -48,7 +48,7 @@ class DetalleCompraController {
                     }
                 }
 
-            // DELETE
+            
             } elseif ($method === "DELETE") {
                 if ($idEntrada === "" || $idProveedor === "") {
                     $mensaje = "<p style='color:red;'>Debes enviar ID_Entrada e ID_Proveedor para eliminar.</p>";
@@ -61,10 +61,10 @@ class DetalleCompraController {
             }
         }
 
-        // Obtener lista de detalles (GET)
+        
         $detallesCompra = $this->detalleCompraService->obtenerDetalleC() ?? [];
 
-        // Retornar vista o imprimir directamente (según tu estructura)
+        
         include __DIR__ . "/../vista/detallecompra.php";
     }
 }

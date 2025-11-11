@@ -47,7 +47,7 @@ class DevolucionController {
                         : "<p style='color:red;'>".htmlspecialchars($res["error"] ?? "Error al eliminar")." (HTTP ".htmlspecialchars((string)($res["http_code"] ?? "N/A")).")</p>";
                 }
 
-            } else { // POST
+            } else { 
                 if ($ID_Devolucion === '' || $Fecha_Devolucion === '' || $Motivo === '') {
                     $mensaje = "<p style='color:red;'>Todos los campos son obligatorios.</p>";
                 } else {
@@ -60,6 +60,6 @@ class DevolucionController {
         }
 
         $devoluciones = $this->devolucionService->obtenerDevoluciones() ?: [];
-        require_once __DIR__ . '/../Vista/indexDevolu.php';
+         require_once __DIR__ . '/../Vista/indexDevolu.php';
     }
 }

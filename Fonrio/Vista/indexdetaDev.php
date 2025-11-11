@@ -1,5 +1,4 @@
 <?php
-// Variables esperadas
 $mensaje = $mensaje ?? '';
 $devoluciones = is_array($devoluciones ?? null) ? $devoluciones : [];
 ?>
@@ -10,45 +9,42 @@ $devoluciones = is_array($devoluciones ?? null) ? $devoluciones : [];
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Detalle de Devoluciones</title>
 
-  <!-- Bootstrap + Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="../css/ventas.css" />
-  <link rel="stylesheet" href="../css/compras.css" />
+  <link rel="stylesheet" href="/Fonrio/css/ventas.css" />
+  <link rel="stylesheet" href="/Fonrio/css/compra.css" />
 </head>
 <body>
   <div class="d-flex" style="min-height: 100vh;">
 
-    <!-- SIDEBAR -->
-    <div class="barra-lateral d-flex flex-column flex-shrink-0 p-3 bg-primary text-white">
+   <div class="barra-lateral d-flex flex-column flex-shrink-0 p-3 bg-primary text-white">
       <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         TECNICELL RM
       </a>
       <hr>
       <div class="menu-barra-lateral">
         <div class="seccion-menu">
-          <a href="InicioA.php" class="elemento-menu">
+        <a href="/Fonrio//Vista/InicioA.php" class="elemento-menu">
             <i class="fa-solid fa-tachometer-alt"></i><span>Dashboard</span>
           </a>
-          <a href="RDevolucion.php" class="elemento-menu active">
+          <a href="/Fonrio/indexcompras.php" class="elemento-menu active">
+            <i class="fa-solid fa-shopping-cart"></i><span>Compras</span>
+          </a>
+          <a href="/Fonrio/indexdev.php" class="elemento-menu">
             <i class="fa-solid fa-undo"></i><span>Devoluciones</span>
           </a>
-          <a href="indexventas.php" class="elemento-menu">
+          <a href="/Fonrio/indexventas.php" class="elemento-menu">
             <i class="fa-solid fa-chart-line"></i><span>Ventas</span>
           </a>
         </div>
         <hr>
         <div class="seccion-menu">
-          <a href="proveedor.php" class="elemento-menu">
+          <a href="/Fonrio/indexproveedor.php" class="elemento-menu">
             <i class="fa-solid fa-users"></i><span>Proveedores</span>
           </a>
-          <a href="Productos.php" class="elemento-menu">
+         <a href="/Fonrio/indexproducto.php" class="elemento-menu">
             <i class="fa-solid fa-boxes"></i><span>Productos</span>
           </a>
-              <a href="/indexdev.php" class="elemento-menu">
-                        <i class="fas fa-users"></i>
-                        <span>Devolucion</span>
-                    </a>
                      <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
      href="#" 
      id="rolesMenu" 
@@ -58,16 +54,14 @@ $devoluciones = is_array($devoluciones ?? null) ? $devoluciones : [];
     <i class="fas fa-user-friends me-2"></i><span>Roles</span>
   </a>
   <ul class="dropdown-menu" aria-labelledby="rolesMenu">
-  <li><a class="dropdown-item" href="../indexcli.php">Cliente</a></li>
-  <li><a class="dropdown-item" href="../Indexempleado.php">Empleado</a></li>
+  <li><a class="dropdown-item" href="/Fonrio/indexcli.php">Cliente</a></li>
+  <li><a class="dropdown-item" href="/Fonrio/indexempleado.php">Empleado</a></li>
 </ul>
         </div>
       </div>
     </div>
 
-    <!-- CONTENIDO -->
     <div class="contenido-principal flex-grow-1">
-      <!-- NAVBAR -->
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand">Sistema gestión de inventarios</a>
@@ -80,7 +74,7 @@ $devoluciones = is_array($devoluciones ?? null) ? $devoluciones : [];
           <div class="dropdown ms-auto">
             <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="fotos_empleados/6865b20c9ef22_Foto de carnet Mateo.jpeg"
+              <img src="/Fonrio/php/fotos_empleados/686fe89fe865f_Foto Kevin.jpeg"
                    alt="" width="32" height="32" class="rounded-circle me-2">
               <strong>Perfil</strong>
             </a>
@@ -88,25 +82,20 @@ $devoluciones = is_array($devoluciones ?? null) ? $devoluciones : [];
               <li><a class="dropdown-item" href="Perfil.html">Mi perfil</a></li>
               <li><a class="dropdown-item" href="EditarPerfil.php">Editar perfil</a></li>
               <li><a class="dropdown-item" href="Registro.php">Registrarse</a></li>
-              <li><a class="dropdown-item" href="Index.html">Cerrar Sesión</a></li>
+              <li><a class="dropdown-item" href="/Fonrio/Vista/Index.php">Cerrar Sesión</a></li>
             </ul>
           </div>
         </div>
       </nav>
 
-      <!-- CABECERA -->
       <div class="container py-4">
         <div class="d-flex align-items-center justify-content-center gap-3">
           <img src="../Imagenes/Logo.webp" alt="Logo TECNICELL" style="height:48px; width:auto;" />
           <h1 class="m-0">Detalle de Devoluciones</h1>
         </div>
-
-        <!-- Mensajes -->
       
       <?= $mensaje ? "<div class='alert alert-info mt-3'>$mensaje</div>" : "" ?>
 
-
-        <!-- TABLA DE DEVOLUCIONES -->
         <div class="mt-4">
           <div class="table-responsive">
             <table class="table table-bordered table-hover table-striped align-middle">
@@ -147,10 +136,8 @@ $devoluciones = is_array($devoluciones ?? null) ? $devoluciones : [];
           </div>
         </div>
 
-        <!-- FORMULARIOS -->
         <div class="mt-5">
           <div class="row g-4">
-            <!-- Crear -->
             <div class="col-md-6">
               <div class="card shadow-sm">
                 <div class="card-body">
@@ -180,7 +167,6 @@ $devoluciones = is_array($devoluciones ?? null) ? $devoluciones : [];
               </div>
             </div>
 
-            <!-- Actualizar -->
             <div class="col-md-6">
               <div class="card shadow-sm">
                 <div class="card-body">
@@ -211,7 +197,6 @@ $devoluciones = is_array($devoluciones ?? null) ? $devoluciones : [];
               </div>
             </div>
 
-            <!-- Eliminar -->
             <div class="col-md-6">
               <div class="card shadow-sm">
                 <div class="card-body">
@@ -233,15 +218,15 @@ $devoluciones = is_array($devoluciones ?? null) ? $devoluciones : [];
                 </div>
               </div>
             </div>
-          </div><!-- /row -->
-        </div><!-- /formularios -->
+          </div>
+        </div>
 
         <footer class="footer mt-5 text-center text-muted">
           <p class="m-0">Copyright © 2025 Fonrio</p>
         </footer>
-      </div><!-- /container -->
-    </div><!-- /contenido -->
-  </div><!-- /d-flex -->
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>

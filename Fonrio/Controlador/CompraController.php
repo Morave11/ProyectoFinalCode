@@ -43,7 +43,7 @@ class ComprasController {
                     }
                 }
 
-            } elseif ($method === "DELETE") { // Delete
+            } elseif ($method === "DELETE") { 
                 if ($idEntrada === "") {
                     $mensaje = "<p style='color:red;'>Debes enviar el ID_Entrada para eliminar.</p>";
                 } else {
@@ -52,7 +52,7 @@ class ComprasController {
                         ? "<p style='color:green;'>Compra eliminada correctamente.</p>"
                         : "<p style='color:red;'>".htmlspecialchars($res["error"] ?? "Error al eliminar")." (HTTP ".htmlspecialchars((string)($res["http_code"] ?? "N/A")).")</p>";
                 }
-            } else { // POST (crear)
+            } else { 
                 if ($idEntrada === '' || $precioCompra === '' || $idProducto === '' || $documentoEmpleado === ''    ) {
                     $mensaje = "<p style='color:red;'>Todos los campos son obligatorios.</p>";
                 } else {
@@ -72,4 +72,4 @@ class ComprasController {
         $compras = $this->comprasService->obtenerCompras() ?: [];
         require_once __DIR__ . '/../Vista/compras.php';
     }
-}   
+}

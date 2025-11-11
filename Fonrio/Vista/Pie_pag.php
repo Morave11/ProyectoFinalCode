@@ -10,14 +10,11 @@
 </head>
 <body>
 
-  <!-- Logo fijo -->
     <div>
   <a href="../php/index.html"><img  src="../Imagenes/Logo.webp" alt="Logo esquina" class="logo" /></a>
   </div>
-  <!-- Título principal -->
   <h1>FONRIO</h1>
 
-  <!--¿Quiénes somos?-->
   <div class="contenido-principal">
     <div class="contenedor-quienes" id="¿Quiénes somos?">
       <h2>¿Quiénes somos?</h2>
@@ -28,7 +25,6 @@
       </p>
     </div>
 
-    <!--Misión, Visión y Objetivo -->
     <div class="tarjetas ">
       <div class="tarjeta">
         <h2>Misión</h2>
@@ -56,7 +52,6 @@
     </div>
   </div>
 
-  <!--¿Por qué FONRIO? y Política de privacidad-->
   <div class="container">
     <div class="extra-box" id="¿Por qué FONRIO?">
       <h2>¿Por qué FONRIO?</h2>  
@@ -75,7 +70,6 @@
     </div>
   </div>
 
-  <!--Preguntas Frecuentes-->
   <div class="section-preguntas">
     <div class="Preguntas" id="Preguntas frecuentes">
       <h2>Preguntas frecuentes sobre FONRIO</h2>
@@ -115,7 +109,6 @@
     </details>
 
       </div>
-  <!-- Sección: Tienda -->
   <div class="section-tienda">
     <div class="bloque-tienda">
       <h2>Tienda</h2>
@@ -162,7 +155,6 @@
     
 </div>
 
-  <!-- Footer -->
   <footer class="footer">
     <p>Copyright © 2025 Fonrio</p>
   </footer>

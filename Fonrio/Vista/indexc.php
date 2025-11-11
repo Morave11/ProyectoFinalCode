@@ -11,64 +11,57 @@ $clientes = is_array($clientes ?? null) ? $clientes : [];
   
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="../css/menu.css" />
+  <link rel="stylesheet" href="/Fonrio/css/menu.css" />
 </head>
 <body>
 <div class="d-flex" style="min-height: 100vh;">
 
-  <!-- SIDEBAR -->
   <div class="barra-lateral d-flex flex-column flex-shrink-0 p-3 bg-primary text-white">
-    <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      TECNICELL RM
-    </a>
-    <hr>
-    <div class="menu-barra-lateral">
-      <div class="seccion-menu">
-        <a href="InicioA.php" class="elemento-menu">
-          <i class="fa-solid fa-tachometer-alt"></i><span>Dashboard</span>
-        </a>
-        <a href="compra.php" class="elemento-menu">
-          <i class="fa-solid fa-shopping-cart"></i><span>Compras</span>
-        </a>
-        <a href="RDevolucion.php" class="elemento-menu">
-          <i class="fa-solid fa-undo"></i><span>Devoluciones</span>
-        </a>
-        <a href="indexventas.php" class="elemento-menu">
-          <i class="fa-solid fa-chart-line"></i><span>Ventas</span>
-        </a>
-      </div>
+      <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        TECNICELL RM
+      </a>
       <hr>
-      <div class="seccion-menu">
-        <a href="/indexproveedor.php" class="elemento-menu">
-          <i class="fas fa-users"></i>
-          <span>Proveedores</span>
-        </a>
-        <a href="Productos.php" class="elemento-menu">
-          <i class="fas fa-boxes"></i>
-          <span>Productos</span>
-        </a>
-           <a href="/indexdev.php" class="elemento-menu">
-                        <i class="fas fa-users"></i>
-                        <span>Devolucion</span>
-                    </a>
-        <div class="dropdown">
-          <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
-             href="#" id="rolesMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-user-friends me-2"></i><span>Roles</span>
+      <div class="menu-barra-lateral">
+        <div class="seccion-menu">
+          <a href="/Fonrio//Vista/InicioA.php" class="elemento-menu">
+            <i class="fa-solid fa-tachometer-alt"></i><span>Dashboard</span>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="rolesMenu">
-            <li><a class="dropdown-item" href="../indexcli.php">Cliente</a></li>
-            <li><a class="dropdown-item" href="../Indexempleado.php">Empleado</a></li>
-          </ul>
+          <a href="/Fonrio/indexcompras.php" class="elemento-menu active">
+            <i class="fa-solid fa-shopping-cart"></i><span>Compras</span>
+          </a>
+          <a href="/Fonrio/indexdev.php" class="elemento-menu">
+            <i class="fa-solid fa-undo"></i><span>Devoluciones</span>
+          </a>
+          <a href="/Fonrio/indexventas.php" class="elemento-menu">
+            <i class="fa-solid fa-chart-line"></i><span>Ventas</span>
+          </a>
+        </div>
+        <hr>
+        <div class="seccion-menu">
+          <a href="/Fonrio/indexproveedor.php" class="elemento-menu">
+            <i class="fa-solid fa-users"></i><span>Proveedores</span>
+          </a>
+          <a href="/Fonrio/indexproducto.php" class="elemento-menu">
+            <i class="fa-solid fa-boxes"></i><span>Productos</span>
+          </a>
+                     <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+     href="#" 
+     id="rolesMenu" 
+     role="button" 
+     data-bs-toggle="dropdown" 
+     aria-expanded="false">
+    <i class="fas fa-user-friends me-2"></i><span>Roles</span>
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="rolesMenu">
+  <li><a class="dropdown-item" href="/Fonrio/indexcli.php">Cliente</a></li>
+  <li><a class="dropdown-item" href="/Fonrio/indexempleado.php">Empleado</a></li>
+</ul>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- CONTENIDO PRINCIPAL -->
   <div class="contenido-principal flex-grow-1">
 
-    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand">Sistema gestión de inventarios</a>
@@ -83,31 +76,28 @@ $clientes = is_array($clientes ?? null) ? $clientes : [];
         <div class="dropdown ms-auto">
           <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
              id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="fotos_empleados/6865b20c9ef22_Foto de carnet Mateo.jpeg"
-                 alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong>Perfil</strong>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="Perfil.html">Mi perfil</a></li>
-            <li><a class="dropdown-item" href="EditarPerfil.php">Editar perfil</a></li>
-            <li><a class="dropdown-item" href="Registro.php">Registrarse</a></li>
-            <li><a class="dropdown-item" href="Index.html">Cerrar Sesión</a></li>
-          </ul>
+            <img src="/Fonrio/php/fotos_empleados/686fe89fe865f_Foto Kevin.jpeg"
+                   alt="" width="32" height="32" class="rounded-circle me-2">
+              <strong>Perfil</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+              <li><a class="dropdown-item" href="Perfil.html">Mi perfil</a></li>
+              <li><a class="dropdown-item" href="EditarPerfil.php">Editar perfil</a></li>
+              <li><a class="dropdown-item" href="Registro.php">Registrarse</a></li>
+              <li><a class="dropdown-item" href="/Fonrio/Vista/Index.php">Cerrar Sesión</a></li>
+            </ul>
         </div>
       </div>
     </nav>
 
-    <!-- CABECERA -->
     <div class="container py-4">
       <div class="d-flex align-items-center justify-content-center gap-3">
         <img src="../Imagenes/Logo.webp" alt="Logo TECNICELL" style="height:48px; width:auto;" />
         <h1 class="m-0">Registro de Clientes</h1>
       </div>
 
-      <!-- Mensajes -->
       <?= $mensaje ? "<div class='alert alert-info mt-3'>$mensaje</div>" : "" ?>
 
-      <!-- TABLA -->
       <?php if (is_array($clientes) && !empty($clientes)): ?>
         <div class="table-responsive mt-4">
           <table class="table table-bordered table-striped align-middle text-center">
@@ -149,10 +139,8 @@ $clientes = is_array($clientes ?? null) ? $clientes : [];
       <?php else: ?>
         <p class="text-danger mt-4">No hay clientes para mostrar.</p>
       <?php endif; ?>
-<!-- FORMULARIOS -->
 <div class="row mt-5">
   <div class="row g-4">
-    <!-- Crear -->
     <div class="col-md-6">
       <div class="card shadow-sm">
         <div class="card-body">
@@ -204,7 +192,6 @@ $clientes = is_array($clientes ?? null) ? $clientes : [];
       </div>
     </div>
 
-    <!-- Actualizar -->
     <div class="col-md-6">
       <div class="card shadow-sm">
         <div class="card-body">
@@ -257,7 +244,6 @@ $clientes = is_array($clientes ?? null) ? $clientes : [];
       </div>
     </div>
 
-    <!-- Eliminar -->
     <div class="col-md-6">
       <div class="card shadow-sm">
         <div class="card-body">
@@ -276,15 +262,15 @@ $clientes = is_array($clientes ?? null) ? $clientes : [];
       </div>
     </div>
 
-  </div><!-- /row -->
-</div><!-- /formularios -->
+  </div>
+</div>
 
 <footer class="footer mt-5 text-center text-muted">
   <p class="m-0">Copyright © 2025 Fonrio</p>
 </footer>
-</div><!-- /container -->
-</div><!-- /contenido-principal -->
-</div><!-- /d-flex -->
+</div>
+</div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>

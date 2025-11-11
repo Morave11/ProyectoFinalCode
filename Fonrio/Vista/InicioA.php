@@ -11,98 +11,81 @@
 
 <body>
     <div class="d-flex" style="min-height: 100vh;">
-        <!-- SIDEBAR -->
-        <div class="sidebar d-flex flex-column flex-shrink-0 p-3 bg-primary text-white">
-            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-                TECNICELL RM
-            </a>
-            <hr>
-            <div class="menu-barra-lateral">
-                <div class="seccion-menu">
-                    <div class="elemento-menu activo">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
-                    </div>
-                    <a href="../indexcompras.php" class="elemento-menu">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span>Compras</span>
-                    </a>
-                    <a href="RDevolucion.php" class="elemento-menu">
-                        <i class="fas fa-undo"></i>
-                        <span>Devoluciones</span>
-                    </a>
-                    
-                    <a href="../indexventas.php" class="elemento-menu">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Ventas</span>
-                    </a>
-                </div>
-                <hr>
-                <div class="seccion-menu">
-                    <a href="/indexproveedor.php" class="elemento-menu">
-                        <i class="fas fa-users"></i>
-                        <span>Proveedores</span>
-                    </a>
-                    <a href="../indexproducto.php" class="elemento-menu">
-                        <i class="fas fa-boxes"></i>
-                        <span>Productos</span>
-                                        </a>
-
-                                        <a href="/indexdev.php" class="elemento-menu">
-                        <i class="fas fa-users"></i>
-                        <span>Devolucion</span>
-                    </a>
-                     <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
-     href="#" 
-     id="rolesMenu" 
-     role="button" 
-     data-bs-toggle="dropdown" 
-     aria-expanded="false">
-    <i class="fas fa-user-friends me-2"></i><span>Roles</span>
-  </a>
-  <ul class="dropdown-menu" aria-labelledby="rolesMenu">
-  <li><a class="dropdown-item" href="../indexcli.php">Cliente</a></li>
-  <li><a class="dropdown-item" href="../Indexempleado.php">Empleado</a></li>
-</ul>
-                </div>
-            </div>
+        <div class="barra-lateral d-flex flex-column flex-shrink-0 p-3 bg-primary text-white">
+    <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      TECNICELL RM
+    </a>
+    <hr>
+    <div class="menu-barra-lateral">
+      <div class="seccion-menu">
+        <a href="" class="elemento-menu">
+          <i class="fa-solid fa-tachometer-alt"></i><span>Dashboard</span>
+        </a>
+        <a href="../indexcompras.php" class="elemento-menu">
+          <i class="fa-solid fa-shopping-cart"></i><span>Compras</span>
+        </a>
+        <a href="../indexdev.php" class="elemento-menu">
+          <i class="fa-solid fa-undo"></i><span>Devoluciones</span>
+        </a>
+        <a href="../indexventas.php" class="elemento-menu">
+          <i class="fa-solid fa-chart-line"></i><span>Ventas</span>
+        </a>
+      </div>
+      <hr>
+      <div class="seccion-menu">
+        <a href="../indexproveedor.php" class="elemento-menu">
+          <i class="fas fa-users"></i>
+          <span>Proveedores</span>
+        </a>
+        <a href="../indexproducto.php" class="elemento-menu">
+          <i class="fas fa-boxes"></i>
+          <span>Productos</span>
+        </a>
+        <div class="dropdown">
+          <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+             href="#" id="rolesMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user-friends me-2"></i><span>Roles</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="rolesMenu">
+            <li><a class="dropdown-item" href="/Fonrio/indexcli.php">Cliente</a></li>
+  <li><a class="dropdown-item" href="/Fonrio/indexempleado.php">Empleado</a></li>
+          </ul>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <!-- CONTENIDO PRINCIPAL -->
-        <div class="flex-grow-1">
-            <!-- NAVBAR -->
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-                    <a class="navbar-brand" >Sistema gestión de inventarios</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <!-- Puedes agregar aquí más links si lo necesitas -->
-                    </div>
-                    <div class="dropdown ms-auto">
-                        <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
-                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="fotos_empleados/6865b20c9ef22_Foto de carnet Mateo.jpeg" alt="" width="32" height="32" class="rounded-circle me-2">
-                            <strong>Perfil</strong>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="Perfil.html">Mi perfil</a></li>
-                            <li><a class="dropdown-item" href="EditarPerfil.php">Editar perfil</a></li>
-                            <li><a class="dropdown-item" href="Registro.php">Registrarse</a></li>
-                            <li><a class="dropdown-item" href="Index.html">Cerrar Sesión</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <!-- CONTENIDO VACÍO PARA LLENAR -->
+  <div class="contenido-principal flex-grow-1">
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand">Sistema gestión de inventarios</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav"></div>
+
+        <div class="dropdown ms-auto">
+          <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
+             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/Fonrio/php/fotos_empleados/686fe89fe865f_Foto Kevin.jpeg"
+                   alt="" width="32" height="32" class="rounded-circle me-2">
+              <strong>Perfil</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+              <li><a class="dropdown-item" href="Perfil.html">Mi perfil</a></li>
+              <li><a class="dropdown-item" href="EditarPerfil.php">Editar perfil</a></li>
+              <li><a class="dropdown-item" href="Registro.php">Registrarse</a></li>
+              <li><a class="dropdown-item" href="/Fonrio/Vista/Index.php">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+      </div>
+    </nav>
             <div class="container mt-4">
   <div class="row g-4">
-    <!-- Órdenes de Compra -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card tarjeta-dashboard azul h-100 text-center">
         <div class="icono-tarjeta-dashboard mx-auto mt-3 mb-2">
@@ -114,7 +97,6 @@
         </div>
       </div>
     </div>
-    <!-- Compras Recibidas -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card tarjeta-dashboard verde-azul h-100 text-center">
         <div class="icono-tarjeta-dashboard mx-auto mt-3 mb-2">
@@ -126,7 +108,6 @@
         </div>
       </div>
     </div>
-    <!-- Devoluciones -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card tarjeta-dashboard naranja h-100 text-center">
         <div class="icono-tarjeta-dashboard mx-auto mt-3 mb-2">
@@ -138,7 +119,6 @@
         </div>
       </div>
     </div>
-    <!-- Ventas -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card tarjeta-dashboard azul-oscuro h-100 text-center">
         <div class="icono-tarjeta-dashboard mx-auto mt-3 mb-2">
@@ -150,7 +130,6 @@
         </div>
       </div>
     </div>
-    <!-- Proveedores -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card tarjeta-dashboard naranja-alternativo h-100 text-center">
         <div class="icono-tarjeta-dashboard mx-auto mt-3 mb-2">
@@ -162,7 +141,6 @@
         </div>
       </div>
     </div>
-    <!-- Productos -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card tarjeta-dashboard morado h-100 text-center">
         <div class="icono-tarjeta-dashboard mx-auto mt-3 mb-2">

@@ -58,7 +58,7 @@ class ProductoController {
                         : "<p style='color:red;'>".htmlspecialchars($res["error"] ?? "Error al eliminar")." (HTTP ".htmlspecialchars((string)($res["http_code"] ?? "N/A")).")</p>";
                 }
 
-            } else { // POST (crear)
+            } else { 
                 if ($idProducto === "" || $nombre === "") {
                     $mensaje = "<p style='color:red;'>El ID y el Nombre del producto no pueden estar vacíos.</p>";
                 } else {

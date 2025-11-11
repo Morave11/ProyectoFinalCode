@@ -6,14 +6,14 @@ class DetalleCompraService {
     private $apiUrlPut    = "http://localhost:8080/ActualizarDetalleC"; 
     private $apiUrlDelete = "http://localhost:8080/EliminarDetC";      
 
-    // Obtener todos los detalles de compra
+    
     public function obtenerDetalleC() {
         $respuesta = @file_get_contents($this->apiUrlGet);
         if ($respuesta === false) return false;
         return json_decode($respuesta, true);
     }
 
-    // Agregar un detalle de compra
+    
     public function agregarDetalleC($ID_Entrada, $ID_Proveedor, $Cantidad, $Fecha_Entrada) {
         $data_json = json_encode([
             "ID_Entrada"    => $ID_Entrada,
@@ -46,7 +46,7 @@ class DetalleCompraService {
         ];
     }
 
-    // Actualizar Detalle de Compra (requiere ID_Entrada e ID_Proveedor)
+    
     public function actualizarDetalleC($ID_Entrada, $ID_Proveedor, $data) {
         $url = $this->apiUrlPut . '/' . rawurlencode($ID_Entrada) . '/' . rawurlencode($ID_Proveedor);
         $data_json = json_encode($data, JSON_UNESCAPED_UNICODE);
@@ -76,7 +76,7 @@ class DetalleCompraService {
         ];
     }
 
-    // Eliminar Detalle de Compra (requiere ID_Entrada e ID_Proveedor)
+    
     public function eliminarDetalleC($ID_Entrada, $ID_Proveedor) {
         $url = $this->apiUrlDelete . '/' . rawurlencode($ID_Entrada) . '/' . rawurlencode($ID_Proveedor);
 

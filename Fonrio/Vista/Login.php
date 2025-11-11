@@ -11,10 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($documento === '' || $clave === '') {
         $mensaje = "Documento y contraseña son obligatorios.";
     } else {
-        // importante: charset para acentos/ñ
         $conexion->set_charset("utf8mb4");
 
-        // Verificamos usuario + contraseña con SHA-256 en MySQL
         $sql = "SELECT 
                     E.Documento_Empleado,
                     E.Nombre_Usuario,
@@ -33,13 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
 
         if ($fila) {
-            // Login correcto
             session_regenerate_id(true);
             $_SESSION['documento'] = $fila['Documento_Empleado'];
             $_SESSION['nombre']    = $fila['Nombre_Usuario'];
             $_SESSION['rol']       = $fila['ID_Rol'];
 
-            // Redirigir según rol
             if ($fila['ID_Rol'] === "ROL002") {
                 header("Location: InicioE.php");
             } else {

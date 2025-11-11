@@ -6,14 +6,14 @@ class DetaDevolucionService {
     private $apiUrlPut    = "http://localhost:8080/ActualizarDetalleD";  
     private $apiUrlDelete = "http://localhost:8080/EliminarDetD";     
 
-    // Obtener todos los registros
+    
     public function obtenerEmpleados() {
         $respuesta = @file_get_contents($this->apiUrlGet);
         if ($respuesta === false) return false;
         return json_decode($respuesta, true);
     }
 
-    // Agregar un registro
+    
     public function agregarEmpleado($ID_DetalleDev, $ID_Devolucion, $Cantidad_Devuelta, $ID_Venta) {
         $data_json = json_encode([
             "ID_DetalleDev"      => $ID_DetalleDev,
@@ -48,7 +48,7 @@ class DetaDevolucionService {
         }
     }
 
-    // Actualizar un registro
+    
     public function actualizarEmpleado($ID_Devolucion, $ID_Venta, $data) {
         $url = $this->apiUrlPut . "/" . rawurlencode($ID_Devolucion) . "/" . rawurlencode($ID_Venta);
         $data_json = json_encode($data, JSON_UNESCAPED_UNICODE);
@@ -79,7 +79,7 @@ class DetaDevolucionService {
         ];
     }
 
-    // Eliminar un registro
+    
     public function eliminarEmpleado($ID_Devolucion, $ID_Venta) {
         $url = $this->apiUrlDelete . "/" . rawurlencode($ID_Devolucion) . "/" . rawurlencode($ID_Venta);
 

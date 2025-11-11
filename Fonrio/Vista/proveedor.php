@@ -16,10 +16,8 @@ $proveedores = is_array($proveedores ?? null) ? $proveedores : [];
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-  <!-- Estilos (usa el mismo CSS de la vista de Ventas para sidebar/navbar) -->
-  <link rel="stylesheet" href="../css/ventas.css" />
-  <!-- Si tienes estilos específicos de proveedores, puedes mantenerlos -->
-  <link rel="stylesheet" href="../css/proveedores.css" />
+   <link rel="stylesheet" href="/Fonrio/css/ventas.css" />
+  <link rel="stylesheet" href="/Fonrio/css/proveedores.css" />
 </head>
 <body>
   <div class="d-flex" style="min-height: 100vh;">
@@ -32,32 +30,29 @@ $proveedores = is_array($proveedores ?? null) ? $proveedores : [];
       <hr>
       <div class="menu-barra-lateral">
         <div class="seccion-menu">
-          <a href="InicioA.php" class="elemento-menu">
+        <a href="/Fonrio//Vista/InicioA.php" class="elemento-menu">
             <i class="fa-solid fa-tachometer-alt"></i><span>Dashboard</span>
           </a>
-          <a href="compra.php" class="elemento-menu">
+          <a href="/Fonrio/indexcompras.php" class="elemento-menu active">
             <i class="fa-solid fa-shopping-cart"></i><span>Compras</span>
           </a>
-          <a href="RDevolucion.php" class="elemento-menu">
+          <a href="/Fonrio/indexdev.php" class="elemento-menu">
             <i class="fa-solid fa-undo"></i><span>Devoluciones</span>
           </a>
-          <a href="indexventas.php" class="elemento-menu">
+          <a href="/Fonrio/indexventas.php" class="elemento-menu">
             <i class="fa-solid fa-chart-line"></i><span>Ventas</span>
           </a>
         </div>
         <hr>
         <div class="seccion-menu">
-          <a href="../indexproveedor.php" class="elemento-menu">
+          <a href="/Fonrio/indexproveedor.php" class="elemento-menu">
             <i class="fa-solid fa-users"></i><span>Proveedores</span>
           </a>
-          <a href="Productos.php" class="elemento-menu">
+        <a href="/Fonrio/indexproducto.php" class="elemento-menu">
             <i class="fa-solid fa-boxes"></i><span>Productos</span>
           </a>
-
-
-          <div class="dropdown">
-          <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
-            href="#" 
+                     <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+     href="#" 
      id="rolesMenu" 
      role="button" 
      data-bs-toggle="dropdown" 
@@ -65,14 +60,12 @@ $proveedores = is_array($proveedores ?? null) ? $proveedores : [];
     <i class="fas fa-user-friends me-2"></i><span>Roles</span>
   </a>
   <ul class="dropdown-menu" aria-labelledby="rolesMenu">
-     <li><a class="dropdown-item" href="../indexcli.php">Cliente</a></li>
-   <li><a class="dropdown-item" href="../Indexempleado.php">Empleado</a></li>
+  <li><a class="dropdown-item" href="/Fonrio/indexcli.php">Cliente</a></li>
+  <li><a class="dropdown-item" href="/Fonrio/indexempleado.php">Empleado</a></li>
 </ul>
-          </div>
         </div>
       </div>
     </div>
-
     <!-- CONTENIDO PRINCIPAL -->
     <div class="contenido-principal flex-grow-1">
 
@@ -90,7 +83,7 @@ $proveedores = is_array($proveedores ?? null) ? $proveedores : [];
           <div class="dropdown ms-auto">
             <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="fotos_empleados/6865b20c9ef22_Foto de carnet Mateo.jpeg"
+              <img src="/Fonrio/php/fotos_empleados/686fe89fe865f_Foto Kevin.jpeg"
                    alt="" width="32" height="32" class="rounded-circle me-2">
               <strong>Perfil</strong>
             </a>
@@ -98,7 +91,7 @@ $proveedores = is_array($proveedores ?? null) ? $proveedores : [];
               <li><a class="dropdown-item" href="Perfil.html">Mi perfil</a></li>
               <li><a class="dropdown-item" href="EditarPerfil.php">Editar perfil</a></li>
               <li><a class="dropdown-item" href="Registro.php">Registrarse</a></li>
-              <li><a class="dropdown-item" href="Index.html">Cerrar Sesión</a></li>
+              <li><a class="dropdown-item" href="/Fonrio/Vista/Index.php">Cerrar Sesión</a></li>
             </ul>
           </div>
         </div>

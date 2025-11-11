@@ -1,156 +1,253 @@
 <?php
-include("conexion.php");
-$mensaje = "";
-
-// SOLO SI SE ENVÍA EL FORMULARIO
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recibir y limpiar los datos del formulario
-    $nombres    = trim($_POST["nombres"]);
-    $apellidos  = trim($_POST["apellidos"]);
-    $tipo_doc   = $_POST["tipodocumento"];
-    $num_doc    = trim($_POST["numerodocumento"]);
-    $edad       = (int)$_POST["edad"];
-    $genero     = ($_POST["sexo"] === "femenino") ? "F" : "M";
-    $correo     = trim($_POST["correo"]);
-    $telefono   = trim($_POST["telefono"]);
-    $rol        = ($_POST["rol"] === "Administrador") ? "ROL001" : "ROL002";
-    $estado     = "EST001"; // Por defecto, "Activo" (ajusta según tus datos)
-
-    // Manejo de la foto (guarda la ruta/nombre)
-    $foto_nombre = "";
-    if(isset($_FILES["fotografia"]) && $_FILES["fotografia"]["error"] == 0){
-        $carpeta = "fotos_empleados/";
-        if (!is_dir($carpeta)) {
-            mkdir($carpeta, 0777, true);
-        }
-        $foto_nombre = $carpeta . uniqid() . "_" . basename($_FILES["fotografia"]["name"]);
-        move_uploaded_file($_FILES["fotografia"]["tmp_name"], $foto_nombre);
-    }
-
-    // Contraseña (Hash)
-    $password_hash = password_hash($_POST["contraseña"], PASSWORD_DEFAULT);
-
-    // Insertar en empleados
-    $sql_emp = "INSERT INTO empleados 
-        (Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad, Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conexion->prepare($sql_emp);
-    $stmt->bind_param(
-        "ssssissssss", 
-        $num_doc, $tipo_doc, $nombres, $apellidos, $edad, $correo, $telefono, $genero, $estado, $rol, $foto_nombre
-    );
-
-    if($stmt->execute()){
-        // Insertar en contrasenas
-        $sql_pass = "INSERT INTO contrasenas (Documento_Empleado, Contrasena_Hash) VALUES (?, ?)";
-        $stmt2 = $conexion->prepare($sql_pass);
-        $stmt2->bind_param("ss", $num_doc, $password_hash);
-        $stmt2->execute();
-        $mensaje = "<div class='alert alert-success'>Registro exitoso. ¡Ya puedes iniciar sesión!</div>";
-        // Redirige a login después de 2 segundos
-        echo "<script>setTimeout(function(){ window.location = 'Login.php'; }, 2000);</script>";
-    } else {
-        $mensaje = "<div class='alert alert-danger'>Error: ".$stmt->error."</div>";
-    }
-}
+$mensaje     = $mensaje      ?? '';
+$proveedores = is_array($proveedores ?? null) ? $proveedores : [];
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Registro</title>
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/Registro.css" rel="stylesheet">
-<link rel="icon" type="image/webp" href="../Imagenes/Logo.webp">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proveedores</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+   <link rel="stylesheet" href="/Fonrio/css/ventas.css" />
+  <link rel="stylesheet" href="/Fonrio/css/proveedores.css" />
 </head>
 <body>
-<img src="../Imagenes/Logo.webp" alt="Logo" class="logo">
-<div class="container">
-    <div class="row justify-content-center">
-    <div class="col-md-6">
-    <div class="card shadow-sm mb-4">
-    <div class="card-header text-white text-center">
-        <h1 class="h1 mb-0">Registro</h1>
+  <div class="d-flex" style="min-height: 100vh;">
+
+    <div class="barra-lateral d-flex flex-column flex-shrink-0 p-3 bg-primary text-white">
+      <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        TECNICELL RM
+      </a>
+      <hr>
+      <div class="menu-barra-lateral">
+        <div class="seccion-menu">
+        <a href="/Fonrio//Vista/InicioA.php" class="elemento-menu">
+            <i class="fa-solid fa-tachometer-alt"></i><span>Dashboard</span>
+          </a>
+          <a href="/Fonrio/indexcompras.php" class="elemento-menu active">
+            <i class="fa-solid fa-shopping-cart"></i><span>Compras</span>
+          </a>
+          <a href="/Fonrio/indexdev.php" class="elemento-menu">
+            <i class="fa-solid fa-undo"></i><span>Devoluciones</span>
+          </a>
+          <a href="/Fonrio/indexventas.php" class="elemento-menu">
+            <i class="fa-solid fa-chart-line"></i><span>Ventas</span>
+          </a>
+        </div>
+        <hr>
+        <div class="seccion-menu">
+          <a href="/Fonrio/indexproveedor.php" class="elemento-menu">
+            <i class="fa-solid fa-users"></i><span>Proveedores</span>
+          </a>
+        <a href="/Fonrio/indexproducto.php" class="elemento-menu">
+            <i class="fa-solid fa-boxes"></i><span>Productos</span>
+          </a>
+                     <a class="elemento-menu d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+     href="#" 
+     id="rolesMenu" 
+     role="button" 
+     data-bs-toggle="dropdown" 
+     aria-expanded="false">
+    <i class="fas fa-user-friends me-2"></i><span>Roles</span>
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="rolesMenu">
+  <li><a class="dropdown-item" href="/Fonrio/indexcli.php">Cliente</a></li>
+  <li><a class="dropdown-item" href="/Fonrio/indexempleado.php">Empleado</a></li>
+</ul>
+        </div>
+      </div>
     </div>
-    <div class="card-body">
-        <?php if($mensaje != "") echo $mensaje; ?>
-        <form action="" method="post" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="nombres" class="form-label">Nombres</label>
-            <input type="text" id="nombres" name="nombres" class="form-control" required>
+    <div class="contenido-principal flex-grow-1">
+
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand">Sistema gestión de inventarios</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNav"></div>
+
+          <div class="dropdown ms-auto">
+            <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
+               id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="/Fonrio/php/fotos_empleados/686fe89fe865f_Foto Kevin.jpeg"
+                   alt="" width="32" height="32" class="rounded-circle me-2">
+              <strong>Perfil</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+              <li><a class="dropdown-item" href="Perfil.html">Mi perfil</a></li>
+              <li><a class="dropdown-item" href="EditarPerfil.php">Editar perfil</a></li>
+              <li><a class="dropdown-item" href="Registro.php">Registrarse</a></li>
+              <li><a class="dropdown-item" href="/Fonrio/Vista/Index.php">Cerrar Sesión</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="mb-3">
-            <label for="apellidos" class="form-label">Apellidos</label>
-            <input type="text" id="apellidos" name="apellidos" class="form-control" required>
+      </nav>
+
+      <div class="container py-4">
+        <div class="d-flex align-items-center justify-content-center gap-3">
+          <img src="../Imagenes/Logo.webp" alt="Logo TECNICELL" style="height:48px; width:auto;" />
+          <h1 class="m-0">Registro de Proveedores</h1>
         </div>
-        <div class="row">
-            <div class="mb-3 col-md-6">
-            <label for="tipodocumento" class="form-label">Tipo de Documento</label>
-            <select id="tdocumento" name="tipodocumento" class="form-select" required>
-                <option value="">Seleccione...</option>
-                <option value="CC">Cédula de Ciudadanía (CC)</option>
-                <option value="CE">Cédula de Extranjería (CE)</option>
-                <option value="PP">Pasaporte (PP)</option>
-            </select>
+
+        <?php if (!empty($mensaje)): ?>
+          <div class="mt-3">
+            <?= $mensaje ?>
+          </div>
+        <?php endif; ?>
+
+        <div class="mt-4">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped align-middle">
+              <thead class="table-dark text-center">
+                <tr>
+                  <th>ID_Proveedor</th>
+                  <th>Nombre_Proveedor</th>
+                  <th>Correo_Electronico</th>
+                  <th>Telefono</th>
+                  <th>ID_Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php if (!empty($proveedores)): ?>
+                <?php foreach ($proveedores as $prov): ?>
+                  <?php
+                    $id       = htmlspecialchars($prov['ID_Proveedor']       ?? '');
+                    $nombre   = htmlspecialchars($prov['Nombre_Proveedor']   ?? '');
+                    $correo   = htmlspecialchars($prov['Correo_Electronico'] ?? '');
+                    $telefono = htmlspecialchars($prov['Telefono']           ?? '');
+                    $estado   = htmlspecialchars($prov['ID_Estado']          ?? '');
+                  ?>
+                  <tr>
+                    <td><?= $id ?></td>
+                    <td><?= $nombre ?></td>
+                    <td><?= $correo ?></td>
+                    <td><?= $telefono ?></td>
+                    <td><?= $estado ?></td>
+                  </tr>
+                <?php endforeach; ?>
+              <?php else: ?>
+                <tr>
+                  <td colspan="5" class="text-center text-muted">No hay proveedores para mostrar.</td>
+                </tr>
+              <?php endif; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="mt-5">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <h2 class="h4 mb-3">Añadir Proveedor</h2>
+                  <form method="POST" class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label">ID_Proveedor</label>
+                      <input type="text" name="ID_Proveedor" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Nombre_Proveedor</label>
+                      <input type="text" name="Nombre_Proveedor" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Correo_Electronico</label>
+                      <input type="email" name="Correo_Electronico" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Telefono</label>
+                      <input type="text" name="Telefono" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">ID_Estado</label>
+                      <select name="ID_Estado" class="form-select" required>
+                        <option value="EST001">Activo</option>
+                        <option value="EST002">Inactivo</option>
+                        <option value="EST003">En Proceso</option>
+                      </select>
+                    </div>
+                    <div class="col-12 text-center mt-3">
+                      <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
-            <div class="mb-3 col-md-6">
-            <label for="numerodocumento" class="form-label">N° de Documento</label>
-            <input type="number" id="ndocumento" name="numerodocumento" class="form-control" required>
+
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <h2 class="h4 mb-3">Actualizar Proveedor</h2>
+                  <form method="POST" class="row g-3">
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="col-md-6">
+                      <label class="form-label">ID_Proveedor (obligatorio)</label>
+                      <input type="text" name="ID_Proveedor" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Nombre_Proveedor</label>
+                      <input type="text" name="Nombre_Proveedor" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Correo_Electronico</label>
+                      <input type="email" name="Correo_Electronico" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Telefono</label>
+                      <input type="text" name="Telefono" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">ID_Estado</label>
+                      <select name="ID_Estado" class="form-select">
+                        <option value="">(sin cambio)</option>
+                        <option value="EST001">Activo</option>
+                        <option value="EST002">Inactivo</option>
+                        <option value="EST003">En Proceso</option>
+                      </select>
+                    </div>
+                    <div class="col-12 text-center mt-3">
+                      <button type="submit" class="btn btn-warning">Actualizar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="mb-3 col-md-4">
-            <label for="edad" class="form-label">Edad</label>
-            <input type="number" id="edad" name="edad" class="form-control" min="0" required>
+
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <h2 class="h4 mb-3">Eliminar Proveedor</h2>
+                  <form method="POST" class="row g-3">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <div class="col-md-6">
+                      <label class="form-label">ID_Proveedor</label>
+                      <input type="text" name="ID_Proveedor" class="form-control" required>
+                    </div>
+                    <div class="col-12 text-center mt-3">
+                      <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
-            <div class="mb-3 col-md-8">
-            <label for="genero" class="form-label">Género</label>
-            <select id="genero" name="sexo" class="form-select" required>
-                <option value="">Seleccione...</option>
-                <option value="femenino">Femenino</option>
-                <option value="masculino">Masculino</option>
-            </select>
-            </div>
+
+          </div>
         </div>
-        <div class="mb-3">
-            <label for="correo" class="form-label">Correo Electrónico</label>
-            <input type="email" id="correo" name="correo" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="telefono" class="form-label">Número Telefónico</label>
-            <input type="tel" id="telefono" name="telefono" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="rol" class="form-label">Selecciona tu rol</label>
-            <select id="rol" name="rol" class="form-select" required>
-            <option value="">Seleccione...</option>
-            <option value="Empleado">Empleado</option>
-            <option value="Administrador">Administrador</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="fotografia" class="form-label">Fotografía</label>
-            <input type="file" id="fotografia" name="fotografia" class="form-control" required accept="image/*">
-        </div>
-        <div class="row">
-            <div class="mb mb-3">
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" id="password" name="contraseña" class="form-control" required>
-            </div>
-        </div>
-        <div class="d-grid">
-            <button type="submit" class="btn">Registrarse</button>
-        </div>
-        </form>
+
+        <footer class="footer mt-5 text-center text-muted">
+          <p class="m-0">Copyright © 2025 Fonrio</p>
+        </footer>
+      </div>
     </div>
-    </div>
-</div>
-</div>
-</div>
-<footer class="footer">
-    <p>Copyright © 2025 Fonrio</p>
-</footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

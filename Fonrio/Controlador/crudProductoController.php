@@ -61,7 +61,7 @@ class crudProductoController {
                     : "<p style='color:red;'>".htmlspecialchars($res["error"] ?? "Error al eliminar")."</p>";
             }
 
-        } else { // POST
+        } else { 
             if ($ID_Producto === "" || $Nombre_Producto === "") {
             } else {
                 $res = $this->productosService->agregarProducto(

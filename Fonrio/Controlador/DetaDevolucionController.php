@@ -51,7 +51,7 @@ class DetaDevolucionController {
                         : "<p style='color:red;'>".htmlspecialchars($res["error"] ?? "Error al eliminar")." (HTTP ".htmlspecialchars((string)($res["http_code"] ?? "N/A")).")</p>";
                 }
 
-            } else { // POST (crear)
+            } else { 
                 if ($idDetalleDev === '' || $idDevolucion === '' || $cantidadDevuelta === '' || $idVenta === '') {
                     $mensaje = "<p style='color:red;'>Todos los campos son obligatorios.</p>";
                 } else {
