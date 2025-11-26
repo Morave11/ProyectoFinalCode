@@ -51,19 +51,64 @@ public class ServiceEmpleados {
                                   String Apellido_Usuario, String Edad, String Correo_Electronico,
                                   String Telefono, String Genero, String ID_Estado, String ID_Rol, String Fotos) {
 
+        // 1. Si NO viene foto nueva → no tocar la columna Fotos
+        if (Fotos == null || Fotos.isBlank()) {
+
+            String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
+                    "Correo_Electronico=?, Telefono=?, Genero=?, ID_Estado=?, ID_Rol=? WHERE Documento_Empleado=?";
+
+            return jdbcTemplate.update(sql,
+                    Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
+                    Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol,
+                    Documento_Empleado
+            );
+        }
+
+        // 2. Si viene Base64 → guardar archivo y actualizar columna
         Fotos = guardarBase64SiViene(Fotos, Documento_Empleado);
 
         String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
                 "Correo_Electronico=?, Telefono=?, Genero=?, ID_Estado=?, ID_Rol=?, Fotos=? WHERE Documento_Empleado=?";
 
-        return jdbcTemplate.update(sql, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
-                Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos, Documento_Empleado);
+        return jdbcTemplate.update(sql,
+                Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
+                Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos,
+                Documento_Empleado
+        );
     }
 
     // ---------------------- ELIMINAR ----------------------
     public int eliminarEmpleado(String Documento_Empleado) {
-        String sql = "DELETE FROM Empleados WHERE Documento_Empleado=?";
-        return jdbcTemplate.update(sql, Documento_Empleado);
+        try {
+            // 1. Obtener ruta de foto actual
+            String sqlFoto = "SELECT Fotos FROM Empleados WHERE Documento_Empleado=?";
+            String rutaFoto = null;
+
+            try {
+                rutaFoto = jdbcTemplate.queryForObject(sqlFoto, String.class, Documento_Empleado);
+            } catch (Exception ignored) {}
+
+            // 2. Borrar archivo físico si existe
+            if (rutaFoto != null && !rutaFoto.isBlank()) {
+                try {
+                    Path pathFoto = Paths.get(rutaFoto);
+                    if (Files.exists(pathFoto)) {
+                        Files.delete(pathFoto);
+                        System.out.println("Foto eliminada: " + rutaFoto);
+                    }
+                } catch (Exception e) {
+                    System.out.println("No se pudo borrar la foto del empleado " + Documento_Empleado + ": " + e.getMessage());
+                }
+            }
+
+            // 3. Eliminar empleado
+            String sql = "DELETE FROM Empleados WHERE Documento_Empleado=?";
+            return jdbcTemplate.update(sql, Documento_Empleado);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     // ---------------------- GUARDAR FOTO ----------------------
@@ -71,7 +116,7 @@ public class ServiceEmpleados {
         try {
             if (base64 == null || base64.isBlank()) return base64;
 
-            // Si viene con prefijo tipo "data:image/jpeg;base64,", quitarlo
+            // Remover prefijo data:image/... si viene
             int coma = base64.indexOf(',');
             if (coma != -1) base64 = base64.substring(coma + 1);
 
@@ -87,8 +132,9 @@ public class ServiceEmpleados {
 
             Files.write(destino, bytes);
 
-            // Guardar la ruta relativa
+            // Guardar ruta relativa
             return destino.toString();
+
         } catch (Exception e) {
             e.printStackTrace();
             return "";

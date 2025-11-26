@@ -1,6 +1,7 @@
 package com.example.demo.Controller.Contraseñas;
 
 import com.example.demo.DTO.Contraseñas.ContraseñaDTO;
+import com.example.demo.DTO.Login.LoginDTO;
 import com.example.demo.Servicie.Contraseñas.ContraseñaServicie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -40,13 +41,30 @@ public class ContraseñaController {
                 contrasenaDTO.getContrasena_Hash(),
                 contrasenaDTO.getFecha_Creacion()
         );
-            return "Contraseña actualizada correctamente";
+        return "Contraseña actualizada correctamente";
     }
 
     @DeleteMapping("/EliminarContrasena/{ID_Contrasena}")
     public String EliminarContrasena(@PathVariable String ID_Contrasena) {
         int filas = contraseñaServicie.EliminarContrasena(ID_Contrasena);
-            return "Contraseña eliminada correctamente";
+        return "Contraseña eliminada correctamente";
+    }
+
+    // =========================================
+    // 🔹 NUEVO: LOGIN EMPLEADO
+    // =========================================
+    @PostMapping("/EmpleadoLogin")
+    public String loginEmpleado(@RequestBody LoginDTO loginDTO) {
+
+        boolean valido = contraseñaServicie.validarLogin(
+                loginDTO.getDocumento(),
+                loginDTO.getContrasena()
+        );
+
+        if (valido) {
+            return "Login correcto";
+        } else {
+            return "Credenciales incorrectas";
+        }
     }
 }
-

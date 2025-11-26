@@ -22,11 +22,10 @@ public class ContraseñaServicie {
         return jdbcTemplate.query(contrasena, new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return rs.getString("ID_Contrasena")+
-                        "________"+rs.getString("Documento_Empleado")+
-                        "________"+rs.getString("Contrasena_Hash")+
-                        "________"+rs.getString("Fecha_Creacion");
-
+                return rs.getString("ID_Contrasena") +
+                        "________" + rs.getString("Documento_Empleado") +
+                        "________" + rs.getString("Contrasena_Hash") +
+                        "________" + rs.getString("Fecha_Creacion");
             }
         });
     }
@@ -36,7 +35,7 @@ public class ContraseñaServicie {
         jdbcTemplate.update(sql, ID_Contrasena, Documento_Empleado, Contrasena_Hash, Fecha_Creacion);
     }
 
-    public int ActualizarContrasena(String ID_Contrasena, String Documento_Empleado,String Contrasena_Hash, String Fecha_Creacion ) {
+    public int ActualizarContrasena(String ID_Contrasena, String Documento_Empleado, String Contrasena_Hash, String Fecha_Creacion) {
         String sql = "UPDATE contrasenas SET Documento_Empleado = ?, Contrasena_Hash = ? , Fecha_Creacion = ? WHERE ID_Contrasena = ?";
         return jdbcTemplate.update(sql, Documento_Empleado, Contrasena_Hash, Fecha_Creacion, ID_Contrasena);
     }
@@ -45,5 +44,24 @@ public class ContraseñaServicie {
         String sql = "DELETE FROM contrasenas WHERE ID_Contrasena = ?";
         return jdbcTemplate.update(sql, ID_Contrasena);
     }
-}
 
+    // ======================================================
+    // 🔹 NUEVO: validar login por documento + contraseña
+    // ======================================================
+    public boolean validarLogin(String documentoEmpleado, String contrasenaPlano) {
+
+
+        String sql = "SELECT COUNT(*) FROM contrasenas " +
+                "WHERE Documento_Empleado = ? " +
+                "AND Contrasena_Hash = SHA2(?, 256)";
+
+        Integer count = jdbcTemplate.queryForObject(
+                sql,
+                Integer.class,
+                documentoEmpleado,
+                contrasenaPlano
+        );
+
+        return count != null && count > 0;
+    }
+}
