@@ -16,20 +16,27 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 
-        boolean valido = authService.validarCredenciales(
+        // 🔹 Validar credenciales y obtener rol
+        String rol = authService.validarYObtenerRol(
                 loginRequest.getDocumentoEmpleado(),
                 loginRequest.getContrasena()
         );
 
-        if (!valido) {
+        // ❌ Credenciales inválidas
+        if (rol == null) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body("Credenciales inválidas");
         }
 
+        // ✅ Generar token JWT
         String token = jwtUtil.generarToken(loginRequest.getDocumentoEmpleado());
-        return ResponseEntity.ok(token);
+
+        // ✅ Respuesta con token + rol
+        LoginResponse response = new LoginResponse(token, rol);
+
+        return ResponseEntity.ok(response);
     }
 }
