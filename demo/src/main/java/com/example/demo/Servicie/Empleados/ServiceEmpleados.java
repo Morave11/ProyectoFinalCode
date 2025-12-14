@@ -3,6 +3,7 @@ package com.example.demo.Servicie.Empleados;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,7 +23,7 @@ public class ServiceEmpleados {
     // Carpeta uploads
     private final Path uploadsDir = Paths.get("uploads");
 
-    // ---------------------- OBTENER ----------------------
+    // ====================== OBTENER ======================
     public List<String> obtenerEmpleados() {
         String sql = "SELECT Documento_Empleado,Tipo_Documento, Nombre_Usuario, Apellido_Usuario,Edad, Correo_Electronico,Telefono,Genero,ID_Estado,ID_Rol,Fotos FROM Empleados";
         return jdbcTemplate.query(sql, (rs, rowNum) ->
@@ -40,58 +41,80 @@ public class ServiceEmpleados {
         );
     }
 
-    // ---------------------- INSERTAR (JSON / BASE64) ----------------------
+    // ====================== INSERTAR (JSON / BASE64) ======================
+    @Transactional
     public void agregarEmpleado(String Documento_Empleado, String Tipo_Documento, String Nombre_Usuario,
                                 String Apellido_Usuario, String Edad, String Correo_Electronico,
-                                String Telefono, String Genero, String ID_Estado, String ID_Rol, String Fotos) {
+                                String Telefono, String Genero, String ID_Estado, String ID_Rol,
+                                String Fotos, String Contrasena) {
 
         Fotos = guardarBase64SiViene(Fotos, Documento_Empleado);
 
-        String sql = "INSERT INTO Empleados (Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad, Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql, Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
+        // 1) Insertar empleado
+        String sqlEmp = "INSERT INTO Empleados (Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad, Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sqlEmp, Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
                 Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos);
+
+        // 2) Insertar contraseña (texto plano -> trigger SHA2(256) la hashea)
+        if (Contrasena != null && !Contrasena.isBlank()) {
+            String sqlPass = "INSERT INTO Contrasenas (Documento_Empleado, Contrasena_Hash) VALUES (?, ?)";
+            jdbcTemplate.update(sqlPass, Documento_Empleado, Contrasena);
+        }
     }
 
-    // ---------------------- ACTUALIZAR (JSON / BASE64) ----------------------
+    // ====================== ACTUALIZAR (JSON / BASE64) ======================
+    @Transactional
     public int actualizarEmpleado(String Documento_Empleado, String Tipo_Documento, String Nombre_Usuario,
                                   String Apellido_Usuario, String Edad, String Correo_Electronico,
-                                  String Telefono, String Genero, String ID_Estado, String ID_Rol, String Fotos) {
+                                  String Telefono, String Genero, String ID_Estado, String ID_Rol,
+                                  String Fotos, String Contrasena) {
 
-        // 1. Si NO viene foto nueva → no tocar la columna Fotos
+        int filas;
+
+        // 1) Si NO viene foto nueva → no tocar Fotos
         if (Fotos == null || Fotos.isBlank()) {
 
             String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
                     "Correo_Electronico=?, Telefono=?, Genero=?, ID_Estado=?, ID_Rol=? WHERE Documento_Empleado=?";
 
-            return jdbcTemplate.update(sql,
+            filas = jdbcTemplate.update(sql,
                     Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
                     Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol,
                     Documento_Empleado
             );
+
+        } else {
+            // 2) Si viene Base64 → guardar archivo y actualizar columna
+            Fotos = guardarBase64SiViene(Fotos, Documento_Empleado);
+
+            String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
+                    "Correo_Electronico=?, Telefono=?, Genero=?, ID_Estado=?, ID_Rol=?, Fotos=? WHERE Documento_Empleado=?";
+
+            filas = jdbcTemplate.update(sql,
+                    Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
+                    Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos,
+                    Documento_Empleado
+            );
         }
 
-        // 2. Si viene Base64 → guardar archivo y actualizar columna
-        Fotos = guardarBase64SiViene(Fotos, Documento_Empleado);
+        // 3) Si viene contraseña -> upsert en Contrasenas
+        if (Contrasena != null && !Contrasena.isBlank()) {
+            upsertContrasena(Documento_Empleado, Contrasena);
+        }
 
-        String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
-                "Correo_Electronico=?, Telefono=?, Genero=?, ID_Estado=?, ID_Rol=?, Fotos=? WHERE Documento_Empleado=?";
-
-        return jdbcTemplate.update(sql,
-                Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
-                Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos,
-                Documento_Empleado
-        );
+        return filas;
     }
 
     // ======================================================================
-    // ======================= NUEVO: MULTIPART =============================
+    // ======================= MULTIPART ====================================
     // ======================================================================
 
-    // ---------------------- INSERTAR (MULTIPART) ----------------------
+    // ====================== INSERTAR (MULTIPART) ======================
+    @Transactional
     public void agregarEmpleadoMultipart(String Documento_Empleado, String Tipo_Documento, String Nombre_Usuario,
                                          String Apellido_Usuario, String Edad, String Correo_Electronico,
                                          String Telefono, String Genero, String ID_Estado, String ID_Rol,
-                                         MultipartFile file) {
+                                         MultipartFile file, String Contrasena) {
 
         String fotosUrl = "";
 
@@ -99,56 +122,78 @@ public class ServiceEmpleados {
             fotosUrl = guardarArchivoYDevolverUrl(file, Documento_Empleado);
         }
 
-        String sql = "INSERT INTO Empleados (Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad, Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql, Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
+        // 1) Insertar empleado
+        String sqlEmp = "INSERT INTO Empleados (Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad, Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sqlEmp, Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
                 Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, fotosUrl);
+
+        // 2) Insertar contraseña
+        if (Contrasena != null && !Contrasena.isBlank()) {
+            String sqlPass = "INSERT INTO Contrasenas (Documento_Empleado, Contrasena_Hash) VALUES (?, ?)";
+            jdbcTemplate.update(sqlPass, Documento_Empleado, Contrasena);
+        }
     }
 
-    // ---------------------- ACTUALIZAR (MULTIPART) ----------------------
+    // ====================== ACTUALIZAR (MULTIPART) ======================
+    @Transactional
     public int actualizarEmpleadoMultipart(String Documento_Empleado, String Tipo_Documento, String Nombre_Usuario,
                                            String Apellido_Usuario, String Edad, String Correo_Electronico,
                                            String Telefono, String Genero, String ID_Estado, String ID_Rol,
-                                           MultipartFile file) {
+                                           MultipartFile file, String Contrasena) {
+
+        int filas;
 
         // Si viene foto nueva: borrar anterior + guardar nueva + actualizar Fotos
         if (file != null && !file.isEmpty()) {
 
             String fotoActual = obtenerFotoActual(Documento_Empleado);
-            borrarArchivoPorValorFotos(fotoActual); // funciona si era URL o ruta
+            borrarArchivoPorValorFotos(fotoActual);
 
             String nuevaUrl = guardarArchivoYDevolverUrl(file, Documento_Empleado);
 
             String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
                     "Correo_Electronico=?, Telefono=?, Genero=?, ID_Estado=?, ID_Rol=?, Fotos=? WHERE Documento_Empleado=?";
 
-            return jdbcTemplate.update(sql,
+            filas = jdbcTemplate.update(sql,
                     Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
                     Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, nuevaUrl,
                     Documento_Empleado
             );
+
+        } else {
+            // Si NO viene foto: no tocar Fotos
+            String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
+                    "Correo_Electronico=?, Telefono=?, Genero=?, ID_Estado=?, ID_Rol=? WHERE Documento_Empleado=?";
+
+            filas = jdbcTemplate.update(sql,
+                    Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
+                    Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol,
+                    Documento_Empleado
+            );
         }
 
-        // Si NO viene foto: no tocar Fotos
-        String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
-                "Correo_Electronico=?, Telefono=?, Genero=?, ID_Estado=?, ID_Rol=? WHERE Documento_Empleado=?";
+        // Si viene contraseña -> upsert en Contrasenas
+        if (Contrasena != null && !Contrasena.isBlank()) {
+            upsertContrasena(Documento_Empleado, Contrasena);
+        }
 
-        return jdbcTemplate.update(sql,
-                Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
-                Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol,
-                Documento_Empleado
-        );
+        return filas;
     }
 
-    // ---------------------- ELIMINAR ----------------------
+    // ====================== ELIMINAR ======================
+    @Transactional
     public int eliminarEmpleado(String Documento_Empleado) {
         try {
-            // 1) Obtener valor Fotos actual (puede ser URL o ruta)
+            // 1) Obtener valor Fotos actual
             String fotoActual = obtenerFotoActual(Documento_Empleado);
 
             // 2) Borrar archivo físico si existe
             borrarArchivoPorValorFotos(fotoActual);
 
-            // 3) Eliminar empleado
+            // 3) Eliminar contraseña primero (por FK/orden lógico)
+            jdbcTemplate.update("DELETE FROM Contrasenas WHERE Documento_Empleado=?", Documento_Empleado);
+
+            // 4) Eliminar empleado
             String sql = "DELETE FROM Empleados WHERE Documento_Empleado=?";
             return jdbcTemplate.update(sql, Documento_Empleado);
 
@@ -161,6 +206,27 @@ public class ServiceEmpleados {
     // ======================================================================
     // ============================ HELPERS =================================
     // ======================================================================
+
+    // Upsert: si existe en Contrasenas -> UPDATE, si no -> INSERT
+    private void upsertContrasena(String Documento_Empleado, String ContrasenaPlano) {
+        Integer existe = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM Contrasenas WHERE Documento_Empleado=?",
+                Integer.class,
+                Documento_Empleado
+        );
+
+        if (existe != null && existe > 0) {
+            jdbcTemplate.update(
+                    "UPDATE Contrasenas SET Contrasena_Hash=? WHERE Documento_Empleado=?",
+                    ContrasenaPlano, Documento_Empleado
+            );
+        } else {
+            jdbcTemplate.update(
+                    "INSERT INTO Contrasenas (Documento_Empleado, Contrasena_Hash) VALUES (?, ?)",
+                    Documento_Empleado, ContrasenaPlano
+            );
+        }
+    }
 
     // Obtener el valor actual de Fotos desde BD
     private String obtenerFotoActual(String Documento_Empleado) {
@@ -191,7 +257,6 @@ public class ServiceEmpleados {
 
             Path destino = uploadsDir.resolve(fileName);
 
-            // Si existe, lo reemplaza
             Files.copy(file.getInputStream(), destino, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 
             return ServletUriComponentsBuilder
@@ -206,16 +271,10 @@ public class ServiceEmpleados {
         }
     }
 
-    /**
-     * Borra el archivo físico usando el valor guardado en Fotos.
-     * - Si Fotos era "uploads/xxx.jpg" -> borra directo.
-     * - Si Fotos era "http://IP:8080/uploads/xxx.jpg" -> extrae xxx.jpg y borra.
-     */
     private void borrarArchivoPorValorFotos(String fotosValor) {
         try {
             if (fotosValor == null || fotosValor.isBlank()) return;
 
-            // Caso 1: si es URL tipo http://.../uploads/archivo.jpg
             if (fotosValor.contains("/uploads/")) {
                 int idx = fotosValor.lastIndexOf("/uploads/");
                 String fileName = fotosValor.substring(idx + "/uploads/".length());
@@ -224,7 +283,6 @@ public class ServiceEmpleados {
                 return;
             }
 
-            // Caso 2: si es ruta tipo uploads/archivo.jpg
             Path path = Paths.get(fotosValor);
             if (Files.exists(path)) Files.delete(path);
 
@@ -232,12 +290,10 @@ public class ServiceEmpleados {
         }
     }
 
-    // ---------------------- GUARDAR FOTO (BASE64) ----------------------
     private String guardarBase64SiViene(String base64, String documento) {
         try {
             if (base64 == null || base64.isBlank()) return "";
 
-            // Remover prefijo data:image/... si viene
             int coma = base64.indexOf(',');
             if (coma != -1) base64 = base64.substring(coma + 1);
 
@@ -255,7 +311,6 @@ public class ServiceEmpleados {
 
             Files.write(destino, bytes);
 
-            // ✅ Guardar ruta RELATIVA web-friendly (siempre con /)
             return "uploads/" + fileName;
 
         } catch (Exception e) {
@@ -263,4 +318,4 @@ public class ServiceEmpleados {
             return "";
         }
     }
-    }
+}

@@ -3,31 +3,45 @@ package com.example.demo.DTO.Empleados;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EmpleadosDTO {
-    @JsonProperty ("Documento_Empleado")
+
+    @JsonProperty("Documento_Empleado")
     private String Documento_Empleado;
+
     @JsonProperty("Tipo_Documento")
     private String Tipo_Documento;
+
     @JsonProperty("Nombre_Usuario")
     private String Nombre_Usuario;
+
     @JsonProperty("Apellido_Usuario")
-    private  String Apellido_Usuario;
+    private String Apellido_Usuario;
+
     @JsonProperty("Edad")
     private String Edad;
+
     @JsonProperty("Correo_Electronico")
     private String Correo_Electronico;
+
     @JsonProperty("Telefono")
     private String Telefono;
+
     @JsonProperty("Genero")
     private String Genero;
+
     @JsonProperty("ID_Estado")
     private String ID_Estado;
+
     @JsonProperty("ID_Rol")
     private String ID_Rol;
-    @JsonProperty("Fotos")
-    private  String Fotos;
 
-    public EmpleadosDTO() {
-    }
+    @JsonProperty("Fotos")
+    private String Fotos;
+
+    // ✅ NUEVO: CONTRASEÑA (viene del mobile como "Contrasena")
+    @JsonProperty("Contrasena")
+    private String Contrasena;
+
+    public EmpleadosDTO() {}
 
     public String getDocumento_Empleado() {
         return this.Documento_Empleado;
@@ -115,5 +129,14 @@ public class EmpleadosDTO {
 
     public void setFotos(String fotos) {
         this.Fotos = fotos;
+    }
+
+    // ✅ NUEVO: getter/setter de Contrasena
+    public String getContrasena() {
+        return this.Contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.Contrasena = contrasena;
     }
 }
