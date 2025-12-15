@@ -32,9 +32,7 @@ public class DevolucionService {
     }
 
     public int actualizarDevolucion(String ID_Devolucion, String Fecha_Devolucion, String Motivo) {
-
         String sql = "UPDATE devoluciones SET Fecha_Devolucion = ?, Motivo = ? WHERE ID_Devolucion = ?";
-
         return jdbcTemplate.update(sql, Fecha_Devolucion, Motivo, ID_Devolucion);
     }
 

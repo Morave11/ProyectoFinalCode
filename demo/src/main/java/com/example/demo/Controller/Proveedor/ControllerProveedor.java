@@ -17,6 +17,7 @@ public class ControllerProveedor {
     private ServicieProveedor servicieProveedor;
     @Autowired
     JdbcTemplate jdbcTemplate;
+
     @GetMapping("/Proveedor")
     @Operation(summary = "Obtener Proveedor",
             description = "Devuelve una lista con todas los Proveedores almacenados en la tabla proveedor.")
@@ -35,7 +36,6 @@ public class ControllerProveedor {
         );
         return "Cliente esta registrado correctamente";
     }
-
 
     @PutMapping("/ActualizaProv/{ID_Proveedor}")
     @Operation(summary = "Actualizar un proveedor existente",

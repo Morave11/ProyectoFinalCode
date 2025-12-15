@@ -35,7 +35,6 @@ public class JwtFiltro extends OncePerRequestFilter {
 
         cadenaFiltro.doFilter(solicitud, respuesta);
     }
-
     @Override
     protected boolean shouldNotFilter(HttpServletRequest solicitud) {
         String path =  solicitud.getRequestURI();

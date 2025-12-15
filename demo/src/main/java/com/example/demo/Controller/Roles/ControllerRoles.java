@@ -5,6 +5,7 @@ import com.example.demo.Servicie.Roles.ServicieRoles;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,8 @@ public class ControllerRoles {
 
     @Autowired
     private ServicieRoles servicieRoles;
-
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     @GetMapping("/Roles")
     @Operation(summary = "Obtener Roles",

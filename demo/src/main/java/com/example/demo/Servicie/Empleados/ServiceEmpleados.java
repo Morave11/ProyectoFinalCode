@@ -20,10 +20,8 @@ public class ServiceEmpleados {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // Carpeta uploads
     private final Path uploadsDir = Paths.get("uploads");
 
-    // ====================== OBTENER ======================
     public List<String> obtenerEmpleados() {
         String sql = "SELECT Documento_Empleado,Tipo_Documento, Nombre_Usuario, Apellido_Usuario,Edad, Correo_Electronico,Telefono,Genero,ID_Estado,ID_Rol,Fotos FROM Empleados";
         return jdbcTemplate.query(sql, (rs, rowNum) ->
@@ -41,7 +39,6 @@ public class ServiceEmpleados {
         );
     }
 
-    // ====================== INSERTAR (JSON / BASE64) ======================
     @Transactional
     public void agregarEmpleado(String Documento_Empleado, String Tipo_Documento, String Nombre_Usuario,
                                 String Apellido_Usuario, String Edad, String Correo_Electronico,
@@ -50,19 +47,16 @@ public class ServiceEmpleados {
 
         Fotos = guardarBase64SiViene(Fotos, Documento_Empleado);
 
-        // 1) Insertar empleado
         String sqlEmp = "INSERT INTO Empleados (Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad, Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sqlEmp, Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
                 Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos);
 
-        // 2) Insertar contraseña (texto plano -> trigger SHA2(256) la hashea)
         if (Contrasena != null && !Contrasena.isBlank()) {
             String sqlPass = "INSERT INTO Contrasenas (Documento_Empleado, Contrasena_Hash) VALUES (?, ?)";
             jdbcTemplate.update(sqlPass, Documento_Empleado, Contrasena);
         }
     }
 
-    // ====================== ACTUALIZAR (JSON / BASE64) ======================
     @Transactional
     public int actualizarEmpleado(String Documento_Empleado, String Tipo_Documento, String Nombre_Usuario,
                                   String Apellido_Usuario, String Edad, String Correo_Electronico,
@@ -71,7 +65,6 @@ public class ServiceEmpleados {
 
         int filas;
 
-        // 1) Si NO viene foto nueva → no tocar Fotos
         if (Fotos == null || Fotos.isBlank()) {
 
             String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
@@ -84,7 +77,7 @@ public class ServiceEmpleados {
             );
 
         } else {
-            // 2) Si viene Base64 → guardar archivo y actualizar columna
+
             Fotos = guardarBase64SiViene(Fotos, Documento_Empleado);
 
             String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
@@ -97,7 +90,7 @@ public class ServiceEmpleados {
             );
         }
 
-        // 3) Si viene contraseña -> upsert en Contrasenas
+
         if (Contrasena != null && !Contrasena.isBlank()) {
             upsertContrasena(Documento_Empleado, Contrasena);
         }
@@ -105,11 +98,7 @@ public class ServiceEmpleados {
         return filas;
     }
 
-    // ======================================================================
-    // ======================= MULTIPART ====================================
-    // ======================================================================
 
-    // ====================== INSERTAR (MULTIPART) ======================
     @Transactional
     public void agregarEmpleadoMultipart(String Documento_Empleado, String Tipo_Documento, String Nombre_Usuario,
                                          String Apellido_Usuario, String Edad, String Correo_Electronico,
@@ -122,19 +111,17 @@ public class ServiceEmpleados {
             fotosUrl = guardarArchivoYDevolverUrl(file, Documento_Empleado);
         }
 
-        // 1) Insertar empleado
         String sqlEmp = "INSERT INTO Empleados (Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad, Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, Fotos) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sqlEmp, Documento_Empleado, Tipo_Documento, Nombre_Usuario, Apellido_Usuario, Edad,
                 Correo_Electronico, Telefono, Genero, ID_Estado, ID_Rol, fotosUrl);
 
-        // 2) Insertar contraseña
+
         if (Contrasena != null && !Contrasena.isBlank()) {
             String sqlPass = "INSERT INTO Contrasenas (Documento_Empleado, Contrasena_Hash) VALUES (?, ?)";
             jdbcTemplate.update(sqlPass, Documento_Empleado, Contrasena);
         }
     }
 
-    // ====================== ACTUALIZAR (MULTIPART) ======================
     @Transactional
     public int actualizarEmpleadoMultipart(String Documento_Empleado, String Tipo_Documento, String Nombre_Usuario,
                                            String Apellido_Usuario, String Edad, String Correo_Electronico,
@@ -143,7 +130,6 @@ public class ServiceEmpleados {
 
         int filas;
 
-        // Si viene foto nueva: borrar anterior + guardar nueva + actualizar Fotos
         if (file != null && !file.isEmpty()) {
 
             String fotoActual = obtenerFotoActual(Documento_Empleado);
@@ -161,7 +147,6 @@ public class ServiceEmpleados {
             );
 
         } else {
-            // Si NO viene foto: no tocar Fotos
             String sql = "UPDATE Empleados SET Tipo_Documento=?, Nombre_Usuario=?, Apellido_Usuario=?, Edad=?, " +
                     "Correo_Electronico=?, Telefono=?, Genero=?, ID_Estado=?, ID_Rol=? WHERE Documento_Empleado=?";
 
@@ -172,7 +157,6 @@ public class ServiceEmpleados {
             );
         }
 
-        // Si viene contraseña -> upsert en Contrasenas
         if (Contrasena != null && !Contrasena.isBlank()) {
             upsertContrasena(Documento_Empleado, Contrasena);
         }
@@ -180,20 +164,12 @@ public class ServiceEmpleados {
         return filas;
     }
 
-    // ====================== ELIMINAR ======================
     @Transactional
     public int eliminarEmpleado(String Documento_Empleado) {
         try {
-            // 1) Obtener valor Fotos actual
             String fotoActual = obtenerFotoActual(Documento_Empleado);
-
-            // 2) Borrar archivo físico si existe
             borrarArchivoPorValorFotos(fotoActual);
-
-            // 3) Eliminar contraseña primero (por FK/orden lógico)
             jdbcTemplate.update("DELETE FROM Contrasenas WHERE Documento_Empleado=?", Documento_Empleado);
-
-            // 4) Eliminar empleado
             String sql = "DELETE FROM Empleados WHERE Documento_Empleado=?";
             return jdbcTemplate.update(sql, Documento_Empleado);
 
@@ -203,11 +179,6 @@ public class ServiceEmpleados {
         }
     }
 
-    // ======================================================================
-    // ============================ HELPERS =================================
-    // ======================================================================
-
-    // Upsert: si existe en Contrasenas -> UPDATE, si no -> INSERT
     private void upsertContrasena(String Documento_Empleado, String ContrasenaPlano) {
         Integer existe = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM Contrasenas WHERE Documento_Empleado=?",
@@ -228,7 +199,6 @@ public class ServiceEmpleados {
         }
     }
 
-    // Obtener el valor actual de Fotos desde BD
     private String obtenerFotoActual(String Documento_Empleado) {
         try {
             String sqlFoto = "SELECT Fotos FROM Empleados WHERE Documento_Empleado=?";
@@ -239,7 +209,6 @@ public class ServiceEmpleados {
         }
     }
 
-    // Guardar archivo y devolver URL pública /uploads/...
     private String guardarArchivoYDevolverUrl(MultipartFile file, String documentoEmpleado) {
         try {
             if (!Files.exists(uploadsDir)) {

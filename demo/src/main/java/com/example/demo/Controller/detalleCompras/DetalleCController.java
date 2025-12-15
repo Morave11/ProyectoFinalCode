@@ -23,7 +23,6 @@ public class DetalleCController {
             description = "Devuelve una lista con todos los detalle compras almacenados en la tabla detalle compras.")
     public List<String> obtenerDetalleC() { return detalleCService.obtenerDetalleC();}
 
-
     @PostMapping("/AgregarDetalleC")
     @Operation(summary = "Registrar un nuevo detalle compra",
             description = "Crea un nuevo detalle compra en la tabla detalle compra a partir de los datos enviados en el cuerpo de la petición.")
@@ -36,7 +35,6 @@ public class DetalleCController {
         );
         return "El Detalle Compra se registro correctamente";
     }
-
 
     @PutMapping("/ActualizarDetalleC/{ID_Entrada}/{ID_Proveedor}")
     @Operation(summary = "Actualizar un detalle compra existente",

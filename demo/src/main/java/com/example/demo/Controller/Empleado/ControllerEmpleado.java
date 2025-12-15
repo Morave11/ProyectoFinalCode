@@ -18,12 +18,9 @@ public class ControllerEmpleado {
 
     @Autowired
     private ServiceEmpleados serviceEmpleados;
-
-    // SOLO PARA MULTIPART
     @Autowired
     private ObjectMapper objectMapper;
 
-    // ===================== OBTENER =====================
     @GetMapping("/Empleados")
     @Operation(
             summary = "Obtener Empleados",
@@ -33,7 +30,6 @@ public class ControllerEmpleado {
         return serviceEmpleados.obtenerEmpleados();
     }
 
-    // ===================== REGISTRO NORMAL (JSON) =====================
     @PostMapping("/EmpleadoRegistro")
     @Operation(
             summary = "Registrar un nuevo empleado",
@@ -53,13 +49,12 @@ public class ControllerEmpleado {
                 empleadoDTO.getID_Estado(),
                 empleadoDTO.getID_Rol(),
                 empleadoDTO.getFotos(),
-                empleadoDTO.getContrasena()   // 🔐 CLAVE
+                empleadoDTO.getContrasena()
         );
 
         return "Empleado registrado correctamente";
     }
 
-    // ===================== ACTUALIZAR NORMAL =====================
     @PutMapping("/EmpleadoActualizar/{Documento_Empleado}")
     @Operation(
             summary = "Actualizar un Empleado existente",
@@ -82,7 +77,7 @@ public class ControllerEmpleado {
                 empleadoDTO.getID_Estado(),
                 empleadoDTO.getID_Rol(),
                 empleadoDTO.getFotos(),
-                empleadoDTO.getContrasena() // 🔐 opcional
+                empleadoDTO.getContrasena()
         );
 
         return filas > 0
@@ -90,7 +85,6 @@ public class ControllerEmpleado {
                 : "Error al actualizar empleado";
     }
 
-    // ===================== ELIMINAR =====================
     @DeleteMapping("/EmpleadoEliminar/{Documento_Empleado}")
     @Operation(
             summary = "Eliminar un Empleado",
@@ -101,11 +95,6 @@ public class ControllerEmpleado {
         return filas > 0 ? "Empleado eliminado correctamente" : "Error al eliminar empleado";
     }
 
-    // =================================================================
-    // ===================== MULTIPART ================================
-    // =================================================================
-
-    // ===================== REGISTRO MULTIPART =====================
     @PostMapping(
             value = "/EmpleadoRegistroMultipart",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -133,13 +122,12 @@ public class ControllerEmpleado {
                 data.getID_Estado(),
                 data.getID_Rol(),
                 file,
-                data.getContrasena() // 🔐 CLAVE
+                data.getContrasena()
         );
 
         return "Empleado registrado correctamente (multipart)";
     }
 
-    // ===================== ACTUALIZAR MULTIPART =====================
     @PutMapping(
             value = "/EmpleadoActualizarMultipart/{Documento_Empleado}",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -168,7 +156,7 @@ public class ControllerEmpleado {
                 data.getID_Estado(),
                 data.getID_Rol(),
                 file,
-                data.getContrasena() // 🔐 opcional
+                data.getContrasena()
         );
 
         return filas > 0

@@ -14,10 +14,8 @@ import java.util.List;
 @Tag(name = "DetalleDevolucion", description = "Operaciones sobre la tabla detalle devolucion")
 public class DetalleDController {
 
-
     @Autowired
     private DetalleDService detalleDService;
-
     @Autowired
     JdbcTemplate jdbcTemplate;
 

@@ -45,9 +45,6 @@ public class ContraseñaServicie {
         return jdbcTemplate.update(sql, ID_Contrasena);
     }
 
-    // ======================================================
-    // 🔹 NUEVO: validar login por documento + contraseña
-    // ======================================================
     public boolean validarLogin(String documentoEmpleado, String contrasenaPlano) {
 
 

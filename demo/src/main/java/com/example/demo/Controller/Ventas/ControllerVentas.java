@@ -5,6 +5,7 @@ import com.example.demo.Servicie.Ventas.ServiceVentas;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class ControllerVentas {
 
     @Autowired
     private ServiceVentas serviceVentas;
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     @GetMapping("/Ventas")
     @Operation(summary = "Obtener Ventas",

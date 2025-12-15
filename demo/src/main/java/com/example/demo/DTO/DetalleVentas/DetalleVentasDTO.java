@@ -8,7 +8,7 @@ public class DetalleVentasDTO {
     private int Cantidad;
 
     @JsonProperty("Fecha_Salida")
-    private String Fecha_Salida; // formato YYYY-MM-DD
+    private String Fecha_Salida;
 
     @JsonProperty("ID_Producto")
     private String ID_Producto;

@@ -19,15 +19,11 @@ public class ProductoController {
 
     @Autowired
     private ProductoServicie productoServicie;
-
     @Autowired
     JdbcTemplate jdbcTemplate;
-
-    // 👉 SOLO PARA MULTIPART (NO AFECTA NADA EXISTENTE)
     @Autowired
     private ObjectMapper objectMapper;
 
-    // ===================== OBTENER =====================
     @GetMapping("/Productos")
     @Operation(
             summary = "Obtener Productos",
@@ -37,7 +33,6 @@ public class ProductoController {
         return productoServicie.ObtenerProductos();
     }
 
-    // ===================== REGISTRO NORMAL (JSON) =====================
     @PostMapping("/RegistroP")
     @Operation(
             summary = "Registrar un nuevo producto",
@@ -54,13 +49,12 @@ public class ProductoController {
                 productoDTO.getID_Categoria(),
                 productoDTO.getID_Estado(),
                 productoDTO.getID_Gama(),
-                productoDTO.getFotos() // ✅ base64 opcional
+                productoDTO.getFotos() //
         );
 
         return "Producto esta registrado correctamente";
     }
 
-    // ===================== ACTUALIZAR NORMAL (JSON) =====================
     @PutMapping("/ActualizaProd/{ID_Producto}")
     @Operation(
             summary = "Actualizar un producto existente",
@@ -80,13 +74,12 @@ public class ProductoController {
                 producto.getID_Categoria(),
                 producto.getID_Estado(),
                 producto.getID_Gama(),
-                producto.getFotos() // ✅ base64 opcional
+                producto.getFotos()
         );
 
         return filas > 0 ? "Producto actualizado correctamente" : "Producto no encontrado o sin cambios";
     }
 
-    // ===================== ELIMINAR =====================
     @DeleteMapping("/EliminarPro/{ID_Producto}")
     @Operation(
             summary = "Eliminar un producto",
@@ -99,11 +92,6 @@ public class ProductoController {
         return filas > 0 ? "Producto eliminado correctamente" : "Producto no encontrado";
     }
 
-    // =================================================================
-    // ===================== MULTIPART (IMAGEN) ========================
-    // =================================================================
-
-    // ===================== REGISTRO MULTIPART =====================
     @PostMapping(
             value = "/RegistroPMultipart",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -134,7 +122,6 @@ public class ProductoController {
         return "Producto registrado correctamente (multipart)";
     }
 
-    // ===================== ACTUALIZAR MULTIPART =====================
     @PutMapping(
             value = "/ActualizaProdMultipart/{ID_Producto}",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE

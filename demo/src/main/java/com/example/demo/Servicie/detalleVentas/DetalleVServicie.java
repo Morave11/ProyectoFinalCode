@@ -29,7 +29,6 @@ public class DetalleVServicie {
         jdbcTemplate.update(sql, Cantidad, Fecha_Salida, ID_Producto, ID_Venta);
     }
 
-
     public int actualizarDetalleVenta(String ID_Producto, String ID_Venta, int Cantidad, String Fecha_Salida) {
         String sql = "UPDATE Detalle_Ventas SET Cantidad=?, Fecha_Salida=? WHERE ID_Producto=? AND ID_Venta=?";
         return jdbcTemplate.update(sql, Cantidad, Fecha_Salida, ID_Producto, ID_Venta);

@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LoginRequest {
 
-    @JsonProperty("documento_Empleado")   // nombre del campo que vas a mandar desde Laravel
+    @JsonProperty("documento_Empleado")
     private String documentoEmpleado;
 
-    @JsonProperty("contrasena")          // contraseña en texto plano
+    @JsonProperty("contrasena")
     private String contrasena;
 
     public String getDocumentoEmpleado() {

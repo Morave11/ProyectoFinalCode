@@ -18,7 +18,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 
-        // ✅ Valida credenciales y devuelve rol si OK
         String rol = authService.validarYObtenerRol(
                 loginRequest.getDocumentoEmpleado(),
                 loginRequest.getContrasena()
@@ -30,10 +29,8 @@ public class AuthController {
                     .body("Credenciales inválidas");
         }
 
-        // ✅ Crear token
         String token = jwtUtil.generarToken(loginRequest.getDocumentoEmpleado());
 
-        // ✅ Responder JSON: { token: "...", rol: "ROL001" }
         return ResponseEntity.ok(new LoginResponse(token, rol));
     }
 }

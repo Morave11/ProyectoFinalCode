@@ -13,7 +13,6 @@ import java.util.Date;
 public class JwtUtilidad {
     private final String CLAVE_SECRETA = "EstaEsUnaClaveMuySeguraDeMasDe32Caracteres1234";
     private  final Key key = Keys.hmacShaKeyFor(CLAVE_SECRETA.getBytes());
-
     public String generarToken (String username){
         return  Jwts.builder()
                 .setSubject(username)

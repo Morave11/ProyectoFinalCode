@@ -37,7 +37,6 @@ public class EmpleadosDTO {
     @JsonProperty("Fotos")
     private String Fotos;
 
-    // ✅ NUEVO: CONTRASEÑA (viene del mobile como "Contrasena")
     @JsonProperty("Contrasena")
     private String Contrasena;
 
@@ -131,7 +130,7 @@ public class EmpleadosDTO {
         this.Fotos = fotos;
     }
 
-    // ✅ NUEVO: getter/setter de Contrasena
+
     public String getContrasena() {
         return this.Contrasena;
     }

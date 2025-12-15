@@ -20,6 +20,7 @@ public class EstadosController {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+
     @GetMapping("/Estado")
     @Operation(summary = "Obtener Estados",
             description = "Devuelve una lista con todos los estados almacenados en la tabla estados.")

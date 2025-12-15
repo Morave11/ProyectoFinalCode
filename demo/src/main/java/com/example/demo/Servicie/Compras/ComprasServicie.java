@@ -35,7 +35,6 @@ public class ComprasServicie {
         return jdbcTemplate.update(sql, Precio_Compra, ID_Producto, Documento_Empleado, ID_Entrada);
     }
 
-    // ELIMINAR
     public int eliminarCompra(String ID_Entrada) {
         String sql = "DELETE FROM Compras WHERE ID_Entrada = ?";
         return jdbcTemplate.update(sql, ID_Entrada);

@@ -13,7 +13,6 @@ public class AuthService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // ✅ TU MÉTODO ORIGINAL (NO SE TOCA)
     public boolean validarCredenciales(String documento, String contrasenaPlano) {
         String sql = "SELECT Contrasena_Hash FROM Contrasenas WHERE Documento_Empleado = ?";
 
@@ -31,7 +30,6 @@ public class AuthService {
         return hashGuardado.equalsIgnoreCase(hashEntrada);
     }
 
-    // ✅ NUEVO: devuelve el rol si es válido, o null si no
     public String validarYObtenerRol(String documento, String contrasenaPlano) {
         String sql = """
             SELECT C.Contrasena_Hash, E.ID_Rol

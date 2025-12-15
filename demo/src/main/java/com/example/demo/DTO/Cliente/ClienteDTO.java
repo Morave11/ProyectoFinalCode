@@ -17,7 +17,7 @@ public class ClienteDTO {
     private String Telefono;
 
     @JsonProperty("Fecha_Nacimiento")
-    private String Fecha_Nacimiento; // YYYY-MM-DD
+    private String Fecha_Nacimiento;
 
     @JsonProperty("Genero")
     private String Genero;

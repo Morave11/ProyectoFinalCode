@@ -16,14 +16,12 @@ public class ComprasController {
     @Autowired
     private ComprasServicie comprasServicie;
 
-
     @GetMapping("/Compras")
     @Operation(summary = "Obtener Compras",
             description = "Devuelve una lista con todos las compras almacenados en la tabla Compras.")
     public List<String> obtenerCompras() {
         return comprasServicie.obtenerCompras();
     }
-
 
     @PostMapping("/ComprasR")
     @Operation(summary = "Registrar una nueva compra",
@@ -38,7 +36,6 @@ public class ComprasController {
         return "Compra registrada correctamente";
     }
 
-
     @PutMapping("/Compras/{ID_Entrada}")
     @Operation(summary = "Actualizar un compra existente",
             description = "Modifica los datos de una compra según el ID proporcionado en la URL.")
@@ -51,7 +48,6 @@ public class ComprasController {
         );
         return filas > 0 ? "Compra actualizada correctamente" : "No se encontró la compra";
     }
-
 
     @DeleteMapping("/ComprasE/{ID_Entrada}")
     @Operation(summary = "Eliminar una compra",

@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @Tag(name = "Contraseña", description = "Operaciones sobre la tabla Contraseña")
 public class ContraseñaController {
-
     @Autowired
     private ContraseñaServicie contraseñaServicie;
     @Autowired
@@ -60,7 +59,6 @@ public class ContraseñaController {
         int filas = contraseñaServicie.EliminarContrasena(ID_Contrasena);
         return "Contraseña eliminada correctamente";
     }
-
 
     @PostMapping("/EmpleadoLogin")
     @Operation(summary = "Login de empleado",

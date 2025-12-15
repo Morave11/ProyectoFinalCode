@@ -12,7 +12,6 @@ public class ServiceGamas {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-
     public List<String> obtenerGamas() {
         String sql = "SELECT ID_Gama, Nombre_Gama FROM Gamas";
         return jdbcTemplate.query(sql, (rs, rowNum) ->
@@ -20,7 +19,6 @@ public class ServiceGamas {
                         rs.getString("Nombre_Gama")
         );
     }
-
 
     public void agregarGama(String ID_Gama, String Nombre_Gama) {
         String sql = "INSERT INTO Gamas (ID_Gama, Nombre_Gama) VALUES (?, ?)";

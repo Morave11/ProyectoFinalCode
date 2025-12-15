@@ -25,7 +25,6 @@ public class ConexionController {
     public List<String> obtenerClientesDetalles() {
         return conexionServicie.obtenerClientesDetalles();}
 
-
     @PostMapping("/RegistraC")
     @Operation(summary = "Registrar un nuevo cliente",
             description = "Crea un nuevo cliente en la tabla Clientes a partir de los datos enviados en el cuerpo de la petición.")
@@ -41,6 +40,7 @@ public class ConexionController {
         );
         return "Cliente esta registrado correctamente";
     }
+
     @PutMapping("/ActualizarC/{Documento_Cliente}")
     @Operation(summary = "Actualizar un cliente existente",
             description = "Modifica los datos de un cliente según el ID proporcionado en la URL.")
@@ -58,7 +58,6 @@ public class ConexionController {
         return   "Cliente actualizado correctamente" ;
     }
 
-
     @DeleteMapping("/EliminarC/{Documento_Cliente}")
     @Operation(summary = "Eliminar un cliente",
             description = "Elimina de forma permanente el cliente que coincide con el ID proporcionado.")
@@ -67,6 +66,5 @@ public class ConexionController {
 
         return   "Cliente eliminado correctamente" ;
     }
-
 
 }

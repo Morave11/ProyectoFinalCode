@@ -40,9 +40,6 @@ public class DetalleDService {
         return jdbcTemplate.update(sql, Cantidad_Devuelta, ID_Devolucion, ID_Venta);
     }
 
-
-
-
     public int eliminarDevolucionD(String ID_Devolucion, String ID_Venta) {
         String sql = "DELETE FROM detalle_devoluciones WHERE ID_Devolucion = ? AND ID_Venta = ?";
         return jdbcTemplate.update(sql, ID_Devolucion, ID_Venta);

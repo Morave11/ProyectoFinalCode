@@ -22,7 +22,6 @@ public class DevolucionesController {
             description = "Devuelve una lista con todos las devoluciones almacenados en la tabla devolucion.")
     public List<String> obtenerDevolucion() { return devolucionService.obtenerDevolucion();}
 
-
     @PostMapping("/AgregarDevolucion")
     @Operation(summary = "Registrar una nueva devolucion",
             description = "Crea una nueva devolucion en la tabla devolucion a partir de los datos enviados en el cuerpo de la petición.")
@@ -35,7 +34,6 @@ public class DevolucionesController {
         );
         return "La Devolucion se registro correctamente";
     }
-
 
     @PutMapping("/ActualizarD/{ID_Devolucion}")
     @Operation(summary = "Actualizar una devolucion existente",

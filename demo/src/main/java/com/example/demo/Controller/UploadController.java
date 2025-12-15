@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @RestController
-@CrossOrigin(origins = "*") // luego lo restringimos si quieres
+@CrossOrigin(origins = "*")
 public class UploadController {
 
     private final Path uploadsDir = Paths.get("uploads");
@@ -32,12 +32,11 @@ public class UploadController {
             String ext = "";
 
             int dot = original.lastIndexOf('.');
-            if (dot != -1) ext = original.substring(dot); // .jpg .png etc
+            if (dot != -1) ext = original.substring(dot);
 
             String fileName = "img_" + System.currentTimeMillis() + ext;
             Path destino = uploadsDir.resolve(fileName);
 
-            // ✅ Esto evita errores si por casualidad se repite el nombre
             Files.copy(file.getInputStream(), destino, StandardCopyOption.REPLACE_EXISTING);
 
             String publicUrl = ServletUriComponentsBuilder
