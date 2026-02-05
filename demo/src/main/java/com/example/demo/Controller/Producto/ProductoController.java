@@ -3,13 +3,12 @@ package com.example.demo.Controller.Producto;
 import com.example.demo.DTO.Producto.ProductoDTO;
 import com.example.demo.Servicie.Producto.ProductoServicie;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,8 +18,7 @@ public class ProductoController {
 
     @Autowired
     private ProductoServicie productoServicie;
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -40,8 +38,8 @@ public class ProductoController {
     )
     public String AgregarProductos(@RequestBody ProductoDTO productoDTO) {
 
+        // ✅ NO se envía ID_Producto (AUTO_INCREMENT)
         productoServicie.AgregarProductos(
-                productoDTO.getID_Producto(),
                 productoDTO.getNombre_Producto(),
                 productoDTO.getDescripcion(),
                 productoDTO.getPrecio_Venta(),
@@ -49,7 +47,7 @@ public class ProductoController {
                 productoDTO.getID_Categoria(),
                 productoDTO.getID_Estado(),
                 productoDTO.getID_Gama(),
-                productoDTO.getFotos() //
+                productoDTO.getFotos()
         );
 
         return "Producto esta registrado correctamente";
@@ -61,7 +59,7 @@ public class ProductoController {
             description = "Modifica los datos de un producto según el ID proporcionado en la URL."
     )
     public String actualizarProductos(
-            @PathVariable("ID_Producto") String ID_Producto,
+            @PathVariable("ID_Producto") Integer ID_Producto,
             @RequestBody ProductoDTO producto
     ) {
 
@@ -85,7 +83,7 @@ public class ProductoController {
             summary = "Eliminar un producto",
             description = "Elimina de forma permanente el producto que coincide con el ID proporcionado."
     )
-    public String EliminarProductos(@PathVariable String ID_Producto) {
+    public String EliminarProductos(@PathVariable("ID_Producto") Integer ID_Producto) {
 
         int filas = productoServicie.EliminarProductos(ID_Producto);
 
@@ -107,8 +105,8 @@ public class ProductoController {
 
         ProductoDTO data = objectMapper.readValue(dataJson, ProductoDTO.class);
 
+        // ✅ NO se envía ID_Producto (AUTO_INCREMENT)
         productoServicie.AgregarProductosMultipart(
-                data.getID_Producto(),
                 data.getNombre_Producto(),
                 data.getDescripcion(),
                 data.getPrecio_Venta(),
@@ -131,7 +129,7 @@ public class ProductoController {
             description = "Actualiza un producto enviando 'data' (JSON) y 'file' (imagen)."
     )
     public String actualizarProductosMultipart(
-            @PathVariable("ID_Producto") String ID_Producto,
+            @PathVariable("ID_Producto") Integer ID_Producto,
             @RequestPart("data") String dataJson,
             @RequestPart(value = "file", required = false) MultipartFile file
     ) throws Exception {

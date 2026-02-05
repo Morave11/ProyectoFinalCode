@@ -42,74 +42,160 @@ public class ProductoServicie {
         });
     }
 
-    public void AgregarProductos(String ID_Producto, String Nombre_Producto, String Descripcion,
-                                 String Precio_Venta, String Stock_Minimo, String ID_Categoria,
-                                 String ID_Estado, String ID_Gama, String Fotos) {
+    // ✅ YA NO RECIBE ID_Producto (AUTO_INCREMENT)
+    public void AgregarProductos(
+            String Nombre_Producto,
+            String Descripcion,
+            Double Precio_Venta,
+            Integer Stock_Minimo,
+            Integer ID_Categoria,
+            Integer ID_Estado,
+            Integer ID_Gama,
+            String Fotos
+    ) {
+        // Si viene base64, lo guardo y lo convierto a URL
+        Fotos = guardarBase64SiViene(Fotos, null);
 
-        Fotos = guardarBase64SiViene(Fotos, ID_Producto);
+        String sql = "INSERT INTO productos (Nombre_Producto,Descripcion,Precio_Venta,Stock_Minimo,ID_Categoria,ID_Estado,ID_Gama,Fotos) " +
+                "VALUES (?,?,?,?,?,?,?,?)";
 
-        String sql = "INSERT INTO productos (ID_Producto,Nombre_Producto,Descripcion,Precio_Venta,Stock_Minimo,ID_Categoria,ID_Estado,ID_Gama,Fotos) VALUES (?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql, ID_Producto, Nombre_Producto, Descripcion, Precio_Venta, Stock_Minimo, ID_Categoria, ID_Estado, ID_Gama, Fotos);
+        jdbcTemplate.update(sql,
+                Nombre_Producto,
+                Descripcion,
+                Precio_Venta,
+                Stock_Minimo,
+                ID_Categoria,
+                ID_Estado,
+                ID_Gama,
+                Fotos
+        );
     }
 
-    public int actualizarProductos(String ID_Producto, String Nombre_Producto, String Descripcion,
-                                   String Precio_Venta, String Stock_Minimo, String ID_Categoria,
-                                   String ID_Estado, String ID_Gama, String Fotos) {
-
+    public int actualizarProductos(
+            Integer ID_Producto,
+            String Nombre_Producto,
+            String Descripcion,
+            Double Precio_Venta,
+            Integer Stock_Minimo,
+            Integer ID_Categoria,
+            Integer ID_Estado,
+            Integer ID_Gama,
+            String Fotos
+    ) {
         if (Fotos == null || Fotos.isBlank()) {
             String sql = "UPDATE productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
                     "ID_Categoria = ?, ID_Estado = ?, ID_Gama = ? WHERE ID_Producto = ?";
-            return jdbcTemplate.update(sql, Nombre_Producto, Descripcion, Precio_Venta, Stock_Minimo, ID_Categoria, ID_Estado, ID_Gama, ID_Producto);
+
+            return jdbcTemplate.update(sql,
+                    Nombre_Producto,
+                    Descripcion,
+                    Precio_Venta,
+                    Stock_Minimo,
+                    ID_Categoria,
+                    ID_Estado,
+                    ID_Gama,
+                    ID_Producto
+            );
         }
 
-        Fotos = guardarBase64SiViene(Fotos, ID_Producto);
+        Fotos = guardarBase64SiViene(Fotos, String.valueOf(ID_Producto));
 
         String sql = "UPDATE productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
                 "ID_Categoria = ?, ID_Estado = ?, ID_Gama = ?, Fotos = ? WHERE ID_Producto = ?";
-        return jdbcTemplate.update(sql, Nombre_Producto, Descripcion, Precio_Venta, Stock_Minimo, ID_Categoria, ID_Estado, ID_Gama, Fotos, ID_Producto);
+
+        return jdbcTemplate.update(sql,
+                Nombre_Producto,
+                Descripcion,
+                Precio_Venta,
+                Stock_Minimo,
+                ID_Categoria,
+                ID_Estado,
+                ID_Gama,
+                Fotos,
+                ID_Producto
+        );
     }
 
-    public int EliminarProductos(String ID_Producto) {
+    public int EliminarProductos(Integer ID_Producto) {
         String sql = "DELETE FROM productos WHERE ID_Producto = ?";
         return jdbcTemplate.update(sql, ID_Producto);
     }
 
-    public void AgregarProductosMultipart(String ID_Producto, String Nombre_Producto, String Descripcion,
-                                          String Precio_Venta, String Stock_Minimo, String ID_Categoria,
-                                          String ID_Estado, String ID_Gama, MultipartFile file) {
-
+    // ✅ YA NO RECIBE ID_Producto (AUTO_INCREMENT)
+    public void AgregarProductosMultipart(
+            String Nombre_Producto,
+            String Descripcion,
+            Double Precio_Venta,
+            Integer Stock_Minimo,
+            Integer ID_Categoria,
+            Integer ID_Estado,
+            Integer ID_Gama,
+            MultipartFile file
+    ) {
         String fotosUrl = "";
 
         if (file != null && !file.isEmpty()) {
-            fotosUrl = guardarArchivoYDevolverUrl(file, ID_Producto);
+            fotosUrl = guardarArchivoYDevolverUrl(file, null);
         }
 
-        String sql = "INSERT INTO productos (ID_Producto,Nombre_Producto,Descripcion,Precio_Venta,Stock_Minimo,ID_Categoria,ID_Estado,ID_Gama,Fotos) VALUES (?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql, ID_Producto, Nombre_Producto, Descripcion, Precio_Venta, Stock_Minimo, ID_Categoria, ID_Estado, ID_Gama, fotosUrl);
+        String sql = "INSERT INTO productos (Nombre_Producto,Descripcion,Precio_Venta,Stock_Minimo,ID_Categoria,ID_Estado,ID_Gama,Fotos) " +
+                "VALUES (?,?,?,?,?,?,?,?)";
+
+        jdbcTemplate.update(sql,
+                Nombre_Producto,
+                Descripcion,
+                Precio_Venta,
+                Stock_Minimo,
+                ID_Categoria,
+                ID_Estado,
+                ID_Gama,
+                fotosUrl
+        );
     }
 
-    public int actualizarProductosMultipart(String ID_Producto, String Nombre_Producto, String Descripcion,
-                                            String Precio_Venta, String Stock_Minimo, String ID_Categoria,
-                                            String ID_Estado, String ID_Gama, MultipartFile file) {
-
-        int filas;
-
+    public int actualizarProductosMultipart(
+            Integer ID_Producto,
+            String Nombre_Producto,
+            String Descripcion,
+            Double Precio_Venta,
+            Integer Stock_Minimo,
+            Integer ID_Categoria,
+            Integer ID_Estado,
+            Integer ID_Gama,
+            MultipartFile file
+    ) {
         if (file != null && !file.isEmpty()) {
-            String nuevaUrl = guardarArchivoYDevolverUrl(file, ID_Producto);
+            String nuevaUrl = guardarArchivoYDevolverUrl(file, String.valueOf(ID_Producto));
 
             String sql = "UPDATE productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
                     "ID_Categoria = ?, ID_Estado = ?, ID_Gama = ?, Fotos = ? WHERE ID_Producto = ?";
 
-            filas = jdbcTemplate.update(sql, Nombre_Producto, Descripcion, Precio_Venta, Stock_Minimo, ID_Categoria, ID_Estado, ID_Gama, nuevaUrl, ID_Producto);
-
-        } else {
-            String sql = "UPDATE productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
-                    "ID_Categoria = ?, ID_Estado = ?, ID_Gama = ? WHERE ID_Producto = ?";
-
-            filas = jdbcTemplate.update(sql, Nombre_Producto, Descripcion, Precio_Venta, Stock_Minimo, ID_Categoria, ID_Estado, ID_Gama, ID_Producto);
+            return jdbcTemplate.update(sql,
+                    Nombre_Producto,
+                    Descripcion,
+                    Precio_Venta,
+                    Stock_Minimo,
+                    ID_Categoria,
+                    ID_Estado,
+                    ID_Gama,
+                    nuevaUrl,
+                    ID_Producto
+            );
         }
 
-        return filas;
+        String sql = "UPDATE productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
+                "ID_Categoria = ?, ID_Estado = ?, ID_Gama = ? WHERE ID_Producto = ?";
+
+        return jdbcTemplate.update(sql,
+                Nombre_Producto,
+                Descripcion,
+                Precio_Venta,
+                Stock_Minimo,
+                ID_Categoria,
+                ID_Estado,
+                ID_Gama,
+                ID_Producto
+        );
     }
 
     private String guardarBase64SiViene(String base64, String idProducto) {
