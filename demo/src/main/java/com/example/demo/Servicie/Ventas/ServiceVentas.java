@@ -3,6 +3,7 @@ package com.example.demo.Servicie.Ventas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,9 +26,9 @@ public class ServiceVentas {
     }
 
 
-    public void agregarVenta(String ID_Venta, String Documento_Cliente, String Documento_Empleado) {
-        String sql = "INSERT INTO Ventas (ID_Venta, Documento_Cliente, Documento_Empleado) VALUES (?,?,?)";
-        jdbcTemplate.update(sql, ID_Venta, Documento_Cliente, Documento_Empleado);
+    public void agregarVenta(String Documento_Cliente, String Documento_Empleado) {
+        String sql = "INSERT INTO ventas (Documento_Cliente, Documento_Empleado) VALUES (?, ?)";
+        jdbcTemplate.update(sql, Documento_Cliente, Documento_Empleado);
     }
 
 

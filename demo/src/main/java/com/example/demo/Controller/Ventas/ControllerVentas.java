@@ -31,7 +31,6 @@ public class ControllerVentas {
             description = "Crea una nueva venta en la tabla venta a partir de los datos enviados en el cuerpo de la petición.")
     public String agregarVenta(@RequestBody VentasDTO ventaDTO) {
         serviceVentas.agregarVenta(
-                ventaDTO.getID_Venta(),
                 ventaDTO.getDocumento_Cliente(),
                 ventaDTO.getDocumento_Empleado()
         );

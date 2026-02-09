@@ -3,8 +3,6 @@ package com.example.demo.DTO.Ventas;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class VentasDTO {
-    @JsonProperty ("ID_Venta")
-    private String ID_Venta;
     @JsonProperty("Documento_Cliente")
     private String Documento_Cliente;
     @JsonProperty("Documento_Empleado")
@@ -12,14 +10,6 @@ public class VentasDTO {
 
     public VentasDTO() {
 
-    }
-
-    public String getID_Venta() {
-        return this.ID_Venta;
-    }
-
-    public void setID_Venta(String ID_Venta) {
-        this.ID_Venta = ID_Venta;
     }
 
     public String getDocumento_Empleado() {

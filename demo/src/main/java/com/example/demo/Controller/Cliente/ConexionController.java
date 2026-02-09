@@ -25,6 +25,13 @@ public class ConexionController {
     public List<String> obtenerClientesDetalles() {
         return conexionServicie.obtenerClientesDetalles();}
 
+    @GetMapping("/BuscarPorDocumento/{documento}")
+    @Operation(summary = "Buscar cliente por documento",
+            description = "Busca un cliente específico por su número de documento. Retorna null si no existe.")
+    public ClienteDTO buscarClientePorDocumento(@PathVariable String documento) {
+        return conexionServicie.buscarClientePorDocumento(documento);
+    }
+
     @PostMapping("/RegistraC")
     @Operation(summary = "Registrar un nuevo cliente",
             description = "Crea un nuevo cliente en la tabla Clientes a partir de los datos enviados en el cuerpo de la petición.")
@@ -33,9 +40,6 @@ public class ConexionController {
                 cliente.getDocumento_Cliente(),
                 cliente.getNombre_Cliente(),
                 cliente.getApellido_Cliente(),
-                cliente.getTelefono(),
-                cliente.getFecha_Nacimiento(),
-                cliente.getGenero(),
                 cliente.getID_Estado()
         );
         return "Cliente esta registrado correctamente";
@@ -49,9 +53,6 @@ public class ConexionController {
                 Documento_Cliente,
                 clienteDTO.getNombre_Cliente(),
                 clienteDTO.getApellido_Cliente(),
-                clienteDTO.getTelefono(),
-                clienteDTO.getFecha_Nacimiento(),
-                clienteDTO.getGenero(),
                 clienteDTO.getID_Estado()
         );
 
