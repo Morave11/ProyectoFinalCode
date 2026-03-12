@@ -27,7 +27,7 @@ public class ServiceVentas {
 
 
     public void agregarVenta(String Documento_Cliente, String Documento_Empleado) {
-        String sql = "INSERT INTO ventas (Documento_Cliente, Documento_Empleado) VALUES (?, ?)";
+        String sql = "INSERT INTO Ventas (Documento_Cliente, Documento_Empleado) VALUES (?, ?)";
         jdbcTemplate.update(sql, Documento_Cliente, Documento_Empleado);
     }
 

@@ -16,7 +16,7 @@ public class EstadosServicie {
     private JdbcTemplate jdbcTemplate;
 
     public List<String> ObtenerEstados() {
-        String estados = "SELECT ID_Estado, Nombre_Estado FROM estados";
+        String estados = "SELECT ID_Estado, Nombre_Estado FROM Estados";
 
         return jdbcTemplate.query(estados, new RowMapper<String>() {
             @Override
@@ -39,7 +39,7 @@ public class EstadosServicie {
     }
 
     public int EliminarEstado(String ID_Estado) {
-        String sql = "DELETE FROM estados WHERE ID_Estado = ?";
+        String sql = "DELETE FROM Estados WHERE ID_Estado = ?";
         return jdbcTemplate.update(sql, ID_Estado);
     }
 

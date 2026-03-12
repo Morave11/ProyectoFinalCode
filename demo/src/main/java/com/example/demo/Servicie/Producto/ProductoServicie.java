@@ -25,7 +25,7 @@ public class ProductoServicie {
     private final Path uploadsDir = Paths.get("uploads");
 
     public List<String> ObtenerProductos() {
-        String sql = "SELECT ID_Producto,Nombre_Producto,Descripcion,Precio_Venta,Stock_Minimo,ID_Categoria,ID_Estado,ID_Gama,Fotos FROM productos";
+        String sql = "SELECT ID_Producto,Nombre_Producto,Descripcion,Precio_Venta,Stock_Minimo,ID_Categoria,ID_Estado,ID_Gama,Fotos FROM Productos";
         return jdbcTemplate.query(sql, new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -56,7 +56,7 @@ public class ProductoServicie {
         // Si viene base64, lo guardo y lo convierto a URL
         Fotos = guardarBase64SiViene(Fotos, null);
 
-        String sql = "INSERT INTO productos (Nombre_Producto,Descripcion,Precio_Venta,Stock_Minimo,ID_Categoria,ID_Estado,ID_Gama,Fotos) " +
+        String sql = "INSERT INTO Productos (Nombre_Producto,Descripcion,Precio_Venta,Stock_Minimo,ID_Categoria,ID_Estado,ID_Gama,Fotos) " +
                 "VALUES (?,?,?,?,?,?,?,?)";
 
         jdbcTemplate.update(sql,
@@ -83,7 +83,7 @@ public class ProductoServicie {
             String Fotos
     ) {
         if (Fotos == null || Fotos.isBlank()) {
-            String sql = "UPDATE productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
+            String sql = "UPDATE Productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
                     "ID_Categoria = ?, ID_Estado = ?, ID_Gama = ? WHERE ID_Producto = ?";
 
             return jdbcTemplate.update(sql,
@@ -100,7 +100,7 @@ public class ProductoServicie {
 
         Fotos = guardarBase64SiViene(Fotos, String.valueOf(ID_Producto));
 
-        String sql = "UPDATE productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
+        String sql = "UPDATE Productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
                 "ID_Categoria = ?, ID_Estado = ?, ID_Gama = ?, Fotos = ? WHERE ID_Producto = ?";
 
         return jdbcTemplate.update(sql,
@@ -117,7 +117,7 @@ public class ProductoServicie {
     }
 
     public int EliminarProductos(Integer ID_Producto) {
-        String sql = "DELETE FROM productos WHERE ID_Producto = ?";
+        String sql = "DELETE FROM Productos WHERE ID_Producto = ?";
         return jdbcTemplate.update(sql, ID_Producto);
     }
 
@@ -138,7 +138,7 @@ public class ProductoServicie {
             fotosUrl = guardarArchivoYDevolverUrl(file, null);
         }
 
-        String sql = "INSERT INTO productos (Nombre_Producto,Descripcion,Precio_Venta,Stock_Minimo,ID_Categoria,ID_Estado,ID_Gama,Fotos) " +
+        String sql = "INSERT INTO Productos (Nombre_Producto,Descripcion,Precio_Venta,Stock_Minimo,ID_Categoria,ID_Estado,ID_Gama,Fotos) " +
                 "VALUES (?,?,?,?,?,?,?,?)";
 
         jdbcTemplate.update(sql,
@@ -167,7 +167,7 @@ public class ProductoServicie {
         if (file != null && !file.isEmpty()) {
             String nuevaUrl = guardarArchivoYDevolverUrl(file, String.valueOf(ID_Producto));
 
-            String sql = "UPDATE productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
+            String sql = "UPDATE Productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
                     "ID_Categoria = ?, ID_Estado = ?, ID_Gama = ?, Fotos = ? WHERE ID_Producto = ?";
 
             return jdbcTemplate.update(sql,
@@ -183,7 +183,7 @@ public class ProductoServicie {
             );
         }
 
-        String sql = "UPDATE productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
+        String sql = "UPDATE Productos SET Nombre_Producto = ?, Descripcion = ?, Precio_Venta = ?, Stock_Minimo = ?, " +
                 "ID_Categoria = ?, ID_Estado = ?, ID_Gama = ? WHERE ID_Producto = ?";
 
         return jdbcTemplate.update(sql,

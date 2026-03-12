@@ -14,7 +14,7 @@ public class ServicieRoles {
 
 
     public List<String> obtenerRoles() {
-        String sql = "SELECT ID_Rol, Nombre FROM roles";
+        String sql = "SELECT ID_Rol, Nombre FROM Roles";
         return jdbcTemplate.query(sql, (rs, rowNum) ->
                 rs.getString("ID_Rol") + "________" + rs.getString("Nombre")
         );
@@ -34,7 +34,7 @@ public class ServicieRoles {
 
 
     public int eliminarRol(String ID_Rol) {
-        String sql = "DELETE FROM roles WHERE ID_Rol = ?";
+        String sql = "DELETE FROM Roles WHERE ID_Rol = ?";
         return jdbcTemplate.update(sql, ID_Rol);
     }
 }

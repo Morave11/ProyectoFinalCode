@@ -29,7 +29,7 @@ public class ServicieProveedor {
         });
     }
     public  void agregaProveedores(String ID_Proveedor,String Nombre_Proveedor, String Correo_Electronico,String Telefono,String ID_Estado){
-        String sql = "INSERT INTO proveedores (ID_Proveedor,Nombre_Proveedor,Correo_Electronico,Telefono,ID_Estado)VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO Proveedores (ID_Proveedor,Nombre_Proveedor,Correo_Electronico,Telefono,ID_Estado)VALUES (?,?,?,?,?)";
         jdbcTemplate.update(sql,ID_Proveedor,Nombre_Proveedor,Correo_Electronico,Telefono,ID_Estado);
 
     }
@@ -42,7 +42,7 @@ public class ServicieProveedor {
     }
 
     public int EliminarProveedor(String ID_Proveedor) {
-        String sql = "DELETE FROM proveedores WHERE ID_Proveedor = ?";
+        String sql = "DELETE FROM Proveedores WHERE ID_Proveedor = ?";
         return jdbcTemplate.update(sql, ID_Proveedor);
     }
 }

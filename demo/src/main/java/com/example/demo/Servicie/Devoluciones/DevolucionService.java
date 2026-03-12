@@ -13,7 +13,7 @@ public class DevolucionService {
     private JdbcTemplate jdbcTemplate;
 
     public List<String>  obtenerDevolucion() {
-        String DevolucionC = "SELECT ID_Devolucion,Fecha_Devolucion,Motivo FROM devoluciones";
+        String DevolucionC = "SELECT ID_Devolucion,Fecha_Devolucion,Motivo FROM Devoluciones";
         return jdbcTemplate.query(DevolucionC, new RowMapper<String>() {
 
             @Override
@@ -37,7 +37,7 @@ public class DevolucionService {
     }
 
     public int eliminarDevolucion(String ID_Devolucion) {
-        String sql = "DELETE FROM devoluciones WHERE ID_Devolucion = ?";
+        String sql = "DELETE FROM Devoluciones WHERE ID_Devolucion = ?";
         return jdbcTemplate.update(sql, ID_Devolucion);
     }
 

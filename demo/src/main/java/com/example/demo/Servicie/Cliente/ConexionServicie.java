@@ -18,7 +18,7 @@ public class ConexionServicie {
 
 
     public List<String>  obtenerClientesDetalles() {
-        String detalles = "SELECT Documento_Cliente,Nombre_Cliente,Apellido_Cliente,ID_Estado FROM clientes";
+        String detalles = "SELECT Documento_Cliente,Nombre_Cliente,Apellido_Cliente,ID_Estado FROM Clientes";
         return jdbcTemplate.query(detalles, new RowMapper<String>() {
 
             @Override
@@ -36,7 +36,7 @@ public class ConexionServicie {
 
         String sql = """
         SELECT Documento_Cliente, Nombre_Cliente, Apellido_Cliente, ID_Estado
-        FROM clientes
+        FROM Clientes
         WHERE Documento_Cliente = ?
     """;
 
@@ -72,7 +72,7 @@ public class ConexionServicie {
     }
 
     public int eliminarClientes(String Documento_Cliente) {
-        String sql = "DELETE FROM clientes WHERE Documento_Cliente = ?";
+        String sql = "DELETE FROM Clientes WHERE Documento_Cliente = ?";
         return jdbcTemplate.update(sql, Documento_Cliente);
     }
 
