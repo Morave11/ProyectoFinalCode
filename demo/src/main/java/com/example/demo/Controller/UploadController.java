@@ -39,11 +39,7 @@ public class UploadController {
 
             Files.copy(file.getInputStream(), destino, StandardCopyOption.REPLACE_EXISTING);
 
-            String publicUrl = ServletUriComponentsBuilder
-                    .fromCurrentContextPath()
-                    .path("/uploads/")
-                    .path(fileName)
-                    .toUriString();
+            String publicUrl = "http://34.225.251.49:8080/uploads/" + fileName;
 
             return ResponseEntity.ok(publicUrl);
 

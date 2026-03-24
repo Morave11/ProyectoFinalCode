@@ -58,7 +58,7 @@ public class ConexionServicie {
 
     public void agregarClientes(String Documento_Cliente,String Nombre_Cliente,String Apellido_Cliente,
                                 String ID_Estado){
-        String sql = "INSERT INTO clientes (Documento_Cliente,Nombre_Cliente,Apellido_Cliente,ID_Estado) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO Clientes (Documento_Cliente,Nombre_Cliente,Apellido_Cliente,ID_Estado) VALUES (?,?,?,?)";
         jdbcTemplate.update (sql,Documento_Cliente,Nombre_Cliente,Apellido_Cliente,ID_Estado);
     }
 
